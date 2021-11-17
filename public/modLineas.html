@@ -52,7 +52,7 @@
 						<label class="text-control" for="cantidadPuntos">Cambie la cantidad de puntos de las ruta de vuelta si requiere modificar:</label>
 						<input type="number" class="form-control" name="cantidadPunto2" id="cantidadPunto2" min="2" max="500">
 						<!--<button onclick="RecargarForm()" class="btn btn-primary btn-lg">Cargar los campos para añadir cordenadas para modificar o agregar puntos </button>-->
-						<button onclick="RecargarForm()" class="btn btn-primary btn-lg">Cargar nuevos puntos para las lineas de transporte </button>
+						<button onclick="RecargarForm()" id="btnLoadLines" class="btn btn-primary btn-lg">Cargar nuevos puntos para las lineas de transporte </button>
 						</div>
 					<div id="cargar">
 
@@ -95,84 +95,6 @@ function getParameterByName(name) {
     return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
 }
 var _idVar = getParameterByName('_id');
-
-/*window.addEventListener('DOMContentLoaded', (e) =>{
-  fetch("http://localhost:3000/modLineas.html/?_id="+_idVar)
-  .then(res => res.json())
-  .then(data =>{
-      if(data.response === 'success'){
-          const todos = data.data; 
-          var num = 1;
-          
-          todos.forEach(todo =>{
-           
-    document.querySelector('#alltodos').innerHTML += `
-	<form action="/modificarLinea" method="get" class="form-content" visibility="hidden">
-		        <input type="text" name="_id" class="form-control" name="_id" value=${_idVar} disabled>
-				<label class="text-control" for="validationDefault01">Nombre de Linea:</label>
-				  <div class="form-group">
-					  <input type="text" name="nombre" class="form-control" id="validationDefault01" placeholder="Ingresar Linea + numero o letra de la linea *" value="${todo.Nombre}" required>
-					</div>
-				<label class="text-control" for="validationDefault02">Categoria:</label>
-					<div class="form-group">
-					  <input type="text" name="categoria" list="cat" class="form-control" id="validationDefault02" placeholder="Ingresar Categoria Aqui" value="${todo.Categoria}" required>
-					  <datalist id="cat">
-						<option value="Micro">
-						<option value="Minibus">
-						<option value="Taxitrufi">
-					  </datalist>
-					</div>					
-				<label class="text-control" for="validationDefault04">Zona:</label>
-					<div class="form-group">
-					  <input type="text" name="zona" class="form-control" id="validationDefault04" placeholder="Ingresar Zona Aqui" value="${todo.Categoria}" required>
-					</div>
-					<label class="text-control" for="validationDefault05">Pasajes:</label>
-					<div class="form-group">
-					  <input type="text" name="pasaje" class="form-control" id="validationDefault05" placeholder="Ingresar Pasaje + Mayores Aqui *" value="${todo.Pasajes[0]}" required>
-					</div>
-					<div class="form-group">
-						<input type="text" name="pasaje" class="form-control" id="validationDefault05" placeholder="Ingresar Pasaje + Discapacidad Aqui *" value="${todo.Pasajes[1]}" required>
-					</div>
-					<div class="form-group">
-						<input type="text" name="pasaje" class="form-control" id="validationDefault05" placeholder="Ingresar Pasaje + Universitario Aqui *" value="${todo.Pasajes[2]}" required>
-					</div>
-					<div class="form-group">
-						<input type="text" name="pasaje" class="form-control" id="validationDefault05" placeholder="Ingresar Pasaje + Estudiantes Aqui *" value="${todo.Pasajes[3]}" required>
-					</div>
-					<label class="text-control" for="validationDefault06">Calles:</label>
-					<div class="form-group">
-					  <input type="text" name="calle" class="form-control" id="validationDefault06" placeholder="Ingresar Calle 1 Aqui *" value="${todo.Calles[0]}" required>
-					</div>
-					<div class="form-group">
-						<input type="text" name="calle" class="form-control" id="validationDefault06" placeholder="Ingresar Calle 2(Opcional) Aqui *" value="${todo.Calles[1]}">
-					</div>
-					<div class="form-group">
-						<input type="text" name="calle" class="form-control" id="validationDefault06" placeholder="Ingresar Calle 3(Opcional) Aqui *" value="${todo.Calles[2]}">
-					</div>
-					<div class="form-group">
-						<input type="text" name="calle" class="form-control" id="validationDefault06" placeholder="Ingresar Calle 4(Opcional) Aqui *" value="${todo.Calles[3]}">
-					</div>
-					<label class="text-control" for="validationDefault07">Telefonos:</label>
-					<div class="form-group">
-					  <input type="text" name="telefono" class="form-control" id="validationDefault07" placeholder="Ingresar Telefono(Opcional) Aqui *" value="${todo.Telefonos[0]}" >
-					</div>
-					<div class="form-group">
-						<input type="text" name="telefono" class="form-control" id="validationDefault07" placeholder="Ingresar Telefono(Opcional) Aqui *" value="${todo.Telefonos[1]}" >
-					</div>
-					<label class="text-control" for="validationDefault08">Horario:</label>
-					<div class="form-group">
-					  <input type="text" name="horario" class="form-control" id="validationDefault08" placeholder="Ingresar Horario Aqui *" value="${todo.Horario[0]}" required>
-					</div>
-				<br />
-				<input class="btnSubmit" type="submit" value="Modificar">
-			</form>
-              `;
-          });
-      } else alert(data.response);
-      
-  })
-  .catch(err => console.error(err));
-});*/
 
 
 </script>
@@ -343,14 +265,14 @@ var _idVar = getParameterByName('_id');
 								<div class="col-auto">
 									<div class="input-group mb-3">
 										<span class="input-group-text" id="lat1">Latitud ${index}</span>
-										<input type="text" class="form-control" name="lat1" id="lat1" placeholder="Ingrese la latitud ${index}" value="${todo.Rutas[0].Puntos[index].lat}" aria-label="Latitud" aria-describedby="lat">
+										<input type="text" class="form-control" name="lat1" id="lat1" placeholder="Ingrese la latitud ${index}" value="${todo.Rutas[0].Puntos[index].lat}" aria-label="Latitud" aria-describedby="lat" required>
 									</div>
 						
 								</div>
 								<div class="col-auto">
 									<div class="input-group mb-3">
 										<span class="input-group-text" id="lng1">Longitud ${index}</span>
-										<input type="text" class="form-control" id="lng1" name="lng1" placeholder="Ingrese la longitud ${index}" value="${todo.Rutas[0].Puntos[index].lng}" aria-label="Longitud" aria-describedby="lng">
+										<input type="text" class="form-control" id="lng1" name="lng1" placeholder="Ingrese la longitud ${index}" value="${todo.Rutas[0].Puntos[index].lng}" aria-label="Longitud" aria-describedby="lng" required>
 									</div>
 								</div>
 					</div>
@@ -362,14 +284,14 @@ var _idVar = getParameterByName('_id');
 								<div class="col-auto">
 									<div class="input-group mb-3">
 										<span class="input-group-text" id="lat1">Latitud ${index}</span>
-										<input type="text" class="form-control" name="lat1" id="lat1" placeholder="Ingrese la latitud ${index}" value="${todo.Rutas[0].Puntos[index].lat}" aria-label="Latitud" aria-describedby="lat">
+										<input type="text" class="form-control" name="lat1" id="lat1" placeholder="Ingrese la latitud ${index}" value="${todo.Rutas[0].Puntos[index].lat}" aria-label="Latitud" aria-describedby="lat" required>
 									</div>
 						
 								</div>
 								<div class="col-auto">
 									<div class="input-group mb-3">
 										<span class="input-group-text" id="lng1">Longitud ${index}</span>
-										<input type="text" class="form-control" id="lng1" name="lng1" placeholder="Ingrese la longitud ${index}" value="${todo.Rutas[0].Puntos[index].lng}" aria-label="Longitud" aria-describedby="lng">
+										<input type="text" class="form-control" id="lng1" name="lng1" placeholder="Ingrese la longitud ${index}" value="${todo.Rutas[0].Puntos[index].lng}" aria-label="Longitud" aria-describedby="lng" required>
 									</div>
 								</div>
 					</div>
@@ -441,6 +363,7 @@ var _idVar = getParameterByName('_id');
 				}
 			}
 			function RecargarForm() {
+				
 				var todo= todoObj;
 				 cantIda = document.getElementById('cantidadPunto1').value;
 				 cantVuelta = document.getElementById('cantidadPunto2').value;
@@ -482,20 +405,20 @@ var _idVar = getParameterByName('_id');
 					  <input type="text" name="calle" class="form-control" id="validationDefault06" placeholder="Ingresar Calle 1 Aqui *" value="${todo.Calles[0]}" required>
 					</div>
 					<div class="form-group">
-						<input type="text" name="calle" class="form-control" id="validationDefault06" placeholder="Ingresar Calle 2(Opcional) Aqui *" value="${todo.Calles[1]}">
+						<input type="text" name="calle" class="form-control" id="validationDefault06" placeholder="Ingresar Calle 2(Opcional) Aqui *" value="${todo.Calles[1]}" required>
 					</div>
 					<div class="form-group">
-						<input type="text" name="calle" class="form-control" id="validationDefault06" placeholder="Ingresar Calle 3(Opcional) Aqui *" value="${todo.Calles[2]}">
+						<input type="text" name="calle" class="form-control" id="validationDefault06" placeholder="Ingresar Calle 3(Opcional) Aqui *" value="${todo.Calles[2]}" required>
 					</div>
 					<div class="form-group">
-						<input type="text" name="calle" class="form-control" id="validationDefault06" placeholder="Ingresar Calle 4(Opcional) Aqui *" value="${todo.Calles[3]}">
+						<input type="text" name="calle" class="form-control" id="validationDefault06" placeholder="Ingresar Calle 4(Opcional) Aqui *" value="${todo.Calles[3]}" required>
 					</div>
 					<label class="text-control" for="validationDefault07">Telefonos:</label>
 					<div class="form-group">
-					  <input type="text" name="telefono" class="form-control" id="validationDefault07" placeholder="Ingresar Telefono(Opcional) Aqui *" value="${todo.Telefonos[0]}" >
+					  <input type="text" name="telefono" class="form-control" id="validationDefault07" placeholder="Ingresar Telefono(Opcional) Aqui *" value="${todo.Telefonos[0]}" required>
 					</div>
 					<div class="form-group">
-						<input type="text" name="telefono" class="form-control" id="validationDefault07" placeholder="Ingresar Telefono(Opcional) Aqui *" value="${todo.Telefonos[1]}" >
+						<input type="text" name="telefono" class="form-control" id="validationDefault07" placeholder="Ingresar Telefono(Opcional) Aqui *" value="${todo.Telefonos[1]}" required>
 					</div>
 					<label class="text-control" for="validationDefault08">Horario:</label>
 					<div class="form-group">
@@ -580,14 +503,14 @@ var _idVar = getParameterByName('_id');
 								<div class="col-auto">
 									<div class="input-group mb-3">
 										<span class="input-group-text" id="lat1">Latitud ${index}</span>
-										<input type="text" class="form-control" name="lat1" id="lat1" placeholder="Ingrese la latitud ${index}" value="${todo.Rutas[0].Puntos[index].lat}" aria-label="Latitud" aria-describedby="lat">
+										<input type="text" class="form-control" name="lat1" id="lat1" placeholder="Ingrese la latitud ${index}" value="${todo.Rutas[0].Puntos[index].lat}" aria-label="Latitud" aria-describedby="lat" required>
 									</div>
 						
 								</div>
 								<div class="col-auto">
 									<div class="input-group mb-3">
 										<span class="input-group-text" id="lng1">Longitud ${index}</span>
-										<input type="text" class="form-control" id="lng1" name="lng1" placeholder="Ingrese la longitud ${index}" value="${todo.Rutas[0].Puntos[index].lng}" aria-label="Longitud" aria-describedby="lng">
+										<input type="text" class="form-control" id="lng1" name="lng1" placeholder="Ingrese la longitud ${index}" value="${todo.Rutas[0].Puntos[index].lng}" aria-label="Longitud" aria-describedby="lng" required>
 									</div>
 								</div>
 					</div>
@@ -602,14 +525,14 @@ var _idVar = getParameterByName('_id');
 								<div class="col-auto">
 									<div class="input-group mb-3">
 										<span class="input-group-text" id="lat1">Latitud ${index+1}</span>
-										<input type="text" class="form-control" name="lat1" id="lat1" placeholder="Ingrese la latitud ${index+1}" value="" aria-label="Latitud" aria-describedby="lat">
+										<input type="text" class="form-control" name="lat1" id="lat1" placeholder="Ingrese la latitud ${index+1}" value="" aria-label="Latitud" aria-describedby="lat" required>
 									</div>
 						
 								</div>
 								<div class="col-auto">
 									<div class="input-group mb-3">
 										<span class="input-group-text" id="lng1">Longitud ${index+1}</span>
-										<input type="text" class="form-control" id="lng1" name="lng1" placeholder="Ingrese la longitud ${index+1}" value="" aria-label="Longitud" aria-describedby="lng">
+										<input type="text" class="form-control" id="lng1" name="lng1" placeholder="Ingrese la longitud ${index+1}" value="" aria-label="Longitud" aria-describedby="lng" required>
 									</div>
 								</div>
 					</div>
@@ -623,14 +546,14 @@ var _idVar = getParameterByName('_id');
 								<div class="col-auto">
 									<div class="input-group mb-3">
 										<span class="input-group-text" id="lat2">Latitud ${index}</span>
-										<input type="text" class="form-control" name="lat2" id="lat2" placeholder="Ingrese la latitud ${index}" value="${todo.Rutas[1].Puntos[index].lat}" aria-label="Latitud" aria-describedby="lat">
+										<input type="text" class="form-control" name="lat2" id="lat2" placeholder="Ingrese la latitud ${index}" value="${todo.Rutas[1].Puntos[index].lat}" aria-label="Latitud" aria-describedby="lat" required>
 									</div>
 						
 								</div>
 								<div class="col-auto">
 									<div class="input-group mb-3">
 										<span class="input-group-text" id="lng2">Longitud ${index}</span>
-										<input type="text" class="form-control" id="lng2" name="lng2" placeholder="Ingrese la longitud ${index}" value="${todo.Rutas[1].Puntos[index].lng}" aria-label="Longitud" aria-describedby="lng">
+										<input type="text" class="form-control" id="lng2" name="lng2" placeholder="Ingrese la longitud ${index}" value="${todo.Rutas[1].Puntos[index].lng}" aria-label="Longitud" aria-describedby="lng" required>
 									</div>
 								</div>
 					</div>
@@ -645,14 +568,14 @@ var _idVar = getParameterByName('_id');
 								<div class="col-auto">
 									<div class="input-group mb-3">
 										<span class="input-group-text" id="lat2">Latitud ${index+1}</span>
-										<input type="text" class="form-control" name="lat2" id="lat2" placeholder="Ingrese la latitud ${index+1}" value="" aria-label="Latitud" aria-describedby="lat">
+										<input type="text" class="form-control" name="lat2" id="lat2" placeholder="Ingrese la latitud ${index+1}" value="" aria-label="Latitud" aria-describedby="lat" required>
 									</div>
 						
 								</div>
 								<div class="col-auto">
 									<div class="input-group mb-3">
 										<span class="input-group-text" id="lng2">Longitud ${index+1}</span>
-										<input type="text" class="form-control" id="lng2" name="lng2" placeholder="Ingrese la longitud ${index+1}" value="" aria-label="Longitud" aria-describedby="lng">
+										<input type="text" class="form-control" id="lng2" name="lng2" placeholder="Ingrese la longitud ${index+1}" value="" aria-label="Longitud" aria-describedby="lng" required>
 									</div>
 								</div>
 					</div>
@@ -668,10 +591,77 @@ var _idVar = getParameterByName('_id');
 			    	document.querySelector('#cantidadVuelta').innerHTML = `
 				    <input type="hidden" name="cantVuelta" value="${cantVuelta}">
 				    `;
-
+					var btn = document.getElementById('btnLoadLines');
+		        var inputIda = document.getElementById('cantidadPunto1');
+		        var inputVuelta = document.getElementById('cantidadPunto2');
+				inputIda.disabled=true;
+		        inputVuelta.disabled=true;
+		        btn.disabled=true;
             }
 			function goBack() {
                window.history.back();
             }
 			GenerarListadeLineas();
+				var form = document.getElementById("formPrincipal");
+    form.onsubmit = function() {
+		var telefono = document.getElementById("tel1").value;
+	var telefonoOpcional = document.getElementById("tel2").value;
+	var z = document.getElementById("lat1").value;
+	var x = document.getElementById("lat2").value;
+	var c = document.getElementById("lng1").value;
+	var v = document.getElementById("lng2").value;
+	var status = true;
+		if(telefonoOpcional.value=="" || telefonoOpcional.value==null){
+			if(typeof telefono == 'number' && telefono.length<7 ||telefono.length>14){
+			   alert("El telefono esta fuera del rango de caracteres establecido 7-14");
+			   return false;
+		    }
+			if(isNaN(telefono)){
+				alert("El campo de telefono debe contener solo caractes numericos");
+				return false;
+
+			}
+		}
+		else{
+			if(telefono.length<7 ||telefono.length>14){
+			   alert("El telefono esta fuera del rango de caracteres establecido 7-14");
+			   return false;
+		    }
+			if(isNaN(telefono)){
+				alert("El campo de telefono debe contener solo caractes numericos");
+				return false;
+
+			}
+			if(telefonoOpcional.length<7 ||telefonoOpcional.length>14){
+			   alert("El telefono esta fuera del rango de caracteres establecido 7-14");
+			   return false;
+		    }
+			if(isNaN(telefonoOpcional)){
+				alert("El campo de telefono debe contener solo caractes numericos");
+				return false;
+			}
+		}
+		
+		if(isNaN(Math.abs(z)))
+        {
+        alert("Por favor solo ingrese caracteres numericos en los campos de latitud");
+		return false;
+        }
+		if(isNaN(Math.abs(x)))
+        {
+        alert("Por favor solo ingrese caracteres numericos en los campos de latitud");
+		return false;
+        }
+		if(isNaN(Math.abs(c)))
+        {
+        alert("Por favor solo ingrese caracteres numericos en los campos de longitud");
+		return false;
+        }
+		if(isNaN(Math.abs(v)))
+        {
+        alert("Por favor solo ingrese caracteres numericos en los campos de longitud");
+		return false;
+        }
+	return true;
+    }
 			</script>

@@ -46,7 +46,7 @@
                     </div>		
 				</div>	
 			<!-- Form-->
-			<form action="/guardarPunto" method="post" class="form-content" visibility="hidden">
+			<form action="/guardarPunto" method="post" id="formPrincipal" class="form-content" visibility="hidden">
 				<label class="text-control" for="validationDefault01">Nombre de Locación:</label>
 				  <div class="form-group">
 					  <input type="text" name="nombre" class="form-control" id="validationDefault01" placeholder="Ingrese el nombre *" value="" required>
@@ -75,13 +75,13 @@
 				    <div class="form-group">
 					  <textarea name="lineas" class="form-control is-invalid" id="validationTextarea" placeholder="Ingrese la linea" required></textarea>
 					</div>									
-				<label class="text-control" for="validationDefault04">Latitud:</label>
+				<label class="text-control" for="lat">Latitud:</label>
 					<div class="form-group">
-					  <input type="text" name="latitud" class="form-control" id="validationDefault05" value="" required>
+					  <input type="text" name="latitud" class="form-control" id="lat" value="" required>
 					</div>
-				<label class="text-control" class="text-control" for="validationDefault05">Longitud:</label>
+				<label class="text-control" class="text-control" for="lng">Longitud:</label>
 					<div class="form-group">
-					  <input type="text" name="longitud" class="form-control" id="validationDefault06" value="" required>
+					  <input type="text" name="longitud" class="form-control" id="lng" value="" required>
 					</div>					
 				<label class="text-control" for="validationTextarea">Descripción:</label>
 					<div class="form-group">
@@ -118,6 +118,21 @@
 	function goBack() {
      window.history.back();
     }
-
+	var form = document.getElementById("formPrincipal");
+    form.onsubmit = function() {
+	var z = document.getElementById("lat").value;
+	var c = document.getElementById("lng").value;
+		if(isNaN(Math.abs(z)))
+        {
+        alert("Por favor solo ingrese caracteres numericos en los campos de latitud");
+		return false;
+        }
+		if(isNaN(Math.abs(c)))
+        {
+        alert("Por favor solo ingrese caracteres numericos en los campos de longitud");
+		return false;
+        }
+	return true;
+    }
 	</script>
 </html>

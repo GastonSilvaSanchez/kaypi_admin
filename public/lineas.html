@@ -51,17 +51,21 @@
 
 					<label class="text-control" for="cantidadPuntos">Ingrese la cantidad de puntos de las ruta de ida:</label>
 					<input type="number" class="form-control" name="cantidadPunto1" id="cantidadPunto1" min="2" max="500">
+					<div class="form-text">El numero debe ser como minimo 2.</div>
+					<br>
 					<label class="text-control" for="cantidadPuntos">Ingrese la cantidad de puntos de las ruta de vuelta:</label>
 					<input type="number" class="form-control" name="cantidadPunto2" id="cantidadPunto2" min="2" max="500">
-					<button onclick="GenerarListadeLineas()" class="btn btn-primary btn-lg">Cargar los campos para añadir cordenadas para añadir puntos </button>
+					<div class="form-text">El numero debe ser como minimo 2.</div>
+					<button onclick="GenerarListadeLineas()" id="btnLoadLines" class="btn btn-primary btn-lg">Cargar los campos para añadir cordenadas para añadir puntos </button>
 				    </div>
 					
 				</div>	
 			<!-- Form-->
-			<form action="/guardarLinea" method="post" id="formPrincipal" class="form-content" visibility="hidden">
+			<form action="/guardarLinea" method="post" id="formPrincipal" class="form-content" visibility="hidden"">
 				<label class="text-control" for="validationDefault01">Nombre de Linea:</label>
 				  <div class="form-group">
 					  <input type="text" name="nombre" class="form-control" id="validationDefault01" placeholder="Ingresar Linea + numero o letra de la linea *" value="" required>
+					  <div class="form-text">Por ejemplo: Linea Z</div>
 					</div>
 				<label class="text-control" for="validationDefault02">Categoria:</label>
 					<div class="form-group">
@@ -79,19 +83,23 @@
 					<label class="text-control" for="validationDefault05">Pasajes:</label>
 					<div class="form-group">
 					  <input type="text" name="pasaje" class="form-control" id="validationDefault05" placeholder="Ingresar Pasaje + Mayores Aqui *" value="" required>
+					  <div class="form-text">Por ejemplo: "1.90 Bs. Mayores"</div>
 					</div>
 					<div class="form-group">
 						<input type="text" name="pasaje" class="form-control" id="validationDefault05" placeholder="Ingresar Pasaje + Discapacidad Aqui *" value="" required>
+						<div class="form-text">Por ejemplo: "1.50 Bs. Discapacidad"</div>
 					</div>
 					<div class="form-group">
 						<input type="text" name="pasaje" class="form-control" id="validationDefault05" placeholder="Ingresar Pasaje + Universitario Aqui *" value="" required>
+						<div class="form-text">Por ejemplo: "0.80 Bs. Universitario"</div>
 					</div>
 					<div class="form-group">
 						<input type="text" name="pasaje" class="form-control" id="validationDefault05" placeholder="Ingresar Pasaje + Estudiantes Aqui *" value="" required>
+						<div class="form-text">Por ejemplo: "0.50 Bs. Estudiantes"</div>
 					</div>
 					<label class="text-control" for="validationDefault06">Calles:</label>
 					<div class="form-group">
-					  <input type="text" name="calle" class="form-control" id="validationDefault06" placeholder="Ingresar Calle 1 Aqui *" value="" required>
+					  <input type="text" name="calle" class="form-control" id="validationDefault06" placeholder="Ingresar Calle 1 Aqui" value="" required>
 					</div>
 					<div class="form-group">
 						<input type="text" name="calle" class="form-control" id="validationDefault06" placeholder="Ingresar Calle 2(Opcional) Aqui *" value="">
@@ -104,14 +112,16 @@
 					</div>
 					<label class="text-control" for="validationDefault07">Telefonos:</label>
 					<div class="form-group">
-					  <input type="text" name="telefono" class="form-control" id="validationDefault07" placeholder="Ingresar Telefono(Opcional) Aqui *" value="" >
+					  <input type="text" name="telefono" class="form-control" id="tel1" placeholder="Ingresar Telefono(Opcional) Aqui *" value="" >
 					</div>
 					<div class="form-group">
-						<input type="text" name="telefono" class="form-control" id="validationDefault07" placeholder="Ingresar Telefono(Opcional) Aqui *" value="" >
+						<input type="text" name="telefono" class="form-control" id="tel2" placeholder="Ingresar Telefono(Opcional) Aqui *" value="" >
 					</div>
 					<label class="text-control" for="validationDefault08">Horario:</label>
 					<div class="form-group">
 					  <input type="text" name="horario" class="form-control" id="validationDefault08" placeholder="Ingresar Horario Aqui *" value="" required>
+					  <div class="form-text">Por ejemplo: "Diurno: 08:00:00 - 20:00:00"</div>
+					  
 					</div>
 					<br>
 					<hr>
@@ -175,7 +185,7 @@
 					
 					
 					<br />
-				<input class="btnSubmit" type="submit" value="Registrar">
+				<input class="btnSubmit" type="submit" value="Registrar" >
 			</form>
         </div>
     </body>
@@ -192,10 +202,22 @@
     }
 	
 	function GenerarListadeLineas() {
+		var btn = document.getElementById('btnLoadLines');
+		inputIda = document.getElementById('cantidadPunto1');
+		inputVuelta = document.getElementById('cantidadPunto2');
         var cantIda = document.getElementById('cantidadPunto1').value;
         var cantVuelta = document.getElementById('cantidadPunto2').value;
-        //alert(cantIda +" "+cantVuelta);
-		HabilitarForm();
+		inputIda.disabled=true;
+		inputVuelta.disabled=true;
+		btn.disabled=true;
+		if(cantIda < 2 || cantVuelta < 2){
+			alert("Los numeros para la cantidad de puntos deben ser mayores a 2");
+			inputIda.disabled=false;
+		    inputVuelta.disabled=false;
+		    btn.disabled=false;
+		}
+		else{
+			HabilitarForm();
 		document.querySelector('#cantIda').innerHTML += `
 		<input type="hidden" name="cantIda" value="${cantIda}">
 		
@@ -210,14 +232,14 @@
 						<div class="col-auto">
 							<div class="input-group mb-3">
                                 <span class="input-group-text" id="lat">Latitud ${index}</span>
-                                <input type="text" class="form-control" name="lat1" id="lat1" placeholder="Ingrese la latitud ${index}" aria-label="Latitud" aria-describedby="lat">
+                                <input type="text" class="form-control" name="lat1" id="lat1" placeholder="Ingrese la latitud ${index}" aria-label="Latitud" aria-describedby="lat" required>
                             </div>
 				
 						</div>
 						<div class="col-auto">
 							<div class="input-group mb-3">
                                 <span class="input-group-text" id="lng">Longitud ${index}</span>
-                                <input type="text" class="form-control" id="lng1" name="lng1" placeholder="Ingrese la longitud ${index}" aria-label="Longitud" aria-describedby="lng">
+                                <input type="text" class="form-control" id="lng1" name="lng1" placeholder="Ingrese la longitud ${index}" aria-label="Longitud" aria-describedby="lng" required>
                             </div>
 						</div>
 			</div>
@@ -229,19 +251,21 @@
 						<div class="col-auto">
 							<div class="input-group mb-3">
                                 <span class="input-group-text" id="lat">Latitud ${index}</span>
-                                <input type="text" class="form-control" name="lat2" id="lat2" placeholder="Ingrese la latitud ${index}" aria-label="Latitud" aria-describedby="lat">
+                                <input type="text" class="form-control" name="lat2" id="lat2" placeholder="Ingrese la latitud ${index}" aria-label="Latitud" aria-describedby="lat" required>
                             </div>
 				
 						</div>
 						<div class="col-auto">
 							<div class="input-group mb-3">
                                 <span class="input-group-text" id="lng">Longitud ${index}</span>
-                                <input type="text" class="form-control" id="lng2" name="lng2" placeholder="Ingrese la longitud ${index}" aria-label="Longitud" aria-describedby="lng">
+                                <input type="text" class="form-control" id="lng2" name="lng2" placeholder="Ingrese la longitud ${index}" aria-label="Longitud" aria-describedby="lng" required>
                             </div>
 						</div>
 			</div>
 		`			
 		}
+		}
+		
 		
 	}
 	function HabilitarForm() {
@@ -255,6 +279,147 @@
 	function goBack() {
        window.history.back();
      }
+	const expresiones = {
+	    usuario: /^[a-zA-Z0-9\_\-\d]{4,16}$/, // Letras, numeros, guion y guion_bajo
+	    nombre: /^[a-zA-ZÀ-ÿ\s]{1,40}$/, // Letras y espacios, pueden llevar acentos.
+	    telefono: /^\d{7,14}$/ // 7 a 14 numeros.
+    }
+	const campos = {
+	    usuario: false,
+	    nombre: false,
+	    password: false,
+	    correo: false,
+     	telefono: false
+    }
+	var form = document.getElementById("formPrincipal");
+    form.onsubmit = function() {
+		var telefono = document.getElementById("tel1").value;
+	var telefonoOpcional = document.getElementById("tel2").value;
+	var z = document.getElementById("lat1").value;
+	var x = document.getElementById("lat2").value;
+	var c = document.getElementById("lng1").value;
+	var v = document.getElementById("lng2").value;
+	var status = true;
+		if(telefonoOpcional.value=="" || telefonoOpcional.value==null){
+			if(typeof telefono == 'number' && telefono.length<7 ||telefono.length>14){
+			   alert("El telefono esta fuera del rango de caracteres establecido 7-14");
+			   return false;
+		    }
+			if(isNaN(telefono)){
+				alert(01);
+				alert("El campo de telefono debe contener solo caractes numericos");
+				return false;
 
+			}
+		}
+		else{
+			if(telefono.length<7 ||telefono.length>14){
+			   alert("El telefono esta fuera del rango de caracteres establecido 7-14");
+			   return false;
+		    }
+			if(isNaN(telefono)){
+				alert(02);
+				alert("El campo de telefono debe contener solo caractes numericos");
+				return false;
+
+			}
+			if(telefonoOpcional.length<7 ||telefonoOpcional.length>14){
+			   alert("El telefono esta fuera del rango de caracteres establecido 7-14");
+			   return false;
+		    }
+			if(isNaN(telefonoOpcional)){
+				alert(02);
+				alert("El campo de telefono debe contener solo caractes numericos");
+				return false;
+			}
+		}
+		
+		if(isNaN(Math.abs(z)))
+        {
+        alert("Por favor solo ingrese caracteres numericos en los campos de latitud");
+		alert(01);
+		return false;
+        }
+		if(isNaN(Math.abs(x)))
+        {
+        alert("Por favor solo ingrese caracteres numericos en los campos de latitud");
+		alert(02);
+		return false;
+        }
+		if(isNaN(Math.abs(c)))
+        {
+        alert("Por favor solo ingrese caracteres numericos en los campos de longitud");
+		return false;
+        }
+		if(isNaN(Math.abs(v)))
+        {
+        alert("Por favor solo ingrese caracteres numericos en los campos de longitud");
+		return false;
+        }
+	return true;
+    }
+	
+	function validateForm(){
+	var telefono = document.getElementById("tel1").value;
+	var telefonoOpcional = document.getElementById("tel2").value;
+	var z = document.getElementById("lat1").value;
+	var x = document.getElementById("lat2").value;
+	var c = document.getElementById("lng1").value;
+	var v = document.getElementById("lng2").value;
+	var status = true;
+		if(telefonoOpcional.value=="" || telefonoOpcional.value==null){
+			if(typeof telefono == 'number' && telefono.length<7 ||telefono.length>14){
+			   alert("El telefono esta fuera del rango de caracteres establecido 7-14");
+			   return false;
+		    }
+			if(isNaN(telefono)){
+				alert("El campo de telefono debe contener solo caractes numericos");
+				return false;
+
+			}
+		}
+		else{
+			if(telefono.length<7 ||telefono.length>14){
+			   alert("El telefono esta fuera del rango de caracteres establecido 7-14");
+			   return false;
+		    }
+			if(isNaN(telefono)){
+				alert("El campo de telefono debe contener solo caractes numericos");
+				return false;
+
+			}
+			if(telefonoOpcional.length<7 ||telefonoOpcional.length>14){
+			   alert("El telefono esta fuera del rango de caracteres establecido 7-14");
+			   return false;
+		    }
+			if(isNaN(telefonoOpcional)){
+				alert("El campo de telefono debe contener solo caractes numericos");
+				return false;
+			}
+		}
+		
+		if(isNaN(Math.abs(z)))
+        {
+        alert("Por favor solo ingrese caracteres numericos en los campos de latitud");
+		return false;
+        }
+		if(isNaN(Math.abs(x)))
+        {
+        alert("Por favor solo ingrese caracteres numericos en los campos de latitud");
+		return false;
+        }
+		if(isNaN(Math.abs(c)))
+        {
+        alert("Por favor solo ingrese caracteres numericos en los campos de longitud");
+		return false;
+        }
+		if(isNaN(Math.abs(v)))
+        {
+        alert("Por favor solo ingrese caracteres numericos en los campos de longitud");
+		return false;
+        }
+	return true;
+	}
+    
 	</script>
 </html>

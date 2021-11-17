@@ -96,7 +96,7 @@
 				if(todo._id==_idVar){
 					document.querySelector('#alltodos').innerHTML += `
 					
-		<form action="/modificarPunto" method="post" class="form-content" visibility="hidden">
+		<form action="/modificarPunto" method="post" class="form-content" id="formPrincipal" visibility="hidden">
 			<input name="_id" id="_id" value="${_idVar}" hidden>
 			<input type="text" name="_id1" class="form-control" name="_id1" value=${_idVar} disabled>
 				<label class="text-control" for="validationDefault01">Nombre de Locación:</label>
@@ -154,5 +154,21 @@
 	
 	function goBack() {
       window.history.back();
+    }
+	var form = document.getElementById("formPrincipal");
+    form.onsubmit = function() {
+	var z = document.getElementById("lat").value;
+	var c = document.getElementById("lng").value;
+		if(isNaN(Math.abs(z)))
+        {
+        alert("Por favor solo ingrese caracteres numericos en los campos de latitud");
+		return false;
+        }
+		if(isNaN(Math.abs(c)))
+        {
+        alert("Por favor solo ingrese caracteres numericos en los campos de longitud");
+		return false;
+        }
+	return true;
     }
 	</script>
