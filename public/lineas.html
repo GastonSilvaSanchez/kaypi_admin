@@ -112,7 +112,7 @@
 					</div>
 					<label class="text-control" for="validationDefault07">Telefonos:</label>
 					<div class="form-group">
-					  <input type="text" name="telefono" class="form-control" id="tel1" placeholder="Ingresar Telefono(Opcional) Aqui *" value="" >
+					  <input type="text" name="telefono" class="form-control" id="tel1" placeholder="Ingresar Telefono(Opcional) Aqui *" value="" required>
 					</div>
 					<div class="form-group">
 						<input type="text" name="telefono" class="form-control" id="tel2" placeholder="Ingresar Telefono(Opcional) Aqui *" value="" >
@@ -279,18 +279,6 @@
 	function goBack() {
        window.history.back();
      }
-	const expresiones = {
-	    usuario: /^[a-zA-Z0-9\_\-\d]{4,16}$/, // Letras, numeros, guion y guion_bajo
-	    nombre: /^[a-zA-ZÀ-ÿ\s]{1,40}$/, // Letras y espacios, pueden llevar acentos.
-	    telefono: /^\d{7,14}$/ // 7 a 14 numeros.
-    }
-	const campos = {
-	    usuario: false,
-	    nombre: false,
-	    password: false,
-	    correo: false,
-     	telefono: false
-    }
 	var form = document.getElementById("formPrincipal");
     form.onsubmit = function() {
 		var telefono = document.getElementById("tel1").value;
@@ -318,72 +306,6 @@
 			   return false;
 		    }
 			if(isNaN(telefono)){
-				alert(02);
-				alert("El campo de telefono debe contener solo caractes numericos");
-				return false;
-
-			}
-			if(telefonoOpcional.length<7 ||telefonoOpcional.length>14){
-			   alert("El telefono esta fuera del rango de caracteres establecido 7-14");
-			   return false;
-		    }
-			if(isNaN(telefonoOpcional)){
-				alert(02);
-				alert("El campo de telefono debe contener solo caractes numericos");
-				return false;
-			}
-		}
-		
-		if(isNaN(Math.abs(z)))
-        {
-        alert("Por favor solo ingrese caracteres numericos en los campos de latitud");
-		alert(01);
-		return false;
-        }
-		if(isNaN(Math.abs(x)))
-        {
-        alert("Por favor solo ingrese caracteres numericos en los campos de latitud");
-		alert(02);
-		return false;
-        }
-		if(isNaN(Math.abs(c)))
-        {
-        alert("Por favor solo ingrese caracteres numericos en los campos de longitud");
-		return false;
-        }
-		if(isNaN(Math.abs(v)))
-        {
-        alert("Por favor solo ingrese caracteres numericos en los campos de longitud");
-		return false;
-        }
-	return true;
-    }
-	
-	function validateForm(){
-	var telefono = document.getElementById("tel1").value;
-	var telefonoOpcional = document.getElementById("tel2").value;
-	var z = document.getElementById("lat1").value;
-	var x = document.getElementById("lat2").value;
-	var c = document.getElementById("lng1").value;
-	var v = document.getElementById("lng2").value;
-	var status = true;
-		if(telefonoOpcional.value=="" || telefonoOpcional.value==null){
-			if(typeof telefono == 'number' && telefono.length<7 ||telefono.length>14){
-			   alert("El telefono esta fuera del rango de caracteres establecido 7-14");
-			   return false;
-		    }
-			if(isNaN(telefono)){
-				alert("El campo de telefono debe contener solo caractes numericos");
-				return false;
-
-			}
-		}
-		else{
-			if(telefono.length<7 ||telefono.length>14){
-			   alert("El telefono esta fuera del rango de caracteres establecido 7-14");
-			   return false;
-		    }
-			if(isNaN(telefono)){
 				alert("El campo de telefono debe contener solo caractes numericos");
 				return false;
 
@@ -419,7 +341,6 @@
 		return false;
         }
 	return true;
-	}
-    
+    }   
 	</script>
 </html>

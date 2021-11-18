@@ -49,10 +49,12 @@
 					<div class="row g-3">
 						<label class="text-control" for="cantidadPuntos">Cambie la cantidad de puntos de las ruta de ida si requiere modificar:</label>
 						<input type="number" class="form-control" name="cantidadPunto1" id="cantidadPunto1" min="2" max="500">
+						<div class="form-text">Solo se podran agregar datos mayores a los mostrados al principio</div>
 						<label class="text-control" for="cantidadPuntos">Cambie la cantidad de puntos de las ruta de vuelta si requiere modificar:</label>
 						<input type="number" class="form-control" name="cantidadPunto2" id="cantidadPunto2" min="2" max="500">
+						<div class="form-text">Solo se podran agregar datos mayores a los mostrados al principio</div>
 						<!--<button onclick="RecargarForm()" class="btn btn-primary btn-lg">Cargar los campos para añadir cordenadas para modificar o agregar puntos </button>-->
-						<button onclick="RecargarForm()" id="btnLoadLines" class="btn btn-primary btn-lg">Cargar nuevos puntos para las lineas de transporte </button>
+						<button onclick="reloadForm()" id="btnLoadLines" class="btn btn-primary btn-lg">Cargar nuevos puntos para las lineas de transporte </button>
 						</div>
 					<div id="cargar">
 
@@ -362,6 +364,23 @@ var _idVar = getParameterByName('_id');
 				 allElements[i].disabled=false;
 				}
 			}
+			function reloadForm() {
+				var btn = document.getElementById('btnLoadLines');
+				cantIda = document.getElementById('cantidadPunto1').value;
+				 cantVuelta = document.getElementById('cantidadPunto2').value;
+	            var	inputIda = document.getElementById('cantidadPunto1');
+		        var inputVuelta = document.getElementById('cantidadPunto2');
+				if (inputIda.value < auxIda ||inputVuelta.value  < auxVuelta){
+			          alert("Los numeros para la cantidad de puntos deben ser mayores a 2");
+			          inputIda.disabled=false;
+		              inputVuelta.disabled=false;
+		              btn.disabled=false;
+				}
+				else{
+					RecargarForm();
+				}
+				
+			}
 			function RecargarForm() {
 				
 				var todo= todoObj;
@@ -408,17 +427,17 @@ var _idVar = getParameterByName('_id');
 						<input type="text" name="calle" class="form-control" id="validationDefault06" placeholder="Ingresar Calle 2(Opcional) Aqui *" value="${todo.Calles[1]}" required>
 					</div>
 					<div class="form-group">
-						<input type="text" name="calle" class="form-control" id="validationDefault06" placeholder="Ingresar Calle 3(Opcional) Aqui *" value="${todo.Calles[2]}" required>
+						<input type="text" name="calle" class="form-control" id="validationDefault06" placeholder="Ingresar Calle 3(Opcional) Aqui *" value="${todo.Calles[2]}" >
 					</div>
 					<div class="form-group">
-						<input type="text" name="calle" class="form-control" id="validationDefault06" placeholder="Ingresar Calle 4(Opcional) Aqui *" value="${todo.Calles[3]}" required>
+						<input type="text" name="calle" class="form-control" id="validationDefault06" placeholder="Ingresar Calle 4(Opcional) Aqui *" value="${todo.Calles[3]}" >
 					</div>
 					<label class="text-control" for="validationDefault07">Telefonos:</label>
 					<div class="form-group">
 					  <input type="text" name="telefono" class="form-control" id="validationDefault07" placeholder="Ingresar Telefono(Opcional) Aqui *" value="${todo.Telefonos[0]}" required>
 					</div>
 					<div class="form-group">
-						<input type="text" name="telefono" class="form-control" id="validationDefault07" placeholder="Ingresar Telefono(Opcional) Aqui *" value="${todo.Telefonos[1]}" required>
+						<input type="text" name="telefono" class="form-control" id="validationDefault07" placeholder="Ingresar Telefono(Opcional) Aqui *" value="${todo.Telefonos[1]}" >
 					</div>
 					<label class="text-control" for="validationDefault08">Horario:</label>
 					<div class="form-group">
