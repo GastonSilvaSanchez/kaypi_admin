@@ -97,10 +97,13 @@
     </body>
 	
 	<script>
+	//Ir una ventana atras del historial
 	function goBack() {
      window.history.back();
     }
+	
 	var form = document.getElementById("formPrincipal");
+	//Cuando se de click al submit se presentara la siguiente operacion de validaciones para los campos text que requieran ser numericos
     form.onsubmit = function() {
 	var z = document.getElementById("lat").value;
 	var c = document.getElementById("lng").value;

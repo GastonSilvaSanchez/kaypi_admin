@@ -66,30 +66,10 @@
         </div>	
  	
     </body>
-	
-	<script>
-	// Example starter JavaScript for disabling form submissions if there are invalid fields
-	(function() {
-	  'use strict';
-	  window.addEventListener('load', function() {
-		// Fetch all the forms we want to apply custom Bootstrap validation styles to
-		var forms = document.getElementsByClassName('needs-validation');
-		// Loop over them and prevent submission
-		var validation = Array.prototype.filter.call(forms, function(form) {
-		  form.addEventListener('submit', function(event) {
-			if (form.checkValidity() === false) {
-			  event.preventDefault();
-			  event.stopPropagation();
-			}
-			form.classList.add('was-validated');
-		  }, false);
-		});
-	  }, false);
-	})();
-	</script>
 </html>
 
 <script type="text/javascript">
+	//Obtiene datos de un metodo get
 function getParameterByName(name) {
     name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
     var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
@@ -106,6 +86,7 @@ var _idVar = getParameterByName('_id');
 	 auxVuelta =0;
 
 	 var todoObj;;
+	 //Carga los datos de listLineas con la diferencia que busca a una similitud de ids para cargar la linea que se requiere modiicar
 	window.addEventListener('DOMContentLoaded', (e) =>{
 	fetch('http://localhost:3000/listLineas')
 	.then(res => res.json())
@@ -356,6 +337,7 @@ var _idVar = getParameterByName('_id');
   });
   	  </script>
 	  	<script>
+			  
 			function HabilitarForm() {
 				var form  = document.getElementById("formPrincipal");
 				var allElements = form.elements;
@@ -364,6 +346,7 @@ var _idVar = getParameterByName('_id');
 				 allElements[i].disabled=false;
 				}
 			}
+				 //Recarga los datos de listLineas con si se requirio nuevos datos en los campos de puntos de ida y de vuelta con la unica diferencia que pregunta si los campos no son menores a los ya guardados en la base
 			function reloadForm() {
 				var btn = document.getElementById('btnLoadLines');
 				cantIda = document.getElementById('cantidadPunto1').value;
@@ -381,6 +364,7 @@ var _idVar = getParameterByName('_id');
 				}
 				
 			}
+			//Recarga los inputs del formulario con datos establecidos y con las modificaciones de las linas
 			function RecargarForm() {
 				
 				var todo= todoObj;
@@ -617,11 +601,14 @@ var _idVar = getParameterByName('_id');
 		        inputVuelta.disabled=true;
 		        btn.disabled=true;
             }
+			//Ir una ventana atras del historial
 			function goBack() {
                window.history.back();
             }
+			//Carga los datos establecidos en el metodo GenerarListadeLineas
 			GenerarListadeLineas();
 				var form = document.getElementById("formPrincipal");
+			//Cuando se de click al submit se presentara la siguiente operacion de validaciones para los campos text que requieran ser numericos
     form.onsubmit = function() {
 		var telefono = document.getElementById("tel1").value;
 	var telefonoOpcional = document.getElementById("tel2").value;

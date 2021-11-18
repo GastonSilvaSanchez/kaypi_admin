@@ -191,7 +191,7 @@
     </body>
 	
 	<script>
-	// Example starter JavaScript for disabling form submissions if there are invalid fields
+	// Cambia el estado de los inputs a deshabilitado cuando carga la pagina
 	window.onload = function(e) {
 		var form  = document.getElementById("formPrincipal");
         var allElements = form.elements;
@@ -200,7 +200,7 @@
          allElements[i].disabled=true;
         }
     }
-	
+	//Genera una lista de lineas dependiendo la cantidad que se dio al principio de ida y de vuelta
 	function GenerarListadeLineas() {
 		var btn = document.getElementById('btnLoadLines');
 		inputIda = document.getElementById('cantidadPunto1');
@@ -267,7 +267,8 @@
 		}
 		
 		
-	}
+	} 
+	//Cambiar el estado a habilitado de todos los inputs de el form con el id formPrincipal
 	function HabilitarForm() {
 		var form  = document.getElementById("formPrincipal");
         var allElements = form.elements;
@@ -276,10 +277,13 @@
          allElements[i].disabled=false;
         }
     }
+	//Ir una ventana atras del historial
 	function goBack() {
        window.history.back();
      }
+
 	var form = document.getElementById("formPrincipal");
+	//Cuando se de click al submit se presentara la siguiente operacion de validaciones para los campos text que requieran ser numericos
     form.onsubmit = function() {
 		var telefono = document.getElementById("tel1").value;
 	var telefonoOpcional = document.getElementById("tel2").value;

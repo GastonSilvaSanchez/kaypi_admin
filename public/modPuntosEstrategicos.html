@@ -58,6 +58,7 @@
 </html>
 
 <script type="text/javascript">
+	//Obtiene datos de un metodo get
 	function getParameterByName(name) {
 		name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
 		var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
@@ -65,7 +66,7 @@
 		return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
 	}
 	var _idVar = getParameterByName('_id');
-	
+    //Carga los datos de listPuntos con la diferencia que busca a una similitud de ids para cargar el punto que se requiere modiicar
 	window.addEventListener('DOMContentLoaded', (e) =>{
 	  fetch("http://localhost:3000/listPuntos")
 	  .then(res => res.json())
@@ -133,11 +134,12 @@
 	  })
 	  .catch(err => console.error(err));
 	});
-	
+	//Ir una ventana atras del historial
 	function goBack() {
       window.history.back();
     }
 	var form = document.getElementById("formPrincipal");
+	//Cuando se de click al submit se presentara la siguiente operacion de validaciones para los campos text que requieran ser numericos
     form.onsubmit = function() {
 	var z = document.getElementById("lat").value;
 	var c = document.getElementById("lng").value;
