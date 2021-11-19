@@ -48,7 +48,68 @@
                   
 				</div>	
 			<!-- Form-->
-			<div id="alltodos"></div>
+			<div id="alltodos">
+				<form action="/modificarPunto" method="post" class="form-content" id="formPrincipal" visibility="hidden">
+					<input name="_id" id="_id"  hidden>
+						<label class="text-control" for="nombre">Nombre de Locación:</label>
+						  <div class="form-group">
+							  <input type="text" name="nombre" class="form-control" id="nombre" placeholder="Ingrese el nombre"  required>
+							</div>
+						<label class="text-control" for="categoria">Categoria:</label>
+							<div class="form-group">
+							  <input type="text" name="categoria" list="cat" class="form-control" id="categoria" placeholder="Ingrese la categoria"  required>
+							  <datalist id="cat">
+								<option value="Centros Educativos">
+								<option value="Centros de Transporte">
+								<option value="Entidades Públicas">
+								<option value="Centros Turísticos">
+								<option value="Recreación y Cultura">
+								<option value="Centros de Atención en Salud">
+							  </datalist>
+							  </div>					
+						<label class="text-control" name="calles" for="calles">Calles:</label>
+							<div class="form-group">
+							<textarea name="calles" class="form-control" id="calles" placeholder="Ingrese la calle" required></textarea>
+							</div>
+						<label class="text-control" for="zona">Zona:</label>
+							<div class="form-group">
+							  <input type="text" name="zona" class="form-control" id="zona" placeholder="Ingrese la zona"  required>
+							</div>
+						<label class="text-control" class="text-control" for="validationDefault05">Lineas:</label>
+							<div class="form-group">
+							  <textarea name="lineas" class="form-control" id="lineas" placeholder="Ingrese la linea" required></textarea>
+							</div>									
+						<label class="text-control" for="lineas">Mapa:</label>
+						
+						<br>
+						<div id="googleMap" style="width:100%;height:400px;"></div>
+						<br>
+						<div class="row g-3">
+							<div class="col-4">
+								
+							</div>
+							<div class="col-4">
+								<input id="delete-markers" type="button" value="Eliminar marcador" class="btn btn-danger btn-sm" />
+							</div>
+							<div class="col-4"></div>
+						</div>
+						<br>
+						<label class="text-control" class="text-control" for="latitud">Longitud:</label>
+							<div class="form-group">
+							  <input type="text" name="latitud" class="form-control" id="latitud"  required>
+							</div>
+						<label class="text-control" class="text-control" for="longitud">Longitud:</label>
+							<div class="form-group">
+							  <input type="text" name="longitud" class="form-control" id="longitud" required>
+							</div>					
+						<label class="text-control" for="descripcion">Descripción:</label>
+							<div class="form-group">
+							<textarea name="descripcion" class="form-control" id="descripcion" placeholder="Ingrese la descripcion" required></textarea>
+							</div>			
+						<br />
+						<input class="btnSubmit" type="submit" value="Registrar">
+					</form>
+			</div>
 			
         </div>		
     </body>
@@ -66,6 +127,7 @@
 		return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
 	}
 	var _idVar = getParameterByName('_id');
+	var todoObj;
     //Carga los datos de listPuntos con la diferencia que busca a una similitud de ids para cargar el punto que se requiere modiicar
 	window.addEventListener('DOMContentLoaded', (e) =>{
 	  fetch("http://localhost:3000/listPuntos")
@@ -74,66 +136,50 @@
 		  if(data.response === 'success'){
 			  const todos = data.data; 
 			  var num = 1;
-			  
 			  todos.forEach(todo =>{
 				if(todo._id==_idVar){
-					document.querySelector('#alltodos').innerHTML += `
-					
-		<form action="/modificarPunto" method="post" class="form-content" id="formPrincipal" visibility="hidden">
-			<input name="_id" id="_id" value="${_idVar}" hidden>
-			<input type="text" name="_id1" class="form-control" name="_id1" value=${_idVar} disabled>
-				<label class="text-control" for="validationDefault01">Nombre de Locación:</label>
-				  <div class="form-group">
-					  <input type="text" name="nombre" class="form-control" id="validationDefault01" placeholder="Ingrese el nombre" value="${todo.Nombre}" required>
-					</div>
-				<label class="text-control" for="validationDefault02">Categoria:</label>
-					<div class="form-group">
-					  <input type="text" name="categoria" list="cat" class="form-control" id="validationDefault02" placeholder="Ingrese la categoria" value="${todo.Categoria}" required>
-					  <datalist id="cat">
-						<option value="Centros Educativos">
-						<option value="Centros de Transporte">
-						<option value="Entidades Públicas">
-						<option value="Centros Turísticos">
-						<option value="Recreación y Cultura">
-						<option value="Centros de Atención en Salud">
-					  </datalist>
-					  </div>					
-				<label class="text-control" name="calles" for="validationDefault03">Calles:</label>
-				    <div class="form-group">
-					<textarea name="calles" class="form-control" id="validationTextarea" placeholder="Ingrese la calle" required>${todo.Calles[0]}</textarea>
-					</div>
-				<label class="text-control" for="validationDefault04">Zona:</label>
-					<div class="form-group">
-					  <input type="text" name="zona" class="form-control" id="validationDefault04" placeholder="Ingrese la zona" value="${todo.ZonasCBBA}" required>
-					</div>
-				<label class="text-control" class="text-control" for="validationDefault05">Lineas:</label>
-				    <div class="form-group">
-					  <textarea name="lineas" class="form-control" id="validationTextarea" placeholder="Ingrese la linea" required>${todo.Lineas[0]}</textarea>
-					</div>									
-				<label class="text-control" for="validationDefault04">Latitud:</label>
-					<div class="form-group">
-					  <input type="text" name="latitud" class="form-control" id="validationDefault05" value="${todo.Punto.lat}" required>
-					</div>
-				<label class="text-control" class="text-control" for="validationDefault05">Longitud:</label>
-					<div class="form-group">
-					  <input type="text" name="longitud" class="form-control" id="validationDefault06" value="${todo.Punto.lng}" required>
-					</div>					
-				<label class="text-control" for="validationTextarea">Descripción:</label>
-					<div class="form-group">
-					<textarea name="descripcion" class="form-control" id="validationTextarea" placeholder="Ingrese la descripcion" required>${todo.Descripcion}</textarea>
-					</div>			
-				<br />
-				<input class="btnSubmit" type="submit" value="Registrar">
-			</form>
-				  `;
-				}
+					todoObj=todo;
+					var id= todoObj._id;
+					var nombre= todoObj.Nombre;
+					var categoria= todoObj.Categoria;
+					var calles= todoObj.Calles[0];
+					var zona= todoObj.ZonasCBBA;
+					var linea= todoObj.Lineas[0];
+					var lat= todoObj.Punto.lat;
+					var lng= todoObj.Punto.lng;
+					var descripcion= todoObj.Descripcion;
+					document.getElementById('_id').value =id;
+					//document.getElementById('_id1').value =id;
+					document.getElementById('nombre').value =nombre;
+					document.getElementById('categoria').value =categoria;
+					document.getElementById('calles').value =calles;
+					document.getElementById('zona').value =zona;
+					document.getElementById('lineas').value =linea;
+					document.getElementById('latitud').value =lat;
+					document.getElementById('longitud').value =lng;
+					document.getElementById('descripcion').value =descripcion;
+					var lat = document.getElementById("latitud").value;
+	                var lng = document.getElementById("longitud").value;
+	                const marker = new google.maps.Marker({
 		
+                    position: { lat: parseFloat(lat), lng: parseFloat(lng) },
+	                map: map,
+		
+                     });
+	                count++;
+					marker.addListener("dblclick", function() {
+                    marker.setMap(null);
+                    count--;
+                    });
+					
+				}
 			  });
 		  } else alert(data.response);
 		  
 	  })
 	  .catch(err => console.error(err));
 	});
+
 	//Ir una ventana atras del historial
 	function goBack() {
       window.history.back();
@@ -141,8 +187,8 @@
 	var form = document.getElementById("formPrincipal");
 	//Cuando se de click al submit se presentara la siguiente operacion de validaciones para los campos text que requieran ser numericos
     form.onsubmit = function() {
-	var z = document.getElementById("lat").value;
-	var c = document.getElementById("lng").value;
+	var z = document.getElementById("latitud").value;
+	var c = document.getElementById("longitud").value;
 		if(isNaN(Math.abs(z)))
         {
         alert("Por favor solo ingrese caracteres numericos en los campos de latitud");
@@ -155,4 +201,64 @@
         }
 	return true;
     }
+	let map;
+    var count=0;
+	var markers=[];
+    function initMap() {
+		const cochabamba ={lat: -17.387783, lng: -66.155871}
+        map = new google.maps.Map(document.getElementById("googleMap"), {
+        center: cochabamba,
+		disableDoubleClickZoom: true,
+        zoom: 12,
+      });
+	 
+      google.maps.event.addListener(map, "dblclick", (event) => {
+		if (count<1) {
+			addMarker(event.latLng, map);
+			var myLatLng = event.latLng;
+            var lat = myLatLng.lat();
+            var lng = myLatLng.lng();	
+            document.getElementById("latitud").value = lat.toString();
+	        document.getElementById("longitud").value = lng.toString();
+			count++;
+		}
+        
+      });
+    }
+	function addMarker(location, map) {
+       var marker = new google.maps.Marker({
+       position: location,
+       map: map
+       });
+       marker.addListener("dblclick", function() {
+       marker.setMap(null);
+       count--;
+       });
+       markers.push(marker);
+    }
+
+    function setMapOnAll(map) {
+       for (var i = 0; i < markers.length; i++) {
+       markers[i].setMap(map);
+       }
+    }
+
+    function clearMarkers() {
+      setMapOnAll(null);
+      count--;
+    }
+
+    function showMarkers() {
+      setMapOnAll(map); 
+    }
+    function deleteMarkers() {
+      clearMarkers();
+      markers = [];
+    }
+    document.getElementById("delete-markers").addEventListener("click", deleteMarkers);
+	 
 	</script>
+	<script async
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBY0Y6-0YKuzrsaoPmY4SjJAx93J6yeJb8&callback=initMap">
+</script>
+	 

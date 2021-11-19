@@ -49,13 +49,13 @@
 					
 					<div class="row g-3">
 
-					<label class="text-control" for="cantidadPuntos">Ingrese la cantidad de puntos de las ruta de ida:</label>
-					<input type="number" class="form-control" name="cantidadPunto1" id="cantidadPunto1" min="2" max="500">
-					<div class="form-text">El numero debe ser como minimo 2.</div>
+					<label class="text-control" for="cantidadPuntos">Ingrese la cantidad de calles de la linea:</label>
+					<input type="number" class="form-control" name="cantidadPunto1" id="cantidadPunto1" min="1" max="500">
+					<div class="form-text">El numero debe ser como minimo 1.</div>
 					<br>
-					<label class="text-control" for="cantidadPuntos">Ingrese la cantidad de puntos de las ruta de vuelta:</label>
-					<input type="number" class="form-control" name="cantidadPunto2" id="cantidadPunto2" min="2" max="500">
-					<div class="form-text">El numero debe ser como minimo 2.</div>
+					<label class="text-control" for="cantidadPuntos">Ingrese la cantidad de telefonos:</label>
+					<input type="number" class="form-control" name="cantidadPunto2" id="cantidadPunto2" min="1" max="500">
+					<div class="form-text">El numero debe ser como minimo 1.</div>
 					<button onclick="GenerarListadeLineas()" id="btnLoadLines" class="btn btn-primary btn-lg">Cargar los campos para añadir cordenadas para añadir puntos </button>
 				    </div>
 					
@@ -98,24 +98,21 @@
 						<div class="form-text">Por ejemplo: "0.50 Bs. Estudiantes"</div>
 					</div>
 					<label class="text-control" for="validationDefault06">Calles:</label>
-					<div class="form-group">
-					  <input type="text" name="calle" class="form-control" id="validationDefault06" placeholder="Ingresar Calle 1 Aqui" value="" required>
+					
+					<div id="cantCalles">
+					
 					</div>
-					<div class="form-group">
-						<input type="text" name="calle" class="form-control" id="validationDefault06" placeholder="Ingresar Calle 2(Opcional) Aqui *" value="">
+					<div id="cantCallesForm">
+					
 					</div>
-					<div class="form-group">
-						<input type="text" name="calle" class="form-control" id="validationDefault06" placeholder="Ingresar Calle 3(Opcional) Aqui *" value="">
-					</div>
-					<div class="form-group">
-						<input type="text" name="calle" class="form-control" id="validationDefault06" placeholder="Ingresar Calle 4(Opcional) Aqui *" value="">
-					</div>
+					
 					<label class="text-control" for="validationDefault07">Telefonos:</label>
-					<div class="form-group">
-					  <input type="text" name="telefono" class="form-control" id="tel1" placeholder="Ingresar Telefono(Opcional) Aqui *" value="" required>
+					
+					<div id="cantTel">
+					
 					</div>
-					<div class="form-group">
-						<input type="text" name="telefono" class="form-control" id="tel2" placeholder="Ingresar Telefono(Opcional) Aqui *" value="" >
+					<div id="cantTelForm">
+					
 					</div>
 					<label class="text-control" for="validationDefault08">Horario:</label>
 					<div class="form-group">
@@ -127,20 +124,6 @@
 					<hr>
 					<br>
 					<h3>Rutas:</h3>
-					<br>
-					<div class="row g-3 align-items-center">
-						<div class="col-auto">
-							<a id="boton link" target="_blank"  class="form-control btn btn-primary" href='https://www.google.com.bo/maps'"> 
-								<h6>Entrar a Google Maps</h6>
-						   </a>
-						   </div>
-						   <div class="col-auto">
-							<span id="passwordHelpInline" class="form-text">
-								Usa este link para copiar las cordenadas de la lista
-							</span>
-						  </div>
-						  <div class="col-auto"></div>
-					</div>
 				   <br>
 				   <h3>Ruta Ida</h3>
 				   <br>
@@ -153,10 +136,11 @@
 						<div class="form-text">Añade un sentido de ruta como: NORTE-SUR.</div>
 						<br>
 						<input type="hidden" name="color1" value="rojo">
+						<div id="googleMap1" style="width:100%;height:400px;"></div>
+						<br>
+						<br>
+						
 						<div id="cantIda">
-					
-						</div>
-						<div id="cantPuntosIda">
 					
 						</div>
 					</div>
@@ -175,10 +159,10 @@
 						<div class="form-text">Añade un sentido de ruta contrario a la ruta de ida como: SUR-NORTE.</div>
 						<br>
 						<input type="hidden" name="color2" value="azul">
+						<div id="googleMap2" style="width:100%;height:400px;"></div>
+						<br>
+						<br>
 						<div id="cantVuelta">
-					
-						</div>
-						<div id="cantPuntosVuelta">
 					
 						</div>
 					</div>
@@ -210,57 +194,44 @@
 		inputIda.disabled=true;
 		inputVuelta.disabled=true;
 		btn.disabled=true;
-		if(cantIda < 2 || cantVuelta < 2){
-			alert("Los numeros para la cantidad de puntos deben ser mayores a 2");
+		if(cantIda < 1 || cantVuelta < 1){
+			alert("Los numeros para la cantidad de los telefonos y las calles deben ser mayores a 0");
 			inputIda.disabled=false;
 		    inputVuelta.disabled=false;
 		    btn.disabled=false;
 		}
 		else{
 			HabilitarForm();
-		document.querySelector('#cantIda').innerHTML += `
-		<input type="hidden" name="cantIda" value="${cantIda}">
+		document.querySelector('#cantCalles').innerHTML += `
+		<input type="hidden" name="cantCalles" value="${cantIda}">
 		
 		`;
-		document.querySelector('#cantVuelta').innerHTML += `
-		<input type="hidden" name="cantVuelta" value="${cantVuelta}">
+		document.querySelector('#cantTel').innerHTML += `
+		<input type="hidden" name="cantTelefonos" value="${cantVuelta}">
 		
 		`;
 		for (let index = 1; index <= cantIda; index++) {
-			document.querySelector('#cantPuntosIda').innerHTML += `
+			document.querySelector('#cantCallesForm').innerHTML += `
 			<div class="row g-3 align-items-center">
 						<div class="col-auto">
 							<div class="input-group mb-3">
-                                <span class="input-group-text" id="lat">Latitud ${index}</span>
-                                <input type="text" class="form-control" name="lat1" id="lat1" placeholder="Ingrese la latitud ${index}" aria-label="Latitud" aria-describedby="lat" required>
+                                <span class="input-group-text" id="calle">Calle ${index}</span>
+								<input type="text" name="calle" class="form-control" id="calle" placeholder="Ingresar Calle Numero ${index}" required>
                             </div>
 				
-						</div>
-						<div class="col-auto">
-							<div class="input-group mb-3">
-                                <span class="input-group-text" id="lng">Longitud ${index}</span>
-                                <input type="text" class="form-control" id="lng1" name="lng1" placeholder="Ingrese la longitud ${index}" aria-label="Longitud" aria-describedby="lng" required>
-                            </div>
 						</div>
 			</div>
 		`			
 		}
 		for (let index = 1; index <= cantVuelta; index++) {
-			document.querySelector('#cantPuntosVuelta').innerHTML += `
+			document.querySelector('#cantTelForm').innerHTML += `
 			<div class="row g-3 align-items-center">
 						<div class="col-auto">
 							<div class="input-group mb-3">
-                                <span class="input-group-text" id="lat">Latitud ${index}</span>
-                                <input type="text" class="form-control" name="lat2" id="lat2" placeholder="Ingrese la latitud ${index}" aria-label="Latitud" aria-describedby="lat" required>
+                                <span class="input-group-text" id="tel1">Telefono ${index}</span>
+								<input type="text" name="telefono" class="form-control" id="tel1" placeholder="Ingresar Telefono ${index}" required>
                             </div>
-				
-						</div>
-						<div class="col-auto">
-							<div class="input-group mb-3">
-                                <span class="input-group-text" id="lng">Longitud ${index}</span>
-                                <input type="text" class="form-control" id="lng2" name="lng2" placeholder="Ingrese la longitud ${index}" aria-label="Longitud" aria-describedby="lng" required>
-                            </div>
-						</div>
+						</div>	
 			</div>
 		`			
 		}
@@ -286,65 +257,150 @@
 	//Cuando se de click al submit se presentara la siguiente operacion de validaciones para los campos text que requieran ser numericos
     form.onsubmit = function() {
 		var telefono = document.getElementById("tel1").value;
-	var telefonoOpcional = document.getElementById("tel2").value;
-	var z = document.getElementById("lat1").value;
-	var x = document.getElementById("lat2").value;
-	var c = document.getElementById("lng1").value;
-	var v = document.getElementById("lng2").value;
 	var status = true;
-		if(telefonoOpcional.value=="" || telefonoOpcional.value==null){
 			if(typeof telefono == 'number' && telefono.length<7 ||telefono.length>14){
 			   alert("El telefono esta fuera del rango de caracteres establecido 7-14");
 			   return false;
 		    }
 			if(isNaN(telefono)){
-				alert(01);
 				alert("El campo de telefono debe contener solo caractes numericos");
 				return false;
 
 			}
-		}
-		else{
-			if(telefono.length<7 ||telefono.length>14){
-			   alert("El telefono esta fuera del rango de caracteres establecido 7-14");
-			   return false;
-		    }
-			if(isNaN(telefono)){
-				alert("El campo de telefono debe contener solo caractes numericos");
-				return false;
-
-			}
-			if(telefonoOpcional.length<7 ||telefonoOpcional.length>14){
-			   alert("El telefono esta fuera del rango de caracteres establecido 7-14");
-			   return false;
-		    }
-			if(isNaN(telefonoOpcional)){
-				alert("El campo de telefono debe contener solo caractes numericos");
-				return false;
-			}
-		}
-		
-		if(isNaN(Math.abs(z)))
-        {
-        alert("Por favor solo ingrese caracteres numericos en los campos de latitud");
-		return false;
-        }
-		if(isNaN(Math.abs(x)))
-        {
-        alert("Por favor solo ingrese caracteres numericos en los campos de latitud");
-		return false;
-        }
-		if(isNaN(Math.abs(c)))
-        {
-        alert("Por favor solo ingrese caracteres numericos en los campos de longitud");
-		return false;
-        }
-		if(isNaN(Math.abs(v)))
-        {
-        alert("Por favor solo ingrese caracteres numericos en los campos de longitud");
-		return false;
-        }
-	return true;
     }   
+
+	
 	</script>
+	<script>
+	let map1,map2;
+    var count=0;
+	var markers1=[];
+	var markers2=[];
+    function initMap() {
+		const cochabamba ={lat: -17.387783, lng: -66.155871}
+        map1 = new google.maps.Map(document.getElementById("googleMap1"), {
+        center: cochabamba,
+		disableDoubleClickZoom: true,
+        zoom: 13,
+      });
+        map2 = new google.maps.Map(document.getElementById("googleMap2"), {
+        center: cochabamba,
+		disableDoubleClickZoom: true,
+        zoom: 13,
+      });
+      google.maps.event.addListener(map1, "dblclick", (event) => {
+			addMarker1(event.latLng, map1);
+			var myLatLng = event.latLng;
+			var lat = myLatLng.lat();
+            var lng = myLatLng.lng();
+			document.querySelector('#cantIda').innerHTML += `
+			<div class="row g-3 align-items-center">
+						<div class="col-auto">
+							<div class="input-group mb-3">
+                                <span class="input-group-text" id="lat1">Latitud</span>
+								<input type="text" name="lat1" class="form-control" id="lat1" value="${lat}"  required>
+                            </div>
+						</div>
+						<div class="col-auto">
+							<div class="input-group mb-3">
+                                <span class="input-group-text" id="lng1">Longitud</span>
+								<input type="text" name="lng1" class="form-control" id="lng1" value="${lng}"  required>
+                            </div>
+						</div>		
+			</div>
+		`;			
+			
+      });
+	  google.maps.event.addListener(map2, "dblclick", (event) => {
+			addMarker2(event.latLng, map2);
+			var myLatLng = event.latLng;
+            var lat = myLatLng.lat();
+            var lng = myLatLng.lng();
+			document.querySelector('#cantVuelta').innerHTML += `
+			<div class="row g-3 align-items-center">
+						<div class="col-auto">
+							<div class="input-group mb-3">
+                                <span class="input-group-text" id="lat2">Latitud</span>
+								<input type="text" name="lat2" class="form-control" id="lat2" value="${lat}"  required>
+                            </div>
+						</div>
+						<div class="col-auto">
+							<div class="input-group mb-3">
+                                <span class="input-group-text" id="lng2">Longitud</span>
+								<input type="text" name="lng2" class="form-control" id="lng2" value="${lng}"  required>
+                            </div>
+						</div>		
+			</div>
+		`;				
+			
+         
+			count++;
+      });
+    }
+	function addMarker1(location, map) {
+        var marker1 = new google.maps.Marker({
+        position: location,
+        map: map
+     });
+	 marker1.addListener("dblclick", function() {
+     marker1.setMap(null);
+     });
+    markers1.push(marker1);
+    }
+	 function addMarker2(location, map) {
+        var marker2 = new google.maps.Marker({
+        position: location,
+        map: map
+     });
+
+     marker2.addListener("dblclick", function() {
+     marker2.setMap(null);
+     });
+    markers2.push(marker2);
+    }
+	function setMapOnAll1(map) {
+    for (var i = 0; i < markers.length; i++) {
+    markers1[i].setMap(map1);
+    }
+    }    
+
+    function clearMarkers1() {
+    setMapOnAll1(null);
+
+    }
+
+    function showMarkers1() {
+    setMapOnAll1(map1);
+    }
+    function deleteMarkers1() {
+    clearMarkers1();
+    markers1 = [];
+    }
+	function setMapOnAll2(map) {
+    for (var i = 0; i < markers.length; i++) {
+    markers1[i].setMap(map2);
+    }
+    }    
+
+    function clearMarkers2() {
+    setMapOnAll1(null);
+
+    }
+
+    function showMarkers2() {
+    setMapOnAll1(map2);
+    }
+    function deleteMarkers2() {
+    clearMarkers2();
+    markers2 = [];
+    }
+
+
+    document.getElementById("delete-markers1").addEventListener("click", deleteMarkers1);
+	document.getElementById("delete-markers2").addEventListener("click", deleteMarkers2);
+		</script>
+		 <script
+		 src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBY0Y6-0YKuzrsaoPmY4SjJAx93J6yeJb8&callback=initMap&v=weekly"
+		 async
+	   ></script>
 </html>

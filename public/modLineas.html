@@ -60,7 +60,123 @@
 
 					</div>
 				</div>	
-				<div id="alltodos"></div>
+				<form action="/modificarLinea" method="post" id="formPrincipal" class="form-content" visibility="hidden">
+					<input name="_id" id="_id" hidden>
+			<input type="text" name="_id1" class="form-control" name="_id1"  disabled>
+			<label class="text-control" for="nombre">Nombre de Linea:</label>
+			  <div class="form-group">
+				  <input type="text" name="nombre" class="form-control" id="nombre" placeholder="Ingresar Linea + numero o letra de la linea *"  required>
+				</div>
+			<label class="text-control" for="categoria">Categoria:</label>
+				<div class="form-group">
+				  <input type="text" name="categoria" list="cat" class="form-control" id="categoria" placeholder="Ingresar Categoria Aqui"  required>
+				  <datalist id="cat">
+					<option value="Micro">
+					<option value="Minibus">
+					<option value="Taxitrufi">
+				  </datalist>
+				</div>					
+			<label class="text-control" for="zona">Zona:</label>
+				<div class="form-group">
+				  <input type="text" name="zona" class="form-control" id="zona" placeholder="Ingresar Zona Aqui"  required>
+				</div>
+				<label class="text-control" for="pasaje">Pasajes:</label>
+				<div class="form-group">
+				  <input type="text" name="pasaje" class="form-control" id="pasaje1" placeholder="Ingresar Pasaje + Mayores Aqui *" required>
+				</div>
+				<div class="form-group">
+					<input type="text" name="pasaje" class="form-control" id="pasaje2" placeholder="Ingresar Pasaje + Discapacidad Aqui *"  required>
+				</div>
+				<div class="form-group">
+					<input type="text" name="pasaje" class="form-control" id="pasaje3" placeholder="Ingresar Pasaje + Universitario Aqui *"  required>
+				</div>
+				<div class="form-group">
+					<input type="text" name="pasaje" class="form-control" id="pasaje4" placeholder="Ingresar Pasaje + Estudiantes Aqui *"  required>
+				</div>
+				<label class="text-control" for="validationDefault06">Calles:</label>
+				<div id="cantCalles">
+					
+				</div>
+				<div id="cantCallesForm">
+				
+				</div>
+				<label class="text-control" for="validationDefault07">Telefonos:</label>
+				<div id="cantTel">
+					
+				</div>
+				<div id="cantTelForm">
+				
+				</div>
+				<label class="text-control" for="horario">Horario:</label>
+				<div class="form-group">
+				  <input type="text" name="horario" class="form-control" id="horario" placeholder="Ingresar Horario Aqui *" required>
+				</div>
+				<br>
+				<hr>
+				<br>
+				<h3>Rutas:</h3>
+				<br>
+			   <h3>Ruta Ida</h3>
+			   <br>
+				<div class="form-group">
+					<div class="input-group mb-3">
+						<span class="input-group-text" id="sentido1">Sentido</span>
+						<input type="text" name="ruta1" class="form-control" aria-describedby="sentido1" id="ida"  required>
+						
+					</div>
+					<div class="form-text">Añade un sentido de ruta como: NORTE-SUR.</div>
+					<br>
+					<input type="hidden" name="color1" value="rojo">
+
+					<div id="googleMap1" style="width:100%;height:400px;"></div>
+					<br>
+					<input id="delete-markers1" type="button" value="Eliminar Lista de Marcadores" class="btn btn-danger btn-sm" />
+					<br>
+					<br>
+
+					<div id="cantidadIda">
+					
+					</div>
+					<div id="cantPuntosIda1">
+				
+					</div>
+					<div id="cantPuntosIda2">
+				</div>
+				
+				<br>
+				<hr>
+				<br>
+				<h3>Ruta Vuelta</h3>
+				<br>
+				<div class="form-group">
+					<div class="input-group mb-3">
+						<span class="input-group-text" id="sentido2">Sentido</span>
+						<input type="text" name="ruta2" aria-describedby="sentido2" class="form-control" id="vuelta"  required>
+						
+					</div>
+					<div class="form-text">Añade un sentido de ruta contrario a la ruta de ida como: SUR-NORTE.</div>
+					<br>
+					<input type="hidden" name="color2" value="azul">
+					<br>
+					<div id="googleMap2" style="width:100%;height:400px;"></div>
+					<br>
+					<br>
+					<input id="delete-markers2" type="button" value="Eliminar Lista de Marcadores" class="btn btn-danger btn-sm" />
+					<br>
+					<br>
+					<div id="cantidadVuelta">
+					
+					</div>
+					<div id="cantPuntosVuelta1">
+				
+					</div>
+					<div id="cantPuntosVuelta2">
+				</div>
+				
+				
+				<br />
+			<input class="btnSubmit" type="submit" value="Modificar">
+		</form>
 			<!-- Form-->
 			
         </div>	
@@ -85,7 +201,7 @@ var _idVar = getParameterByName('_id');
 	var auxIda =0,
 	 auxVuelta =0;
 
-	 var todoObj;;
+	 var todoObj;
 	 //Carga los datos de listLineas con la diferencia que busca a una similitud de ids para cargar la linea que se requiere modiicar
 	window.addEventListener('DOMContentLoaded', (e) =>{
 	fetch('http://localhost:3000/listLineas')
@@ -97,6 +213,78 @@ var _idVar = getParameterByName('_id');
 			
 			todos.forEach(todo =>{
 				if(todo._id==_idVar){
+
+					todoObj=todo;
+					console.log(todoObj);
+					var id= todoObj._id;
+					var nombre= todoObj.Nombre;
+					var categoria= todoObj.Categoria;
+					var calles= todoObj.Calles;
+					var pasaje1= todoObj.Pasajes[0];
+					var pasaje2= todoObj.Pasajes[1];
+					var pasaje3= todoObj.Pasajes[2];
+					var pasaje4= todoObj.Pasajes[3];
+					var zona= todoObj.ZonasCBBA[0];
+					var telefonos= todoObj.Telefonos;
+					var horarios= todoObj.Horarios;
+					var ruta1= todoObj.Rutas[0];
+					var ruta2= todoObj.Rutas[1];
+					document.getElementById('_id').value =id;
+					//document.getElementById('_id1').value =id;
+					document.getElementById('nombre').value =nombre;
+					document.getElementById('categoria').value =categoria;
+					document.getElementById('zona').value =zona;
+					document.getElementById('pasaje1').value =pasaje1;
+					document.getElementById('pasaje2').value =pasaje2;
+					document.getElementById('pasaje3').value =pasaje3;
+					document.getElementById('pasaje4').value =pasaje4;
+
+
+					
+                    for (let index = 0; index < telefonos.length; index++) {
+						document.querySelector('#cantTelForm').innerHTML +=`
+						<div class="row g-3 align-items-center">
+						 <div class="col-auto">
+							<div class="input-group mb-3">
+                                <span class="input-group-text" id="tel1">Telefono ${index}</span>
+								<input type="text" name="telefono" class="form-control" id="tel1" placeholder="Ingresar Telefono Numero ${index}" value="${telefonos[index]}" required>
+                            </div>
+				
+						 </div>
+			            </div>
+						`
+						
+					}
+					console.log(todoObj.Calles);
+					for (let index = 0; index < calles.length; index++) {
+						document.querySelector('#cantCallesForm').innerHTML +=`
+						<div class="row g-3 align-items-center">
+						 <div class="col-auto">
+							<div class="input-group mb-3">
+                                <span class="input-group-text" id="calle">Calle ${index}</span>
+								<input type="text" name="calle" class="form-control" id="calle" placeholder="Ingresar Calle Numero ${index}" value="${calles[index]}" required>
+                            </div>
+				
+						 </div>
+			            </div>
+						`
+						
+					}
+					document.getElementById('horario').value =horarios;
+					var sentido1 =ruta1.Sentido;
+					var sentido2 =ruta2.Sentido;
+					document.getElementById('ida').value =sentido1;
+					document.getElementById('vuelta').value =sentido2;
+
+
+					for (let index = 0; index < ruta1.Puntos.length; index++) {
+						   addMarker1( { lat: parseFloat(ruta1.Puntos[index].lat), lng: parseFloat(ruta1.Puntos[index].lng) }, map1);
+					}
+					for (let index = 0; index < ruta2.Puntos.length; index++) {
+						addMarker2( { lat: parseFloat(ruta2.Puntos[index].lat), lng: parseFloat(ruta2.Puntos[index].lng) }, map2);
+					}
+
+
 					auxIda= todo.Rutas[0].Puntos.length;
 					auxVuelta= todo.Rutas[1].Puntos.length;
 					document.getElementById('cantidadPunto1').value=auxIda;
@@ -106,141 +294,13 @@ var _idVar = getParameterByName('_id');
 					var cantIda = document.getElementById('cantidadPunto1').value;
 				    var cantVuelta = document.getElementById('cantidadPunto2').value;
 			     	
-					document.querySelector('#alltodos').innerHTML += `
-					<form action="/modificarLinea" method="post" id="formPrincipal" class="form-content" visibility="hidden">
-						<input name="_id" id="_id" value="${_idVar}" hidden>
-				<input type="text" name="_id1" class="form-control" name="_id1" value=${_idVar} disabled>
-				<label class="text-control" for="validationDefault01">Nombre de Linea:</label>
-				  <div class="form-group">
-					  <input type="text" name="nombre" class="form-control" id="validationDefault01" placeholder="Ingresar Linea + numero o letra de la linea *" value="${todo.Nombre}" required>
-					</div>
-				<label class="text-control" for="validationDefault02">Categoria:</label>
-					<div class="form-group">
-					  <input type="text" name="categoria" list="cat" class="form-control" id="validationDefault02" placeholder="Ingresar Categoria Aqui" value="${todo.Categoria}" required>
-					  <datalist id="cat">
-						<option value="Micro">
-						<option value="Minibus">
-						<option value="Taxitrufi">
-					  </datalist>
-					</div>					
-				<label class="text-control" for="validationDefault04">Zona:</label>
-					<div class="form-group">
-					  <input type="text" name="zona" class="form-control" id="validationDefault04" placeholder="Ingresar Zona Aqui" value="${todo.ZonasCBBA[0]}" required>
-					</div>
-					<label class="text-control" for="validationDefault05">Pasajes:</label>
-					<div class="form-group">
-					  <input type="text" name="pasaje" class="form-control" id="validationDefault05" placeholder="Ingresar Pasaje + Mayores Aqui *" value="${todo.Pasajes[0]}" required>
-					</div>
-					<div class="form-group">
-						<input type="text" name="pasaje" class="form-control" id="validationDefault05" placeholder="Ingresar Pasaje + Discapacidad Aqui *" value="${todo.Pasajes[1]}" required>
-					</div>
-					<div class="form-group">
-						<input type="text" name="pasaje" class="form-control" id="validationDefault05" placeholder="Ingresar Pasaje + Universitario Aqui *" value="${todo.Pasajes[2]}" required>
-					</div>
-					<div class="form-group">
-						<input type="text" name="pasaje" class="form-control" id="validationDefault05" placeholder="Ingresar Pasaje + Estudiantes Aqui *" value="${todo.Pasajes[3]}" required>
-					</div>
-					<label class="text-control" for="validationDefault06">Calles:</label>
-					<div class="form-group">
-					  <input type="text" name="calle" class="form-control" id="validationDefault06" placeholder="Ingresar Calle 1 Aqui *" value="${todo.Calles[0]}" required>
-					</div>
-					<div class="form-group">
-						<input type="text" name="calle" class="form-control" id="validationDefault06" placeholder="Ingresar Calle 2(Opcional) Aqui *" value="${todo.Calles[1]}">
-					</div>
-					<div class="form-group">
-						<input type="text" name="calle" class="form-control" id="validationDefault06" placeholder="Ingresar Calle 3(Opcional) Aqui *" value="${todo.Calles[2]}">
-					</div>
-					<div class="form-group">
-						<input type="text" name="calle" class="form-control" id="validationDefault06" placeholder="Ingresar Calle 4(Opcional) Aqui *" value="${todo.Calles[3]}">
-					</div>
-					<label class="text-control" for="validationDefault07">Telefonos:</label>
-					<div class="form-group">
-					  <input type="text" name="telefono" class="form-control" id="validationDefault07" placeholder="Ingresar Telefono(Opcional) Aqui *" value="${todo.Telefonos[0]}" >
-					</div>
-					<div class="form-group">
-						<input type="text" name="telefono" class="form-control" id="validationDefault07" placeholder="Ingresar Telefono(Opcional) Aqui *" value="${todo.Telefonos[1]}" >
-					</div>
-					<label class="text-control" for="validationDefault08">Horario:</label>
-					<div class="form-group">
-					  <input type="text" name="horario" class="form-control" id="validationDefault08" placeholder="Ingresar Horario Aqui *" value="${todo.Horarios}" required>
-					</div>
-					<br>
-					<hr>
-					<br>
-					<h3>Rutas:</h3>
-					<br>
-					<div class="row g-3 align-items-center">
-						<div class="col-auto">
-							<a id="boton link" target="_blank"  class="form-control btn btn-primary" href='https://www.google.com.bo/maps'"> 
-								<h6>Entrar a Google Maps</h6>
-						   </a>
-						   </div>
-						   <div class="col-auto">
-							<span id="passwordHelpInline" class="form-text">
-								Usa este link para copiar y cambiar las cordenadas de la lista
-							</span>
-						  </div>
-						  <div class="col-auto"></div>
-					</div>
-				   <br>
-				   <h3>Ruta Ida</h3>
-				   <br>
-					<div class="form-group">
-						<div class="input-group mb-3">
-							<span class="input-group-text" id="sentido">Sentido</span>
-							<input type="text" name="ruta1" class="form-control" aria-describedby="sentido" id="validationDefault09" placeholder="Ingresar el sentido ruta de ida aqui" value="${todo.Rutas[0].Sentido}" required>
-							
-						</div>
-						<div class="form-text">Añade un sentido de ruta como: NORTE-SUR.</div>
-						<br>
-						<input type="hidden" name="color1" value="rojo">
-						<div id="cantidadIda">
 					
-						</div>
-						<div id="cantPuntosIda1">
-					
-						</div>
-						<div id="cantPuntosIda2">
-					
-				        </div>
-					</div>
-					
-					<br>
-					<hr>
-					<br>
-					<h3>Ruta Vuelta</h3>
-					<br>
-					<div class="form-group">
-						<div class="input-group mb-3">
-							<span class="input-group-text" id="sentido">Sentido</span>
-							<input type="text" name="ruta2" aria-describedby="sentido" class="form-control" id="validationDefault10" placeholder="Ingresar el sentido ruta de vuelta aqui" value="${todo.Rutas[1].Sentido}" required>
-							
-						</div>
-						<div class="form-text">Añade un sentido de ruta contrario a la ruta de ida como: SUR-NORTE.</div>
-						<br>
-						<input type="hidden" name="color2" value="azul">
-						<div id="cantidadVuelta">
-					
-						</div>
-						<div id="cantPuntosVuelta1">
-					
-						</div>
-						<div id="cantPuntosVuelta2">
-					
-			        	</div>
-					</div>
-					
-					
-					<br />
-				<input class="btnSubmit" type="submit" value="Modificar">
-			</form>
-				 `;
-				 document.querySelector('#cantidadIda').innerHTML += `
+				/* document.querySelector('#cantidadIda').innerHTML += `
 				    <input type="hidden" name="cantIda" value="${cantIda}">
 				    `;
 			    	document.querySelector('#cantidadVuelta').innerHTML += `
 				    <input type="hidden" name="cantVuelta" value="${cantVuelta}">
-				    `;
+				    `;*/
 					if(cantIda>0 && auxIda>0){
 					for (let index = 0; index < auxIda; index++) {
 						document.querySelector('#cantPuntosIda1').innerHTML += `
@@ -334,6 +394,7 @@ var _idVar = getParameterByName('_id');
 		
 	})
 	.catch(err => console.error(err));
+	             
   });
   	  </script>
 	  	<script>
@@ -432,19 +493,6 @@ var _idVar = getParameterByName('_id');
 					<br>
 					<h3>Rutas:</h3>
 					<br>
-					<div class="row g-3 align-items-center">
-						<div class="col-auto">
-							<a id="boton link" target="_blank"  class="form-control btn btn-primary" href='https://www.google.com.bo/maps'"> 
-								<h6>Entrar a Google Maps</h6>
-						   </a>
-						   </div>
-						   <div class="col-auto">
-							<span id="passwordHelpInline" class="form-text">
-								Usa este link para copiar y cambiar las cordenadas de la lista
-							</span>
-						  </div>
-						  <div class="col-auto"></div>
-					</div>
 				   <br>
 				   <h3>Ruta Ida</h3>
 				   <br>
@@ -457,6 +505,7 @@ var _idVar = getParameterByName('_id');
 						<div class="form-text">Añade un sentido de ruta como: NORTE-SUR.</div>
 						<br>
 						<input type="hidden" name="color1" value="rojo">
+						<div id="googleMap1" style="width:100%;height:400px;"></div>
 						<div id="cantidadIda">
 					
 						</div>
@@ -482,6 +531,7 @@ var _idVar = getParameterByName('_id');
 						<div class="form-text">Añade un sentido de ruta contrario a la ruta de ida como: SUR-NORTE.</div>
 						<br>
 						<input type="hidden" name="color2" value="azul">
+						<div id="googleMap2" style="width:100%;height:400px;"></div>
 						<div id="cantidadVuelta">
 					
 						</div>
@@ -606,7 +656,7 @@ var _idVar = getParameterByName('_id');
                window.history.back();
             }
 			//Carga los datos establecidos en el metodo GenerarListadeLineas
-			GenerarListadeLineas();
+		
 				var form = document.getElementById("formPrincipal");
 			//Cuando se de click al submit se presentara la siguiente operacion de validaciones para los campos text que requieran ser numericos
     form.onsubmit = function() {
@@ -670,4 +720,138 @@ var _idVar = getParameterByName('_id');
         }
 	return true;
     }
-			</script>
+	let map1,map2;
+    var count=0;
+	var markers1=[];
+	var markers2=[];
+    function initMap() {
+		const cochabamba ={lat: -17.387783, lng: -66.155871}
+        map1 = new google.maps.Map(document.getElementById("googleMap1"), {
+        center: cochabamba,
+		disableDoubleClickZoom: true,
+        zoom: 13,
+      });
+        map2 = new google.maps.Map(document.getElementById("googleMap2"), {
+        center: cochabamba,
+		disableDoubleClickZoom: true,
+        zoom: 13,
+      });
+      google.maps.event.addListener(map1, "dblclick", (event) => {
+			addMarker1(event.latLng, map1);
+			var myLatLng = event.latLng;
+			var lat = myLatLng.lat();
+            var lng = myLatLng.lng();
+			document.querySelector('#cantPuntosIda1').innerHTML += `
+			<div class="row g-3 align-items-center">
+						<div class="col-auto">
+							<div class="input-group mb-3">
+                                <span class="input-group-text" id="lat1">Latitud</span>
+								<input type="text" name="lat1" class="form-control" id="lat1" value="${lat}"  required>
+                            </div>
+						</div>
+						<div class="col-auto">
+							<div class="input-group mb-3">
+                                <span class="input-group-text" id="lng1">Longitud</span>
+								<input type="text" name="lng1" class="form-control" id="lng1" value="${lng}"  required>
+                            </div>
+						</div>		
+			</div>
+		`;			
+			
+      });
+	  google.maps.event.addListener(map2, "dblclick", (event) => {
+			addMarker2(event.latLng, map2);
+			var myLatLng = event.latLng;
+            var lat = myLatLng.lat();
+            var lng = myLatLng.lng();
+			document.querySelector('#cantPuntosVuelta1').innerHTML += `
+			<div class="row g-3 align-items-center">
+						<div class="col-auto">
+							<div class="input-group mb-3">
+                                <span class="input-group-text" id="lat2">Latitud</span>
+								<input type="text" name="lat2" class="form-control" id="lat2" value="${lat}"  required>
+                            </div>
+						</div>
+						<div class="col-auto">
+							<div class="input-group mb-3">
+                                <span class="input-group-text" id="lng2">Longitud</span>
+								<input type="text" name="lng2" class="form-control" id="lng2" value="${lng}"  required>
+                            </div>
+						</div>		
+			</div>
+		`;				
+			
+         
+			count++;
+      });
+    }
+	function addMarker1(location, map) {
+        var marker1 = new google.maps.Marker({
+        position: location,
+        map: map
+     });
+	 marker1.addListener("dblclick", function() {
+     marker1.setMap(null);
+     });
+    markers1.push(marker1);
+    }
+	 function addMarker2(location, map) {
+        var marker2 = new google.maps.Marker({
+        position: location,
+        map: map
+     });
+
+     marker2.addListener("dblclick", function() {
+     marker2.setMap(null);
+     });
+    markers2.push(marker2);
+    }
+	function setMapOnAll1(map) {
+    for (var i = 0; i < markers1.length; i++) {
+    markers1[i].setMap(map1);
+    }
+    }    
+
+    function clearMarkers1() {
+    setMapOnAll1(null);
+
+    }
+
+    function showMarkers1() {
+    setMapOnAll1(map1);
+    }
+    function deleteMarkers1() {
+    clearMarkers1();
+	document.querySelector('#cantPuntosIda1').innerHTML = ``;
+    markers1 = [];
+    }
+	function setMapOnAll2(map) {
+    for (var i = 0; i < markers2.length; i++) {
+    markers2[i].setMap(map2);
+    }
+    }    
+
+    function clearMarkers2() {
+    setMapOnAll2(null);
+
+    }
+
+    function showMarkers2() {
+    setMapOnAll1(map2);
+    }
+    function deleteMarkers2() {
+		console.log(markers2);
+
+    clearMarkers2();
+	document.querySelector('#cantPuntosVuelta1').innerHTML = ``;
+    markers2 = [];
+    }
+
+
+    document.getElementById("delete-markers1").addEventListener("click", deleteMarkers1);
+	document.getElementById("delete-markers2").addEventListener("click", deleteMarkers2);
+		</script>
+		 <script
+		 src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBY0Y6-0YKuzrsaoPmY4SjJAx93J6yeJb8&callback=initMap&v=weekly"
+		 async
+	   ></script>

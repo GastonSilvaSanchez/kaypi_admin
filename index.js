@@ -72,11 +72,11 @@ app.get('/listPuntos',consultPuntosEstrategicos);
 
 
 app.post('/guardarLinea',function(req,res){
-    var contR1 = req.body.cantIda;
-    var contR2 = req.body.cantVuelta;
+    var contR1 = req.body.lat1;
+    var contR2 = req.body.lat2;
 
     var PuntosList1 = [];
-    for (let index = 0; index < contR1; index++) {
+    for (let index = 0; index < contR1.length; index++) {
       var singleObj = {};
       singleObj['lat'] =  parseFloat(req.body.lat1[index]);
       singleObj['lng'] =  parseFloat(req.body.lng1[index]);
@@ -88,7 +88,7 @@ app.post('/guardarLinea',function(req,res){
       Puntos: PuntosList1,
     };
     var PuntosList2 = [];
-    for (let index = 0; index < contR2; index++) {
+    for (let index = 0; index < contR2.length; index++) {
       var singleObj = {};
       singleObj['lat'] =  parseFloat(req.body.lat2[index]);
       singleObj['lng'] =  parseFloat(req.body.lng2[index]);
@@ -132,11 +132,9 @@ app.post('/guardarPunto',function(req,res){
         ZonasCBBA: req.body.zona,
         Lineas: req.body.lineas,
         Descripcion: req.body.descripcion,
-        Punto: {lat:parseFloat(req.body.latitud), lng: parseFloat(req.body.longitud)},
+        Punto: {lat:parseFloat(req.body.lat), lng: parseFloat(req.body.lng)},
         Marcador: "Imagen.png" 
      },{ versionKey: false });
-     console.log(req.body);
-
     puntos.save(function (err) {
   if (err) return handleError(err);
   else

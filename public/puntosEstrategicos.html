@@ -75,14 +75,31 @@
 				    <div class="form-group">
 					  <textarea name="lineas" class="form-control" id="validationTextarea" placeholder="Ingrese la linea" required></textarea>
 					</div>									
-				<label class="text-control" for="lat">Latitud:</label>
+				<label class="text-control" for="lat">Mapa:</label>
 					<div class="form-group">
-					  <input type="text" name="latitud" class="form-control" id="lat" value="" required>
+					 <div class="row g-3">
+							<div class="col-4"></div>
+							<div class="col-4">
+								<input id="delete-markers" type="button" value="Eliminar marcador" class="btn btn-danger btn-sm" />
+							</div>
+							<div class="col-4"></div>
+					  <div id="googleMap" style="width:100%;height:400px;"></div>
+					 
+					  
+					</div>
+					
+					<br>
+
+					
+					<br>
+					<label class="text-control" for="lat">Latitud:</label>
+					<div class="form-group">
+					  <input type="text" name="lat" class="form-control" id="lat" >
 					</div>
 				<label class="text-control" class="text-control" for="lng">Longitud:</label>
 					<div class="form-group">
-					  <input type="text" name="longitud" class="form-control" id="lng" value="" required>
-					</div>					
+					  <input type="text" name="lng" class="form-control" id="lng" >
+					</div>		
 				<label class="text-control" for="validationTextarea">Descripción:</label>
 					<div class="form-group">
 					<textarea name="descripcion" class="form-control" id="validationTextarea" placeholder="Ingrese la descripcion" required></textarea>
@@ -119,5 +136,66 @@
         }
 	return true;
     }
+	let map;
+    var count=0;
+	var markers=[];
+    function initMap() {
+		const cochabamba ={lat: -17.387783, lng: -66.155871}
+        map = new google.maps.Map(document.getElementById("googleMap"), {
+        center: cochabamba,
+		disableDoubleClickZoom: true,
+        zoom: 12,
+      });
+      google.maps.event.addListener(map, "dblclick", (event) => {
+		if (count<1) {
+			addMarker(event.latLng, map);
+			var myLatLng = event.latLng;
+            var lat = myLatLng.lat();
+            var lng = myLatLng.lng();	
+            document.getElementById("lat").value = lat.toString();
+	        document.getElementById("lng").value = lng.toString();
+			count++;
+		}
+        
+      });
+    }
+	function addMarker(location, map) {
+var marker = new google.maps.Marker({
+position: location,
+map: map
+});
+marker.addListener("dblclick", function() {
+marker.setMap(null);
+count--;
+});
+markers.push(marker);
+}
+
+// Sets the map on all markers in the array.
+function setMapOnAll(map) {
+for (var i = 0; i < markers.length; i++) {
+markers[i].setMap(map);
+}
+}
+
+function clearMarkers() {
+setMapOnAll(null);
+count--;
+}
+
+function showMarkers() {
+setMapOnAll(map);
+}
+function deleteMarkers() {
+clearMarkers();
+markers = [];
+}
+document
+    .getElementById("delete-markers")
+    .addEventListener("click", deleteMarkers);
 	</script>
+	 <script
+	 src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBY0Y6-0YKuzrsaoPmY4SjJAx93J6yeJb8&callback=initMap&v=weekly"
+	 async
+   ></script>
 </html>
