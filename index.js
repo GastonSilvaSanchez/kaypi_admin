@@ -146,10 +146,13 @@ app.post('/guardarPunto',function(req,res){
 
 //Modify para lineas y puntos
 app.post('/modificarLinea',function(req,res){
-  var contR1 = req.body.cantIda;
-    var contR2 = req.body.cantVuelta;
+    console.log(req.body);
+    var contR1 = req.body.lat1;
+    console.log(contR1);
+    var contR2 = req.body.lat2;
+    console.log(contR2);
     var PuntosList1 = [];
-    for (let index = 0; index < contR1; index++) {
+    for (let index = 0; index < contR1.length; index++) {
       var singleObj = {};
       singleObj['lat'] =  parseFloat(req.body.lat1[index]);
       singleObj['lng'] =  parseFloat(req.body.lng1[index]);
@@ -161,12 +164,13 @@ app.post('/modificarLinea',function(req,res){
       Puntos: PuntosList1,
     };
     var PuntosList2 = [];
-    for (let index = 0; index < contR2; index++) {
+    for (let index = 0; index < contR2.length; index++) {
       var singleObj = {};
       singleObj['lat'] =  parseFloat(req.body.lat2[index]);
       singleObj['lng'] =  parseFloat(req.body.lng2[index]);
       PuntosList2.push(singleObj);
     }
+    
     console.log(PuntosList1)
     console.log(PuntosList2)
     var ruta2 = {
@@ -174,6 +178,8 @@ app.post('/modificarLinea',function(req,res){
       Color: req.body.color2,
       Puntos: PuntosList2,
     };
+    console.log(ruta1)
+    console.log(ruta2)
     var upd={
       Nombre: req.body.nombre,
       Categoria:req.body.categoria,

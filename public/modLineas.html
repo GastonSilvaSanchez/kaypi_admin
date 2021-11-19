@@ -283,6 +283,24 @@ var _idVar = getParameterByName('_id');
 					for (let index = 0; index < ruta2.Puntos.length; index++) {
 						addMarker2( { lat: parseFloat(ruta2.Puntos[index].lat), lng: parseFloat(ruta2.Puntos[index].lng) }, map2);
 					}
+                   const polylines1 = new google.maps.Polyline({
+                     path: ruta1.Puntos,
+                     geodesic: true,
+                     strokeColor: "#FF0000",
+                     strokeOpacity: 1.0,
+                     strokeWeight: 2,
+                   });
+                 
+                   polylines1.setMap(map1);
+				   const polylines2 = new google.maps.Polyline({
+                     path: ruta2.Puntos,
+                     geodesic: true,
+                     strokeColor: "#0000FF",
+                     strokeOpacity: 1.0,
+                     strokeWeight: 2,
+                   });
+                 
+                   polylines2.setMap(map2);                   
 
 
 					auxIda= todo.Rutas[0].Puntos.length;
@@ -846,10 +864,24 @@ var _idVar = getParameterByName('_id');
 	document.querySelector('#cantPuntosVuelta1').innerHTML = ``;
     markers2 = [];
     }
+	function removeMarkers1(){
+	document.querySelector('#cantPuntosIda1').innerHTML = ``;
+    for(i=0; i<markers1.length; i++){
+        markers1[i].setMap(null);
+    }
+	markers1 = [];
+    }
+	function removeMarkers2(){
+	document.querySelector('#cantPuntosVuelta1').innerHTML = ``;
+    for(i=0; i<markers2.length; i++){
+        markers2[i].setMap(null);
+    }
+	markers2 = [];
+    }
 
 
-    document.getElementById("delete-markers1").addEventListener("click", deleteMarkers1);
-	document.getElementById("delete-markers2").addEventListener("click", deleteMarkers2);
+    document.getElementById("delete-markers1").addEventListener("click", removeMarkers1);
+	document.getElementById("delete-markers2").addEventListener("click", removeMarkers2);
 		</script>
 		 <script
 		 src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBY0Y6-0YKuzrsaoPmY4SjJAx93J6yeJb8&callback=initMap&v=weekly"
