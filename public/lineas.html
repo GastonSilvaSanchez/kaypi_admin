@@ -137,10 +137,21 @@
 						<br>
 						<input type="hidden" name="color1" value="rojo">
 						<div id="googleMap1" style="width:100%;height:400px;"></div>
+						<div class="form-text">Doble Click Para Agregar un marcador.</div>
 						<br>
+						<div class="row">
+							<div class="col-auto">
+								<input id="delete-markers1" type="button" value="Eliminar Lista de Marcadores Para Trazar la Linea con nuevas modificaciones" class="btn btn-danger btn-sm" />
+								<div class="form-text">Elimina los puntos y traza una ruta basandote en la linea de la ruta anteriormente ingresada.</div>
+							</div>
+							<div class="col-auto"></div>
+						</div>
 						<br>
 						
 						<div id="cantIda">
+					
+						</div>
+						<div id="cantIda2">
 					
 						</div>
 					</div>
@@ -160,9 +171,21 @@
 						<br>
 						<input type="hidden" name="color2" value="azul">
 						<div id="googleMap2" style="width:100%;height:400px;"></div>
+						<div class="form-text">Doble Click Para Agregar un marcador.</div>
+						<br>
+						<div class="row">
+							<div class="col-auto">
+								<input id="delete-markers2" type="button" value="Eliminar Lista de Marcadores Para Trazar la Linea con nuevas modificaciones" class="btn btn-danger btn-sm" />
+								<div class="form-text">Elimina los puntos y traza una ruta basandote en la linea de la ruta anteriormente ingresada.</div>
+							</div>
+							<div class="col-auto"></div>
+						</div>
 						<br>
 						<br>
 						<div id="cantVuelta">
+					
+						</div>
+						<div id="cantVuelta2">
 					
 						</div>
 					</div>
@@ -282,7 +305,7 @@
         center: cochabamba,
 		disableDoubleClickZoom: true,
 		streetViewControl: false,
-        zoom: 13,
+        zoom: 13,  
       });
         map2 = new google.maps.Map(document.getElementById("googleMap2"), {
         center: cochabamba,
@@ -291,6 +314,7 @@
         zoom: 13,
       });
       google.maps.event.addListener(map1, "dblclick", (event) => {
+		document.querySelector('#cantIda2').innerHTML = ``;
 			addMarker1(event.latLng, map1);
 			var myLatLng = event.latLng;
 			var lat = myLatLng.lat();
@@ -314,6 +338,7 @@
 			
       });
 	  google.maps.event.addListener(map2, "dblclick", (event) => {
+		document.querySelector('#cantVuelta2').innerHTML = ``;
 			addMarker2(event.latLng, map2);
 			var myLatLng = event.latLng;
             var lat = myLatLng.lat();
@@ -396,10 +421,78 @@
     clearMarkers2();
     markers2 = [];
     }
+	function removeMarkers1(){
+	document.querySelector('#cantIda').innerHTML = ``;
+	document.querySelector('#cantIda2').innerHTML += `
+					<div class="row g-3 align-items-center">
+								<div class="col-auto">
+									<div class="input-group mb-3">
+										<span class="input-group-text">Latitud</span>
+										<input type="text" class="form-control" name="lat1" id="lat1" placeholder="Ingrese la latitud" aria-label="Latitud" aria-describedby="lat" required>
+									</div>
+						
+								</div>
+								<div class="col-auto">
+									<div class="input-group mb-3">
+										<span class="input-group-text">Longitud</span>
+										<input type="text" class="form-control" id="lng1" name="lng1" placeholder="Ingrese la longitud" aria-label="Longitud" aria-describedby="lng" required>
+									</div>
+								</div>
+								<div class="col-auto">
+									<div class="card" style="width: 25rem;">
+                                      <img class="card-img-top" src="./img/routeGuide.gif" alt="Card image cap">
+                                    </div>
+									<div class="card-footer">
+                                      <small class="text-primary">Llene el formulario guiandose en las lineas para hacer las respectivas modificaciones</small>
+                                    </div>
+								</div>
+					</div>
+					<div class="form-text text-danger">Se requiere recargar las puntos o insertar nuevos en el respectivo mapa</div>
+				`;			
+	
+    for(i=0; i<markers1.length; i++){
+        markers1[i].setMap(null);
+    }
+	markers1 = [];
+    }
+	function removeMarkers2(){
+	document.querySelector('#cantVuelta').innerHTML = ``;
+	document.querySelector('#cantVuelta2').innerHTML += `
+					<div class="row g-3 align-items-center">
+								<div class="col-auto">
+									<div class="input-group mb-3">
+										<span class="input-group-text">Latitud</span>
+										<input type="text" class="form-control" name="lat2" id="lat2" placeholder="Ingrese la latitud" aria-label="Latitud" aria-describedby="lat" required>
+									</div>
+						
+								</div>
+								<div class="col-auto">
+									<div class="input-group mb-3">
+										<span class="input-group-text">Longitud</span>
+										<input type="text" class="form-control" id="lng2" name="lng2" placeholder="Ingrese la longitud" aria-label="Longitud" aria-describedby="lng" required>
+									</div>
+								</div>
+								<div class="col-auto">
+									<div class="card" style="width: 25rem;">
+                                      <img class="card-img-top" src="./img/routeGuide.gif" alt="Card image cap">
+                                    </div>
+									<div class="card-footer">
+									  <small class="text-primary">Llene el formulario guiandose en las lineas para hacer las respectivas modificaciones</small>
+                                    </div>
+								</div>
+					</div>
+					<div class="form-text text-danger">Se requiere recargar las puntos o insertar nuevos en el respectivo mapa</div>
+					
+				`;			
+	
+    for(i=0; i<markers2.length; i++){
+        markers2[i].setMap(null);
+    }
+	markers2 = [];
+    }
 
-
-    document.getElementById("delete-markers1").addEventListener("click", deleteMarkers1);
-	document.getElementById("delete-markers2").addEventListener("click", deleteMarkers2);
+	document.getElementById("delete-markers1").addEventListener("click", removeMarkers1);
+	document.getElementById("delete-markers2").addEventListener("click", removeMarkers2);
 		</script>
 		 <script
 		 src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBY0Y6-0YKuzrsaoPmY4SjJAx93J6yeJb8&callback=initMap&v=weekly"
