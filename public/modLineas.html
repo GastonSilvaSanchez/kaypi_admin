@@ -61,7 +61,6 @@
 				</div>	
 				<form action="/modificarLinea" method="post" id="formPrincipal" class="form-content" visibility="hidden">
 					<input name="_id" id="_id" hidden>
-			<input type="text" name="_id1" class="form-control" name="_id1"  disabled>
 			<label class="text-control" for="nombre">Nombre de Linea:</label>
 			  <div class="form-group">
 				  <input type="text" name="nombre" class="form-control" id="nombre" placeholder="Ingresar Linea + numero o letra de la linea *"  required>
@@ -115,9 +114,10 @@
 				<br>
 				<h3>Rutas:</h3>
 				<br>
-			   <h3>Ruta Ida</h3>
-			   <br>
+			    <h3>Ruta Ida</h3>
+			    <br>
 				<div class="form-group">
+					
 					<div class="input-group mb-3">
 						<span class="input-group-text" id="sentido1">Sentido</span>
 						<input type="text" name="ruta1" class="form-control" aria-describedby="sentido1" id="ida"  required>
@@ -129,7 +129,17 @@
 
 					<div id="googleMap1" style="width:100%;height:400px;"></div>
 					<br>
-					<input id="delete-markers1" type="button" value="Eliminar Lista de Marcadores" class="btn btn-danger btn-sm" />
+					<div class="row">
+						<div class="col-auto">
+							<input id="delete-markers1" type="button" value="Eliminar Lista de Marcadores Para Trazar la Linea con nuevas modificaciones" class="btn btn-danger btn-sm" />
+							<div class="form-text">Elimina los puntos y traza una ruta basandote en la linea de la ruta anteriormente ingresada.</div>
+						</div>
+						<div class="col-auto"></div>
+						<div class="col-auto">
+							<input id="reload-markers1" type="button" value="Cargar Puntos Anteriormente Asignados" class="btn btn-primary btn-sm" />
+							<div class="form-text">Recarga los puntos anteriormente registrados.</div>
+						</div>
+					</div>
 					<br>
 					<br>
 
@@ -139,7 +149,7 @@
 					<div id="cantPuntosIda1">
 				
 					</div>
-					<div id="cantPuntosIda2">
+					<div id="cantPuntosIda2"></div>
 				</div>
 				
 				<br>
@@ -160,8 +170,17 @@
 					<div id="googleMap2" style="width:100%;height:400px;"></div>
 					<br>
 					<br>
-					<input id="delete-markers2" type="button" value="Eliminar Lista de Marcadores" class="btn btn-danger btn-sm" />
-					<br>
+					<div class="row">
+						<div class="col-auto">
+							<input id="delete-markers2" type="button" value="Eliminar Lista de Marcadores Para Trazar la Linea con nuevas modificaciones" class="btn btn-danger btn-sm" />
+							<div class="form-text">Elimina los puntos y traza una ruta basandote en la linea de la ruta anteriormente ingresada.</div>
+						</div>
+						<div class="col-auto"></div>
+						<div class="col-auto">
+							<input id="reload-markers2" type="button" value="Cargar Puntos Anteriormente Asignados" class="btn btn-primary btn-sm" />
+							<div class="form-text">Recarga los puntos anteriormente registrados.</div>
+						</div>
+					</div>					<br>
 					<br>
 					<div id="cantidadVuelta">
 					
@@ -197,11 +216,13 @@ var _idVar = getParameterByName('_id');
 </script>
 
 <script type="text/javascript">
-	var auxIda =0,
-	 auxVuelta =0;
+	var auxIda =0;
+	var auxVuelta =0;
 	 var tel=0;
 	 var calle=0;
 	 var todoObj;
+	 var ruta1;
+	 var ruta2;
 	 //Carga los datos de listLineas con la diferencia que busca a una similitud de ids para cargar la linea que se requiere modiicar
 	window.addEventListener('DOMContentLoaded', (e) =>{
 	fetch('http://localhost:3000/listLineas')
@@ -227,8 +248,8 @@ var _idVar = getParameterByName('_id');
 					var zona= todoObj.ZonasCBBA[0];
 					var telefonos= todoObj.Telefonos;
 					var horarios= todoObj.Horarios;
-					var ruta1= todoObj.Rutas[0];
-					var ruta2= todoObj.Rutas[1];
+					ruta1= todoObj.Rutas[0];
+					ruta2= todoObj.Rutas[1];
 					document.getElementById('_id').value =id;
 					//document.getElementById('_id1').value =id;
 					document.getElementById('nombre').value =nombre;
@@ -246,7 +267,7 @@ var _idVar = getParameterByName('_id');
 						<div class="row g-3 align-items-center">
 						 <div class="col-auto">
 							<div class="input-group mb-3">
-                                <span class="input-group-text" id="tel1">Telefono ${index}</span>
+                                <span class="input-group-text" id="tel1">Telefono ${index+1}</span>
 								<input type="text" name="telefono" class="form-control" id="tel1" placeholder="Ingresar Telefono Numero ${index}" value="${telefonos[index]}" required>
                             </div>
 				
@@ -261,7 +282,7 @@ var _idVar = getParameterByName('_id');
 						<div class="row g-3 align-items-center">
 						 <div class="col-auto">
 							<div class="input-group mb-3">
-                                <span class="input-group-text" id="calle">Calle ${index}</span>
+                                <span class="input-group-text" id="calle">Calle ${index+1}</span>
 								<input type="text" name="calle" class="form-control" id="calle" placeholder="Ingresar Calle Numero ${index}" value="${calles[index]}" required>
                             </div>
 				
@@ -289,6 +310,7 @@ var _idVar = getParameterByName('_id');
                      strokeColor: "#FF0000",
                      strokeOpacity: 1.0,
                      strokeWeight: 2,
+					 clickable: false
                    });
                  
                    polylines1.setMap(map1);
@@ -298,6 +320,7 @@ var _idVar = getParameterByName('_id');
                      strokeColor: "#0000FF",
                      strokeOpacity: 1.0,
                      strokeWeight: 2,
+					 clickable: false
                    });
                  
                    polylines2.setMap(map2);  
@@ -330,15 +353,15 @@ var _idVar = getParameterByName('_id');
 					<div class="row g-3 align-items-center">
 								<div class="col-auto">
 									<div class="input-group mb-3">
-										<span class="input-group-text" id="lat1">Latitud ${index}</span>
-										<input type="text" class="form-control" name="lat1" id="lat1" placeholder="Ingrese la latitud ${index}" value="${todo.Rutas[0].Puntos[index].lat}" aria-label="Latitud" aria-describedby="lat" required>
+										<span class="input-group-text" id="lat1">Latitud</span>
+										<input type="text" class="form-control" name="lat1" id="lat1" placeholder="Ingrese la latitud" value="${todo.Rutas[0].Puntos[index].lat}" aria-label="Latitud" aria-describedby="lat" required>
 									</div>
 						
 								</div>
 								<div class="col-auto">
 									<div class="input-group mb-3">
-										<span class="input-group-text" id="lng1">Longitud ${index}</span>
-										<input type="text" class="form-control" id="lng1" name="lng1" placeholder="Ingrese la longitud ${index}" value="${todo.Rutas[0].Puntos[index].lng}" aria-label="Longitud" aria-describedby="lng" required>
+										<span class="input-group-text" id="lng1">Longitud</span>
+										<input type="text" class="form-control" id="lng1" name="lng1" placeholder="Ingrese la longitud" value="${todo.Rutas[0].Puntos[index].lng}" aria-label="Longitud" aria-describedby="lng" required>
 									</div>
 								</div>
 					</div>
@@ -349,15 +372,15 @@ var _idVar = getParameterByName('_id');
 					<div class="row g-3 align-items-center">
 								<div class="col-auto">
 									<div class="input-group mb-3">
-										<span class="input-group-text" id="lat1">Latitud ${index}</span>
-										<input type="text" class="form-control" name="lat1" id="lat1" placeholder="Ingrese la latitud ${index}" value="${todo.Rutas[0].Puntos[index].lat}" aria-label="Latitud" aria-describedby="lat" required>
+										<span class="input-group-text" id="lat1">Latitud </span>
+										<input type="text" class="form-control" name="lat1" id="lat1" placeholder="Ingrese la latitud" value="${todo.Rutas[0].Puntos[index].lat}" aria-label="Latitud" aria-describedby="lat" required>
 									</div>
 						
 								</div>
 								<div class="col-auto">
 									<div class="input-group mb-3">
-										<span class="input-group-text" id="lng1">Longitud ${index}</span>
-										<input type="text" class="form-control" id="lng1" name="lng1" placeholder="Ingrese la longitud ${index}" value="${todo.Rutas[0].Puntos[index].lng}" aria-label="Longitud" aria-describedby="lng" required>
+										<span class="input-group-text" id="lng1">Longitud </span>
+										<input type="text" class="form-control" id="lng1" name="lng1" placeholder="Ingrese la longitud" value="${todo.Rutas[0].Puntos[index].lng}" aria-label="Longitud" aria-describedby="lng" required>
 									</div>
 								</div>
 					</div>
@@ -370,15 +393,15 @@ var _idVar = getParameterByName('_id');
 					<div class="row g-3 align-items-center">
 								<div class="col-auto">
 									<div class="input-group mb-3">
-										<span class="input-group-text" id="lat2">Latitud ${index}</span>
-										<input type="text" class="form-control" name="lat2" id="lat2" placeholder="Ingrese la latitud ${index}" value="${todo.Rutas[1].Puntos[index].lat}" aria-label="Latitud" aria-describedby="lat">
+										<span class="input-group-text" id="lat2">Latitud</span>
+										<input type="text" class="form-control" name="lat2" id="lat2" placeholder="Ingrese la latitud" value="${todo.Rutas[1].Puntos[index].lat}" aria-label="Latitud" aria-describedby="lat">
 									</div>
 						
 								</div>
 								<div class="col-auto">
 									<div class="input-group mb-3">
-										<span class="input-group-text" id="lng2">Longitud ${index}</span>
-										<input type="text" class="form-control" id="lng2" name="lng2" placeholder="Ingrese la longitud ${index}" value="${todo.Rutas[1].Puntos[index].lng}" aria-label="Longitud" aria-describedby="lng">
+										<span class="input-group-text" id="lng2">Longitud</span>
+										<input type="text" class="form-control" id="lng2" name="lng2" placeholder="Ingrese la longitud" value="${todo.Rutas[1].Puntos[index].lng}" aria-label="Longitud" aria-describedby="lng">
 									</div>
 								</div>
 					</div>
@@ -389,15 +412,15 @@ var _idVar = getParameterByName('_id');
 					<div class="row g-3 align-items-center">
 								<div class="col-auto">
 									<div class="input-group mb-3">
-										<span class="input-group-text" id="lat2">Latitud ${index}</span>
-										<input type="text" class="form-control" name="lat2" id="lat2" placeholder="Ingrese la latitud ${index}" value="${todo.Rutas[1].Puntos[index].lat}" aria-label="Latitud" aria-describedby="lat">
+										<span class="input-group-text" id="lat2">Latitud</span>
+										<input type="text" class="form-control" name="lat2" id="lat2" placeholder="Ingrese la latitud" value="${todo.Rutas[1].Puntos[index].lat}" aria-label="Latitud" aria-describedby="lat">
 									</div>
 						
 								</div>
 								<div class="col-auto">
 									<div class="input-group mb-3">
-										<span class="input-group-text" id="lng2">Longitud ${index}</span>
-										<input type="text" class="form-control" id="lng2" name="lng2" placeholder="Ingrese la longitud ${index}" value="${todo.Rutas[1].Puntos[index].lng}" aria-label="Longitud" aria-describedby="lng">
+										<span class="input-group-text" id="lng2">Longitud</span>
+										<input type="text" class="form-control" id="lng2" name="lng2" placeholder="Ingrese la longitud" value="${todo.Rutas[1].Puntos[index].lng}" aria-label="Longitud" aria-describedby="lng">
 									</div>
 								</div>
 					</div>
@@ -537,46 +560,23 @@ var _idVar = getParameterByName('_id');
 			//Carga los datos establecidos en el metodo GenerarListadeLineas
 		
 				var form = document.getElementById("formPrincipal");
+				
 			//Cuando se de click al submit se presentara la siguiente operacion de validaciones para los campos text que requieran ser numericos
     form.onsubmit = function() {
 		var telefono = document.getElementById("tel1").value;
-	var telefonoOpcional = document.getElementById("tel2").value;
-	var z = document.getElementById("lat1").value;
-	var x = document.getElementById("lat2").value;
-	var c = document.getElementById("lng1").value;
-	var v = document.getElementById("lng2").value;
-	var status = true;
-		if(telefonoOpcional.value=="" || telefonoOpcional.value==null){
-			if(typeof telefono == 'number' && telefono.length<7 ||telefono.length>14){
-			   alert("El telefono esta fuera del rango de caracteres establecido 7-14");
-			   return false;
-		    }
-			if(isNaN(telefono)){
-				alert("El campo de telefono debe contener solo caractes numericos");
-				return false;
-
-			}
+     	var z = document.getElementById("lat1").value;
+     	var x = document.getElementById("lat2").value;
+     	var c = document.getElementById("lng1").value;
+     	var v = document.getElementById("lng2").value;	
+		if(typeof telefono == 'number' && telefono.length<7 ||telefono.length>14){
+		   alert("El telefono esta fuera del rango de caracteres establecido 7-14");
+		   return false;
 		}
-		else{
-			if(telefono.length<7 ||telefono.length>14){
-			   alert("El telefono esta fuera del rango de caracteres establecido 7-14");
-			   return false;
-		    }
-			if(isNaN(telefono)){
-				alert("El campo de telefono debe contener solo caractes numericos");
-				return false;
+		if(isNaN(telefono)){
+			alert("El campo de telefono debe contener solo caractes numericos");
+			return false;
 
-			}
-			if(telefonoOpcional.length<7 ||telefonoOpcional.length>14){
-			   alert("El telefono esta fuera del rango de caracteres establecido 7-14");
-			   return false;
-		    }
-			if(isNaN(telefonoOpcional)){
-				alert("El campo de telefono debe contener solo caractes numericos");
-				return false;
-			}
-		}
-		
+		}	
 		if(isNaN(Math.abs(z)))
         {
         alert("Por favor solo ingrese caracteres numericos en los campos de latitud");
@@ -608,14 +608,17 @@ var _idVar = getParameterByName('_id');
         map1 = new google.maps.Map(document.getElementById("googleMap1"), {
         center: cochabamba,
 		disableDoubleClickZoom: true,
-        zoom: 13,
+		streetViewControl: false,
+        zoom: 13,  
       });
         map2 = new google.maps.Map(document.getElementById("googleMap2"), {
         center: cochabamba,
 		disableDoubleClickZoom: true,
+		streetViewControl: false,
         zoom: 13,
       });
       google.maps.event.addListener(map1, "dblclick", (event) => {
+		document.querySelector('#cantPuntosIda2').innerHTML = ``;
 			addMarker1(event.latLng, map1);
 			var myLatLng = event.latLng;
 			var lat = myLatLng.lat();
@@ -639,6 +642,7 @@ var _idVar = getParameterByName('_id');
 			
       });
 	  google.maps.event.addListener(map2, "dblclick", (event) => {
+		document.querySelector('#cantPuntosVuelta2').innerHTML = ``;
 			addMarker2(event.latLng, map2);
 			var myLatLng = event.latLng;
             var lat = myLatLng.lat();
@@ -727,6 +731,33 @@ var _idVar = getParameterByName('_id');
     }
 	function removeMarkers1(){
 	document.querySelector('#cantPuntosIda1').innerHTML = ``;
+	document.querySelector('#cantPuntosIda2').innerHTML += `
+					<div class="row g-3 align-items-center">
+								<div class="col-auto">
+									<div class="input-group mb-3">
+										<span class="input-group-text">Latitud</span>
+										<input type="text" class="form-control" name="lat1" id="lat1" placeholder="Ingrese la latitud" aria-label="Latitud" aria-describedby="lat" required>
+									</div>
+						
+								</div>
+								<div class="col-auto">
+									<div class="input-group mb-3">
+										<span class="input-group-text">Longitud</span>
+										<input type="text" class="form-control" id="lng1" name="lng1" placeholder="Ingrese la longitud" aria-label="Longitud" aria-describedby="lng" required>
+									</div>
+								</div>
+								<div class="col-auto">
+									<div class="card" style="width: 25rem;">
+                                      <img class="card-img-top" src="./img/routeGuide.gif" alt="Card image cap">
+                                    </div>
+									<div class="card-footer">
+                                      <small class="text-primary">Llene el formulario guiandose en las lineas para hacer las respectivas modificaciones</small>
+                                    </div>
+								</div>
+					</div>
+					<div class="form-text text-danger">Se requiere recargar las puntos o insertar nuevos en el respectivo mapa</div>
+				`;			
+	
     for(i=0; i<markers1.length; i++){
         markers1[i].setMap(null);
     }
@@ -734,15 +765,99 @@ var _idVar = getParameterByName('_id');
     }
 	function removeMarkers2(){
 	document.querySelector('#cantPuntosVuelta1').innerHTML = ``;
+	document.querySelector('#cantPuntosVuelta2').innerHTML += `
+					<div class="row g-3 align-items-center">
+								<div class="col-auto">
+									<div class="input-group mb-3">
+										<span class="input-group-text">Latitud</span>
+										<input type="text" class="form-control" name="lat2" id="lat2" placeholder="Ingrese la latitud" aria-label="Latitud" aria-describedby="lat" required>
+									</div>
+						
+								</div>
+								<div class="col-auto">
+									<div class="input-group mb-3">
+										<span class="input-group-text">Longitud</span>
+										<input type="text" class="form-control" id="lng2" name="lng2" placeholder="Ingrese la longitud" aria-label="Longitud" aria-describedby="lng" required>
+									</div>
+								</div>
+								<div class="col-auto">
+									<div class="card" style="width: 25rem;">
+                                      <img class="card-img-top" src="./img/routeGuide.gif" alt="Card image cap">
+                                    </div>
+									<div class="card-footer">
+									  <small class="text-primary">Llene el formulario guiandose en las lineas para hacer las respectivas modificaciones</small>
+                                    </div>
+								</div>
+					</div>
+					<div class="form-text text-danger">Se requiere recargar las puntos o insertar nuevos en el respectivo mapa</div>
+					
+				`;			
+	
     for(i=0; i<markers2.length; i++){
         markers2[i].setMap(null);
     }
 	markers2 = [];
     }
 
+    function reloadMarkers1() {
 
+		document.querySelector('#cantPuntosIda1').innerHTML = ``;
+		document.querySelector('#cantPuntosIda2').innerHTML = ``;
+		for (let index = 0; index < ruta1.Puntos.length; index++) {
+			addMarker1( { lat: parseFloat(ruta1.Puntos[index].lat), lng: parseFloat(ruta1.Puntos[index].lng) }, map1);
+		}	
+		for (let index = 0; index < ruta1.Puntos.length; index++) {
+						document.querySelector('#cantPuntosIda1').innerHTML += `
+					<div class="row g-3 align-items-center">
+								<div class="col-auto">
+									<div class="input-group mb-3">
+										<span class="input-group-text">Latitud</span>
+										<input type="text" class="form-control" name="lat1" id="lat1" placeholder="Ingrese la latitud" value="${ruta1.Puntos[index].lat}" aria-label="Latitud" aria-describedby="lat">
+									</div>
+						
+								</div>
+								<div class="col-auto">
+									<div class="input-group mb-3">
+										<span class="input-group-text">Longitud</span>
+										<input type="text" class="form-control" id="lng1" name="lng1" placeholder="Ingrese la longitud" value="${ruta1.Puntos[index].lng}" aria-label="Longitud" aria-describedby="lng">
+									</div>
+								</div>
+								
+					</div>
+				`;			
+			}		
+    }
+
+	function reloadMarkers2() {
+		document.querySelector('#cantPuntosVuelta1').innerHTML = ``;
+		document.querySelector('#cantPuntosVuelta2').innerHTML = ``;
+		for (let index = 0; index < ruta2.Puntos.length; index++) {
+			addMarker2( { lat: parseFloat(ruta2.Puntos[index].lat), lng: parseFloat(ruta2.Puntos[index].lng) }, map2);
+        }
+		for (let index = 0; index < ruta2.Puntos.length; index++) {
+						document.querySelector('#cantPuntosVuelta1').innerHTML += `
+					<div class="row g-3 align-items-center">
+								<div class="col-auto">
+									<div class="input-group mb-3">
+										<span class="input-group-text">Latitud</span>
+										<input type="text" class="form-control" name="lat2" id="lat2" placeholder="Ingrese la latitud" value="${ruta2.Puntos[index].lat}" aria-label="Latitud" aria-describedby="lat">
+									</div>
+						
+								</div>
+								<div class="col-auto">
+									<div class="input-group mb-3">
+										<span class="input-group-text">Longitud</span>
+										<input type="text" class="form-control" id="lng2" name="lng2" placeholder="Ingrese la longitud" value="${ruta2.Puntos[index].lng}" aria-label="Longitud" aria-describedby="lng">
+									</div>
+								</div>
+					</div>
+				`;			
+			}	
+	}
     document.getElementById("delete-markers1").addEventListener("click", removeMarkers1);
 	document.getElementById("delete-markers2").addEventListener("click", removeMarkers2);
+	document.getElementById("reload-markers1").addEventListener("click", reloadMarkers1);
+	document.getElementById("reload-markers2").addEventListener("click", reloadMarkers2);
 		</script>
 		 <script
 		 src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBY0Y6-0YKuzrsaoPmY4SjJAx93J6yeJb8&callback=initMap&v=weekly"

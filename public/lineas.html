@@ -215,8 +215,8 @@
 			<div class="row g-3 align-items-center">
 						<div class="col-auto">
 							<div class="input-group mb-3">
-                                <span class="input-group-text" id="calle">Calle ${index}</span>
-								<input type="text" name="calle" class="form-control" id="calle" placeholder="Ingresar Calle Numero ${index}" required>
+                                <span class="input-group-text" id="calle">Calle ${index+1}</span>
+								<input type="text" name="calle" class="form-control" id="calle" placeholder="Ingresar Calle Numero ${index+1}" required>
                             </div>
 				
 						</div>
@@ -228,8 +228,8 @@
 			<div class="row g-3 align-items-center">
 						<div class="col-auto">
 							<div class="input-group mb-3">
-                                <span class="input-group-text" id="tel1">Telefono ${index}</span>
-								<input type="text" name="telefono" class="form-control" id="tel1" placeholder="Ingresar Telefono ${index}" required>
+                                <span class="input-group-text" id="tel1">Telefono ${index+1}</span>
+								<input type="text" name="telefono" class="form-control" id="tel1" placeholder="Ingresar Telefono ${index+1}" required>
                             </div>
 						</div>	
 			</div>
@@ -281,11 +281,13 @@
         map1 = new google.maps.Map(document.getElementById("googleMap1"), {
         center: cochabamba,
 		disableDoubleClickZoom: true,
+		streetViewControl: false,
         zoom: 13,
       });
         map2 = new google.maps.Map(document.getElementById("googleMap2"), {
         center: cochabamba,
 		disableDoubleClickZoom: true,
+		streetViewControl: false,
         zoom: 13,
       });
       google.maps.event.addListener(map1, "dblclick", (event) => {
