@@ -47,14 +47,13 @@
 					</div>
                    
 					<div class="row g-3">
-						<label class="text-control" for="cantidadPuntos">Cambie la cantidad de puntos de las ruta de ida si requiere modificar:</label>
-						<input type="number" class="form-control" name="cantidadPunto1" id="cantidadPunto1" min="2" max="500">
-						<div class="form-text">Solo se podran agregar datos mayores a los mostrados al principio</div>
-						<label class="text-control" for="cantidadPuntos">Cambie la cantidad de puntos de las ruta de vuelta si requiere modificar:</label>
-						<input type="number" class="form-control" name="cantidadPunto2" id="cantidadPunto2" min="2" max="500">
-						<div class="form-text">Solo se podran agregar datos mayores a los mostrados al principio</div>
-						<!--<button onclick="RecargarForm()" class="btn btn-primary btn-lg">Cargar los campos para añadir cordenadas para modificar o agregar puntos </button>-->
-						<button onclick="reloadForm()" id="btnLoadLines" class="btn btn-primary btn-lg">Cargar nuevos puntos para las lineas de transporte </button>
+						<label class="text-control" for="cantidadPuntos">Ingrese la cantidad de calles de la linea:</label>
+						<input type="number" class="form-control" name="cantidadPunto1" id="cantidadPunto1" min="1" max="20">
+						<div class="form-text">El numero debe ser como minimo 1.</div>
+						<label class="text-control" for="cantidadPuntos">Ingrese la cantidad de telefonos:</label>
+						<input type="number" class="form-control" name="cantidadPunto2" id="cantidadPunto2" min="1" max="20">
+						<div class="form-text">El numero debe ser como minimo 1.</div>
+						<button onclick="GenerarListadeLineas()" id="btnLoadLines" class="btn btn-primary btn-lg">Cargar nuevos puntos para las lineas de transporte </button>
 						</div>
 					<div id="cargar">
 
@@ -200,7 +199,8 @@ var _idVar = getParameterByName('_id');
 <script type="text/javascript">
 	var auxIda =0,
 	 auxVuelta =0;
-
+	 var tel=0;
+	 var calle=0;
 	 var todoObj;
 	 //Carga los datos de listLineas con la diferencia que busca a una similitud de ids para cargar la linea que se requiere modiicar
 	window.addEventListener('DOMContentLoaded', (e) =>{
@@ -300,17 +300,22 @@ var _idVar = getParameterByName('_id');
                      strokeWeight: 2,
                    });
                  
-                   polylines2.setMap(map2);                   
-
+                   polylines2.setMap(map2);  
+				   
+				   tel =telefonos.length;
+				   calle =calles.length;
+				   document.getElementById('cantidadPunto1').value =calle;
+				   document.getElementById('cantidadPunto2').value =tel;
 
 					auxIda= todo.Rutas[0].Puntos.length;
+					
 					auxVuelta= todo.Rutas[1].Puntos.length;
-					document.getElementById('cantidadPunto1').value=auxIda;
-	                document.getElementById('cantidadPunto2').value=auxVuelta;
+				
+
 					todoObj=todo;
 					console.log(todoObj);
-					var cantIda = document.getElementById('cantidadPunto1').value;
-				    var cantVuelta = document.getElementById('cantidadPunto2').value;
+					var cantIda = auxIda;
+				    var cantVuelta = auxVuelta;
 			     	
 					
 				/* document.querySelector('#cantidadIda').innerHTML += `
@@ -414,17 +419,99 @@ var _idVar = getParameterByName('_id');
 	.catch(err => console.error(err));
 	             
   });
+  function GenerarListadeLineas() {
+	document.querySelector('#cantCallesForm').innerHTML = ``;
+	document.querySelector('#cantTelForm').innerHTML = ``;
+		var btn = document.getElementById('btnLoadLines');
+		inputIda = document.getElementById('cantidadPunto1');
+		inputVuelta = document.getElementById('cantidadPunto2');
+        var cantCalles = document.getElementById('cantidadPunto1').value;
+        var cantTelefonos = document.getElementById('cantidadPunto2').value;
+		inputIda.disabled=true;
+		inputVuelta.disabled=true;
+		btn.disabled=true;
+		if(cantCalles < 1 || cantTelefonos < 1){
+			alert("Los numeros para la cantidad de los telefonos y las calles deben ser mayores a 0");
+			inputIda.disabled=false;
+		    inputVuelta.disabled=false;
+		    btn.disabled=false;
+		}
+		else{
+		document.querySelector('#cantCalles').innerHTML += `
+		<input type="hidden" name="cantCalles" value="${cantCalles}">
+		
+		`;
+		document.querySelector('#cantTel').innerHTML += `
+		<input type="hidden" name="cantTelefonos" value="${cantTelefonos}">
+		
+		`;
+		if(cantCalles>0 && calle>0){
+					for (let index = 0; index < calle; index++) {
+						document.querySelector('#cantCallesForm').innerHTML += `
+						<div class="row g-3 align-items-center">
+						 <div class="col-auto">
+							<div class="input-group mb-3">
+                                <span class="input-group-text" id="calle">Calle ${index+1}</span>
+								<input type="text" name="calle" class="form-control" id="calle" placeholder="Ingresar Telefono Numero ${index+1}" value="${todoObj.Calles[index]}" required>
+                            </div>
+				
+						 </div>
+			            </div>
+						
+						
+				`;			
+					}
+					for (let index = calle; index < cantCalles; index++) {
+						document.querySelector('#cantCallesForm').innerHTML += `
+						<div class="row g-3 align-items-center">
+						 <div class="col-auto">
+							<div class="input-group mb-3">
+                                <span class="input-group-text" id="calle">Calle ${index+1}</span>
+								<input type="text" name="calle" class="form-control" id="calle" placeholder="Ingresar Calle Numero ${index+1}" required>
+                            </div>
+				
+						 </div>
+			            </div>
+				`;			
+					}
+				}
+                if(cantTelefonos>0 && tel>0){
+					for (let index = 0; index < tel; index++) {
+						document.querySelector('#cantTelForm').innerHTML += `
+						<div class="row g-3 align-items-center">
+						 <div class="col-auto">
+							<div class="input-group mb-3">
+                                <span class="input-group-text" id="tel1">Telefono ${index+1}</span>
+								<input type="text" name="telefono" class="form-control" id="tel1" placeholder="Ingresar Telefono Numero ${index+1}" value="${todoObj.Telefonos[index]}" required>
+                            </div>
+				
+						 </div>
+			            </div>
+						`;			
+					}
+					for (let index = tel; index < cantTelefonos; index++) {
+						document.querySelector('#cantTelForm').innerHTML += `
+						<div class="row g-3 align-items-center">
+						 <div class="col-auto">
+							<div class="input-group mb-3">
+                                <span class="input-group-text" id="tel1">Telefono ${index+1}</span>
+								<input type="text" name="telefono" class="form-control" id="tel1" placeholder="Ingresar Telefono Numero ${index+1}" required>
+                            </div>
+				
+						 </div>
+			            </div>
+						`;		
+					
+				}
+			}
+		}
+		
+		
+	} 
   	  </script>
 	  	<script>
 			  
-			function HabilitarForm() {
-				var form  = document.getElementById("formPrincipal");
-				var allElements = form.elements;
-				for (var i = 0, l = allElements.length; i < l; ++i) {
-				 // allElements[i].readOnly = true;
-				 allElements[i].disabled=false;
-				}
-			}
+		
 				 //Recarga los datos de listLineas con si se requirio nuevos datos en los campos de puntos de ida y de vuelta con la unica diferencia que pregunta si los campos no son menores a los ya guardados en la base
 			function reloadForm() {
 				var btn = document.getElementById('btnLoadLines');
@@ -439,236 +526,10 @@ var _idVar = getParameterByName('_id');
 		              btn.disabled=false;
 				}
 				else{
-					RecargarForm();
+					GenerarListadeLineas();
 				}
 				
 			}
-			//Recarga los inputs del formulario con datos establecidos y con las modificaciones de las linas
-			function RecargarForm() {
-				
-				var todo= todoObj;
-				 cantIda = document.getElementById('cantidadPunto1').value;
-				 cantVuelta = document.getElementById('cantidadPunto2').value;
-				document.querySelector('#alltodos').replaceWith += `
-					<form action="/guardarLinea" method="post" id="formPrincipal" class="form-content" visibility="hidden">
-				<input type="text" name="_id" class="form-control" name="_id" value=${_idVar} disabled>
-				<label class="text-control" for="validationDefault01">Nombre de Linea:</label>
-				  <div class="form-group">
-					  <input type="text" name="nombre" class="form-control" id="validationDefault01" placeholder="Ingresar Linea + numero o letra de la linea *" value="${todo.Nombre}" required>
-					</div>
-				<label class="text-control" for="validationDefault02">Categoria:</label>
-					<div class="form-group">
-					  <input type="text" name="categoria" list="cat" class="form-control" id="validationDefault02" placeholder="Ingresar Categoria Aqui" value="${todo.Categoria}" required>
-					  <datalist id="cat">
-						<option value="Micro">
-						<option value="Minibus">
-						<option value="Taxitrufi">
-					  </datalist>
-					</div>					
-				<label class="text-control" for="validationDefault04">Zona:</label>
-					<div class="form-group">
-					  <input type="text" name="zona" class="form-control" id="validationDefault04" placeholder="Ingresar Zona Aqui" value="${todo.ZonaCBBA}" required>
-					</div>
-					<label class="text-control" for="validationDefault05">Pasajes:</label>
-					<div class="form-group">
-					  <input type="text" name="pasaje" class="form-control" id="validationDefault05" placeholder="Ingresar Pasaje + Mayores Aqui *" value="${todo.Pasajes[0]}" required>
-					</div>
-					<div class="form-group">
-						<input type="text" name="pasaje" class="form-control" id="validationDefault05" placeholder="Ingresar Pasaje + Discapacidad Aqui *" value="${todo.Pasajes[1]}" required>
-					</div>
-					<div class="form-group">
-						<input type="text" name="pasaje" class="form-control" id="validationDefault05" placeholder="Ingresar Pasaje + Universitario Aqui *" value="${todo.Pasajes[2]}" required>
-					</div>
-					<div class="form-group">
-						<input type="text" name="pasaje" class="form-control" id="validationDefault05" placeholder="Ingresar Pasaje + Estudiantes Aqui *" value="${todo.Pasajes[3]}" required>
-					</div>
-					<label class="text-control" for="validationDefault06">Calles:</label>
-					<div class="form-group">
-					  <input type="text" name="calle" class="form-control" id="validationDefault06" placeholder="Ingresar Calle 1 Aqui *" value="${todo.Calles[0]}" required>
-					</div>
-					<div class="form-group">
-						<input type="text" name="calle" class="form-control" id="validationDefault06" placeholder="Ingresar Calle 2(Opcional) Aqui *" value="${todo.Calles[1]}" required>
-					</div>
-					<div class="form-group">
-						<input type="text" name="calle" class="form-control" id="validationDefault06" placeholder="Ingresar Calle 3(Opcional) Aqui *" value="${todo.Calles[2]}" >
-					</div>
-					<div class="form-group">
-						<input type="text" name="calle" class="form-control" id="validationDefault06" placeholder="Ingresar Calle 4(Opcional) Aqui *" value="${todo.Calles[3]}" >
-					</div>
-					<label class="text-control" for="validationDefault07">Telefonos:</label>
-					<div class="form-group">
-					  <input type="text" name="telefono" class="form-control" id="validationDefault07" placeholder="Ingresar Telefono(Opcional) Aqui *" value="${todo.Telefonos[0]}" required>
-					</div>
-					<div class="form-group">
-						<input type="text" name="telefono" class="form-control" id="validationDefault07" placeholder="Ingresar Telefono(Opcional) Aqui *" value="${todo.Telefonos[1]}" >
-					</div>
-					<label class="text-control" for="validationDefault08">Horario:</label>
-					<div class="form-group">
-					  <input type="text" name="horario" class="form-control" id="validationDefault08" placeholder="Ingresar Horario Aqui *" value="${todo.Horarios}" required>
-					</div>
-					<br>
-					<hr>
-					<br>
-					<h3>Rutas:</h3>
-					<br>
-				   <br>
-				   <h3>Ruta Ida</h3>
-				   <br>
-					<div class="form-group">
-						<div class="input-group mb-3">
-							<span class="input-group-text" id="sentido">Sentido</span>
-							<input type="text" name="ruta1" class="form-control" aria-describedby="sentido" id="validationDefault09" placeholder="Ingresar el sentido ruta de ida aqui" value="${todo.Rutas[0].Sentido}" required>
-							
-						</div>
-						<div class="form-text">Añade un sentido de ruta como: NORTE-SUR.</div>
-						<br>
-						<input type="hidden" name="color1" value="rojo">
-						<div id="googleMap1" style="width:100%;height:400px;"></div>
-						<div id="cantidadIda">
-					
-						</div>
-						<div id="cantPuntosIda1">
-					
-						</div>
-						<div id="cantPuntosIda2">
-					
-				        </div>
-					</div>
-					
-					<br>
-					<hr>
-					<br>
-					<h3>Ruta Vuelta</h3>
-					<br>
-					<div class="form-group">
-						<div class="input-group mb-3">
-							<span class="input-group-text" id="sentido">Sentido</span>
-							<input type="text" name="ruta2" aria-describedby="sentido" class="form-control" id="validationDefault10" placeholder="Ingresar el sentido ruta de vuelta aqui" value="${todo.Rutas[1].Sentido}" required>
-							
-						</div>
-						<div class="form-text">Añade un sentido de ruta contrario a la ruta de ida como: SUR-NORTE.</div>
-						<br>
-						<input type="hidden" name="color2" value="azul">
-						<div id="googleMap2" style="width:100%;height:400px;"></div>
-						<div id="cantidadVuelta">
-					
-						</div>
-						<div id="cantPuntosVuelta1">
-					
-						</div>
-						<div id="cantPuntosVuelta2">
-					
-			        	</div>
-					</div>
-					
-					
-					<br />
-				<input class="btnSubmit" type="submit" value="Modificar">
-			</form>
-				 `;
-				
-					if(cantIda>0 && auxIda>0){
-					for (let index = 0; index < auxIda; index++) {
-						document.querySelector('#cantPuntosIda1').replaceWith += `
-					<div class="row g-3 align-items-center">
-								<div class="col-auto">
-									<div class="input-group mb-3">
-										<span class="input-group-text" id="lat1">Latitud ${index}</span>
-										<input type="text" class="form-control" name="lat1" id="lat1" placeholder="Ingrese la latitud ${index}" value="${todo.Rutas[0].Puntos[index].lat}" aria-label="Latitud" aria-describedby="lat" required>
-									</div>
-						
-								</div>
-								<div class="col-auto">
-									<div class="input-group mb-3">
-										<span class="input-group-text" id="lng1">Longitud ${index}</span>
-										<input type="text" class="form-control" id="lng1" name="lng1" placeholder="Ingrese la longitud ${index}" value="${todo.Rutas[0].Puntos[index].lng}" aria-label="Longitud" aria-describedby="lng" required>
-									</div>
-								</div>
-					</div>
-				`;			
-					}
-					
-				}
-				if(cantIda> auxIda){
-					for (let index = auxIda; index < cantIda; index++) {
-						document.querySelector('#cantPuntosIda2').innerHTML += `
-					<div class="row g-3 align-items-center">
-								<div class="col-auto">
-									<div class="input-group mb-3">
-										<span class="input-group-text" id="lat1">Latitud ${index+1}</span>
-										<input type="text" class="form-control" name="lat1" id="lat1" placeholder="Ingrese la latitud ${index+1}" value="" aria-label="Latitud" aria-describedby="lat" required>
-									</div>
-						
-								</div>
-								<div class="col-auto">
-									<div class="input-group mb-3">
-										<span class="input-group-text" id="lng1">Longitud ${index+1}</span>
-										<input type="text" class="form-control" id="lng1" name="lng1" placeholder="Ingrese la longitud ${index+1}" value="" aria-label="Longitud" aria-describedby="lng" required>
-									</div>
-								</div>
-					</div>
-				`;			
-					}
-				}
-                if(cantVuelta>0 && auxVuelta>0){
-					for (let index = 0; index < auxVuelta; index++) {
-						document.querySelector('#cantPuntosVuelta1').replaceWith += `
-					<div class="row g-3 align-items-center">
-								<div class="col-auto">
-									<div class="input-group mb-3">
-										<span class="input-group-text" id="lat2">Latitud ${index}</span>
-										<input type="text" class="form-control" name="lat2" id="lat2" placeholder="Ingrese la latitud ${index}" value="${todo.Rutas[1].Puntos[index].lat}" aria-label="Latitud" aria-describedby="lat" required>
-									</div>
-						
-								</div>
-								<div class="col-auto">
-									<div class="input-group mb-3">
-										<span class="input-group-text" id="lng2">Longitud ${index}</span>
-										<input type="text" class="form-control" id="lng2" name="lng2" placeholder="Ingrese la longitud ${index}" value="${todo.Rutas[1].Puntos[index].lng}" aria-label="Longitud" aria-describedby="lng" required>
-									</div>
-								</div>
-					</div>
-				`;			
-					}
-					
-			}
-			if(cantVuelta>auxVuelta){
-				for (let index = auxVuelta; index < cantVuelta; index++) {
-						document.querySelector('#cantPuntosVuelta2').innerHTML += `
-					<div class="row g-3 align-items-center">
-								<div class="col-auto">
-									<div class="input-group mb-3">
-										<span class="input-group-text" id="lat2">Latitud ${index+1}</span>
-										<input type="text" class="form-control" name="lat2" id="lat2" placeholder="Ingrese la latitud ${index+1}" value="" aria-label="Latitud" aria-describedby="lat" required>
-									</div>
-						
-								</div>
-								<div class="col-auto">
-									<div class="input-group mb-3">
-										<span class="input-group-text" id="lng2">Longitud ${index+1}</span>
-										<input type="text" class="form-control" id="lng2" name="lng2" placeholder="Ingrese la longitud ${index+1}" value="" aria-label="Longitud" aria-describedby="lng" required>
-									</div>
-								</div>
-					</div>
-				`;		
-					
-				}
-			}
-			alert(cantIda)
-				 document.querySelector('#cantidadIda').innerHTML = `
-				    <input type="hidden" name="cantIda" value="${cantIda}">
-				    `;
-					alert(cantVuelta)
-			    	document.querySelector('#cantidadVuelta').innerHTML = `
-				    <input type="hidden" name="cantVuelta" value="${cantVuelta}">
-				    `;
-					var btn = document.getElementById('btnLoadLines');
-		        var inputIda = document.getElementById('cantidadPunto1');
-		        var inputVuelta = document.getElementById('cantidadPunto2');
-				inputIda.disabled=true;
-		        inputVuelta.disabled=true;
-		        btn.disabled=true;
-            }
 			//Ir una ventana atras del historial
 			function goBack() {
                window.history.back();
