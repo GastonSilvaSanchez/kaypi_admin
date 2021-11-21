@@ -408,7 +408,7 @@ var _idVar = getParameterByName('_id');
 		inputIda.disabled=true;
 		btn.disabled=true;
 		if(cantCalles < 1){
-			alert("Los numeros para la cantidad de los telefonos y las calles deben ser mayores a 0");
+			alert("El numero para la cantidad de las calles debe ser mayor a 0");
 			inputIda.disabled=false;
 		    btn.disabled=false;
 		}
@@ -417,7 +417,7 @@ var _idVar = getParameterByName('_id');
 		<input type="hidden" name="cantCalles" value="${cantCalles}">
 		
 		`;
-		if(cantCalles>0 && calle>0){
+		    if(calle<cantCalles){
 					for (let index = 0; index < calle; index++) {
 						document.querySelector('#cantCallesForm').innerHTML += `
 						<div class="row g-3 align-items-center">
@@ -446,8 +446,24 @@ var _idVar = getParameterByName('_id');
 			            </div>
 				`;			
 					}
-				}
+			}
+			else{
+				for (let index = 0; index < cantCalles; index++) {
+					document.querySelector('#cantCallesForm').innerHTML += `
+						<div class="row g-3 align-items-center">
+						 <div class="col-auto">
+							<div class="input-group mb-3">
+                                <span class="input-group-text" id="calle">Calle ${index+1}</span>
+								<input type="text" name="calle" class="form-control" id="calle" placeholder="Ingresar Calle Numero ${index+1}"  value="${todoObj.Calles[index]}" required>
+                            </div>
+				
+						 </div>
+			            </div>		
+				`;			
+					}
+		   }
 		}	
+		
 	} 
   	  </script>
 	  	<script>
