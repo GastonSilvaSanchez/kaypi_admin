@@ -43,9 +43,22 @@
 						<form action="/listaPuntos" method="get">
 							<input type="submit" name="submit" class="btn btn-primary btn-lg" value="Ver Lista">
 						</form>
-                    </div>		
+                    </div>	
+					<h2>Paso 1: Agregue la cantidad de calles y de lineas de transporte que tiene el punto estrategico</h2>
+					<div class="row g-3">
+
+						<label class="text-control" for="cantidadPuntos">Ingrese la cantidad de calles de referencia:</label>
+						<input type="number" class="form-control" name="cantidadCalles" id="cantidadCalles" min="1" max="20">
+						<div class="form-text">El numero debe ser como minimo 1.</div>
+						<br>
+						<label class="text-control" for="cantidadPuntos">Ingrese la cantidad de lineas:</label>
+						<input type="number" class="form-control" name="cantidadLineas" id="cantidadLineas" min="1" max="20">
+						<div class="form-text">El numero debe ser como minimo 1.</div>
+						<button onclick="GenerarLista()" id="btnLoadLines" class="btn btn-primary btn-lg">Cargar Campos</button>
+					</div>	
 				</div>	
 			<!-- Form-->
+			<h2>Paso 2: Rellene el siguiente formulario</h2>
 			<form action="/guardarPunto" method="post" id="formPrincipal" class="form-content" visibility="hidden">
 				<label class="text-control" for="validationDefault01">Nombre de Locación:</label>
 				  <div class="form-group">
@@ -63,29 +76,29 @@
 						<option value="Centros de Atención en Salud">
 					  </datalist>
 					</div>					
-				<label class="text-control" name="calles" for="validationDefault03">Calles:</label>
-				    <div class="form-group">
-					<textarea name="calles" class="form-control" id="validationTextarea" placeholder="Ingrese la calle" required></textarea>
-					</div>
+				<label class="text-control" name="calles">Calles:</label>
+				<div id="cantidadCallesForm">
+					
+				</div>
 				<label class="text-control" for="validationDefault04">Zona:</label>
 					<div class="form-group">
 					  <input type="text" name="zona" class="form-control" id="validationDefault04" placeholder="Ingrese la zona" value="" required>
 					</div>
-				<label class="text-control" class="text-control" for="validationDefault05">Lineas:</label>
-				    <div class="form-group">
-					  <textarea name="lineas" class="form-control" id="validationTextarea" placeholder="Ingrese la linea" required></textarea>
-					</div>									
+				<label class="text-control" class="text-control"">Lineas:</label>
+				<div id="cantidadLineasForm">
+					
+				</div>								
 				<label class="text-control" for="lat">Mapa:</label>
 					<div class="form-group">
 					 <div class="row g-3">
-							<div class="col-4"></div>
-							<div class="col-4">
-								<input id="delete-markers" type="button" value="Eliminar marcador" class="btn btn-danger btn-sm" />
-							</div>
-							<div class="col-4"></div>
+							
 					  <div id="googleMap" style="width:100%;height:400px;"></div>
 					  <div class="form-text">Doble Click Para Agregar un marcador.</div>
-					 
+					  <div class="col-4"></div>
+					  <div class="col-4">
+						  <input id="delete-markers" type="button" value="Eliminar marcador" class="btn btn-danger btn-sm" />
+					  </div>
+					  <div class="col-4"></div>
 					  
 					</div>
 					
@@ -93,14 +106,7 @@
 
 					
 					<br>
-					<label class="text-control" for="lat">Latitud:</label>
-					<div class="form-group">
-					  <input type="text" name="lat" class="form-control" id="lat" >
-					</div>
-				<label class="text-control" class="text-control" for="lng">Longitud:</label>
-					<div class="form-group">
-					  <input type="text" name="lng" class="form-control" id="lng" >
-					</div>		
+					<div id="puntos"></div>
 				<label class="text-control" for="validationTextarea">Descripción:</label>
 					<div class="form-group">
 					<textarea name="descripcion" class="form-control" id="validationTextarea" placeholder="Ingrese la descripcion" required></textarea>
@@ -115,11 +121,78 @@
     </body>
 	
 	<script>
+	// Cambia el estado de los inputs a deshabilitado cuando carga la pagina
+	window.onload = function(e) {
+		var form  = document.getElementById("formPrincipal");
+        var allElements = form.elements;
+        for (var i = 0, l = allElements.length; i < l; ++i) {
+         // allElements[i].readOnly = true;
+         allElements[i].disabled=true;
+        }
+    }
+	
+    // Habilita los inputs del formulario 
+	function HabilitarForm() {
+		var form  = document.getElementById("formPrincipal");
+        var allElements = form.elements;
+        for (var i = 0, l = allElements.length; i < l; ++i) {
+         // allElements[i].readOnly = true;
+         allElements[i].disabled=false;
+        }
+    }
 	//Ir una ventana atras del historial
 	function goBack() {
      window.history.back();
     }
-	
+	var inputCalles, inputLineas;
+	function GenerarLista() {
+		var btn = document.getElementById('btnLoadLines');
+		inputCalles = document.getElementById('cantidadCalles');
+        var cantCalles = document.getElementById('cantidadCalles').value;
+		inputLineas = document.getElementById('cantidadLineas');
+        var cantLineas = document.getElementById('cantidadLineas').value;
+		inputCalles.disabled=true;
+		inputLineas.disabled=true;
+		btn.disabled=true;
+		if(cantCalles < 1 || cantLineas < 1){
+			alert("El numero para la cantidad de las las calles y de las lineas debe ser mayor a 0");
+			inputCalles.disabled=false;
+			inputLineas.disabled=false;
+		    btn.disabled=false;
+		}
+		else{
+		
+			for (let index = 1; index <= cantCalles; index++) {
+			document.querySelector('#cantidadCallesForm').innerHTML += `
+			<div class="row g-3 align-items-center">
+						<div class="col-auto">
+							<div class="input-group mb-3">
+                                <span class="input-group-text" >Calle ${index}</span>
+								<input type="text" name="calles" class="form-control" id="calles" placeholder="Ingresar Calle ${index}" required>
+                            </div>
+				
+						</div>
+			</div>
+		`;			
+		}
+
+		for (let index = 1; index <= cantLineas; index++) {
+			document.querySelector('#cantidadLineasForm').innerHTML += `
+			<div class="row g-3 align-items-center">
+						<div class="col-auto">
+							<div class="input-group mb-3">
+                                <span class="input-group-text">Linea ${index}</span>
+								<input type="text" name="lineas" class="form-control" id="lineas" placeholder="Ingresar Linea" required>
+                            </div>
+				
+						</div>
+			</div>
+		`;			
+		}
+		HabilitarForm();
+		
+		}
+	} 
 	var form = document.getElementById("formPrincipal");
 	//Cuando se de click al submit se presentara la siguiente operacion de validaciones para los campos text que requieran ser numericos
     form.onsubmit = function() {
@@ -150,51 +223,91 @@
       });
       google.maps.event.addListener(map, "dblclick", (event) => {
 		if (count<1) {
+			document.querySelector('#puntos').innerHTML = ``;
 			addMarker(event.latLng, map);
 			var myLatLng = event.latLng;
-            var lat = myLatLng.lat();
-            var lng = myLatLng.lng();	
-            document.getElementById("lat").value = lat.toString();
-	        document.getElementById("lng").value = lng.toString();
+			var lat = myLatLng.lat();
+            var lng = myLatLng.lng();
+			document.querySelector('#puntos').innerHTML += `
+			<div class="row g-3 align-items-center">
+						<div class="col-auto">
+							<div class="input-group mb-3">
+                                <span class="input-group-text">Latitud</span>
+								<input type="text" name="lat" class="form-control" id="lat" value="${lat}"  required>
+                            </div>
+						</div>
+						<div class="col-auto">
+							<div class="input-group mb-3">
+                                <span class="input-group-text">Longitud</span>
+								<input type="text" name="lng" class="form-control" id="lng" value="${lng}"  required>
+                            </div>
+						</div>		
+			</div>
+		`;			
 			count++;
 		}
         
       });
     }
 	function addMarker(location, map) {
-var marker = new google.maps.Marker({
-position: location,
-map: map
-});
-marker.addListener("dblclick", function() {
-marker.setMap(null);
-count--;
-});
-markers.push(marker);
-}
+    var marker = new google.maps.Marker({
+    position: location,
+    map: map
+    });
+    marker.addListener("dblclick", function() {
+    marker.setMap(null);
+    count--;
+    });
+    markers.push(marker);
+    }
 
-// Sets the map on all markers in the array.
-function setMapOnAll(map) {
-for (var i = 0; i < markers.length; i++) {
-markers[i].setMap(map);
-}
-}
+    // Sets the map on all markers in the array.
+    function setMapOnAll(map) {
+    for (var i = 0; i < markers.length; i++) {
+    markers[i].setMap(map);
+    }
+    }
 
-function clearMarkers() {
-setMapOnAll(null);
-count--;
-}
+    function clearMarkers() {
+    setMapOnAll(null);
+    count--;
+    }
 
-function showMarkers() {
-setMapOnAll(map);
-}
-function deleteMarkers() {
-clearMarkers();
-markers = [];
-}
-document
-    .getElementById("delete-markers")
-    .addEventListener("click", deleteMarkers);
+    function showMarkers() {
+    setMapOnAll(map);
+    }
+    function deleteMarkers() {
+    clearMarkers();
+    markers = [];
+    }
+    function removeMarker(){
+	document.querySelector('#puntos').innerHTML = ``;
+	document.querySelector('#puntos').innerHTML = `
+	<div class="row g-3 align-items-center">
+						<div class="col-auto">
+							<div class="input-group mb-3">
+                                <span class="input-group-text">Latitud</span>
+								<input type="text" name="lat" class="form-control" id="lat"  required>
+                            </div>
+						</div>
+						<div class="col-auto">
+							<div class="input-group mb-3">
+                                <span class="input-group-text">Longitud</span>
+								<input type="text" name="lng" class="form-control" id="lng"  required>
+                            </div>
+						</div>		
+			</div>
+			<div class="form-text text-danger">Se requiere tener un punto marcado en el mapa</div>
+			<br>
+		`;
+    for(i=0; i<markers.length; i++){
+        markers[i].setMap(null);
+    }
+	count--;
+	markers = [];
+    }
+    document.getElementById("delete-markers").addEventListener("click", removeMarker);
+	removeMarker();
 	</script>
 	 <script
 	 src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBY0Y6-0YKuzrsaoPmY4SjJAx93J6yeJb8&callback=initMap&v=weekly"
