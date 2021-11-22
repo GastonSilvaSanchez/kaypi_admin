@@ -1,78 +1,109 @@
 <!DOCTYPE html>
 <html lang="es">
-    <head>
-	<title>KAYPI-ADMIN</title>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-        <meta name="description" content="" />
-        <meta name="author" content="" />
-        <link href="//maxcdn.bootstrapcdn.com/bootstrap/5.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-		<link rel="stylesheet" href="css/tw.css" />
-		<script src="//maxcdn.bootstrapcdn.com/bootstrap/5.0.0/js/bootstrap.min.js"></script>
-		<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-        <!-- Core theme CSS (includes Bootstrap)-->
-        <link href="css/styles.css" rel="stylesheet" />
-		<link rel="preconnect" href="https://fonts.googleapis.com">
-		<link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
-		<link rel="preconnect" href="https://fonts.googleapis.com">
-		<link href="https://fonts.googleapis.com/css2?family=Montserrat&family=Yanone+Kaffeesatz&display=swap" rel="stylesheet">
-		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    </head>
-    <body id="page-top">
-	
-        
-		<div class="container register-form">
-            <div class="row g-3">
-                <div class="note">
-                    <p>Lineas Admin</p>
-                </div>
-				<div class="row g-3">
-          <div class="col-auto">
-						<button onclick="goBack()" class="btn btn-primary btn-lg">Atras</button>
-					</div>
-          <div class="col-auto">
-            <form action="/" method="get">
-							<input type="submit" name="submit" class="btn btn-primary btn-lg" value="Inicio">
-						</form>
-					</div>
-          <div class="col-auto">
-            <form action="/logout" method="get">
-              <input type="submit" name="submit" class="btn btn-danger btn-lg" value="Cerrar Sesion">
-            </form>
-          </div>
-          <div class="col-auto">
-            <form action="/lineas" method="get">
-              <input type="submit" name="submit" class="btn btn-success btn-lg" value="Agregar">
-            </form>
-          </div>	
-				</div>	
+<head>
+  <title>Lineas de Transporte</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="description" content="" />
+  <meta name="author" content="" />
+  <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+	<link rel="stylesheet" type="text/css" href="../Semantic-UI-CSS/semantic.min.css">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+	<script src="../Semantic-UI-CSS/semantic.min.js"></script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@500&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/fomantic-ui@2.8.7/dist/semantic.min.css">
+
+  <link rel="stylesheet" type="text/css" href="../css/listaLineasStyle.css">
+</head>
+<body>
+  <header>
+    <nav class="navbar navbar-expand-lg">
+      <div class="container-fluid">
+         <a class="navbar-brand" href="#">
+           <img src="../img/logo-white.png" alt="" width="50" height="52">
+         </a>
+         <a href="/logout">
+            <i class="big power off  icon"></i>
+         </a>
+       </div>
+    </nav>
+  </header>
+  <br>
+  <main>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6">
+          <a href="/" id="back">
+            <i class="big arrow circle left icon"></i>
+          </a>
         </div>
-        <br>	
-        <div class="row g-3">
-            <div class="note">
-                <p>Lista Lineas</p>
-            </div>
-            <table class="table table-hover table-striped">
-                <thead>
-                    <tr>
-                        <th>No.</th>
-                        <th>Nombre</th>
-                        <th>Categoria</th>
-                        <th>-</th>
-                        <th>-</th>
-                    </tr>
-                </thead>
-                <tbody id="alltodos">
-                </tbody>              
-            </table>				
-        <!-- Form-->
-    </div>	
-    </body>
+      </div>
+      <div class="row" id="spaceBackAdd">
+        <div class="col-md-12 text-right">
+          <a href="/lineas" id="addLine">
+            <i class="big plus circle icon"></i>
+            <label>Añadir</label>
+          </a>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="table-responsive">
+            <table class="table" id="table">
+              <thead>
+                  <tr>
+                      <th class="text-center text-white">No.</th>
+                      <th class="text-center text-white">Nombre</th>
+                      <th class="text-center text-white">Categoria</th>
+                      <th class="text-center text-white">Modificar</th>
+                      <th class="text-center text-white">Eliminar</th>
+                  </tr>
+              </thead>
+              <tbody id="alltodos">
+              </tbody>              
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+  <footer>
+    <div class="container">
+       <div class="row">
+          <div class="col-md-4 d-flex justify-content-center">
+             <a href="#">
+                <img src="../img/logo-white.png" alt="Logo Kaypi" height="100"> 
+             </a>
+          </div>
+          <div class="col-md-4 d-flex justify-content-center">
+             <a href="#">
+                <img src="../img/firma-GAMC.png" alt="Gobierno Autónomo Municipal de Cochabamba" height="95" > 
+             </a>
+          </div>
+          <div class="col-md-4 d-flex justify-content-center">
+             <a href="#">
+                <img src="../img/logo-univalle.png" alt="Universidad del Valle" height="60" > 
+             </a>
+          </div>
+       </div>
+       <div class="row" id="copy">
+          <div class="col-md-12 copy" >
+              <b>&copy2021 Kaypi | Todos los derechos reservados</b>
+          </div>
+      </div>
+    </div>
+  </footer>
+</body>
 </html>
 
 
-<script type="text/javascript"> 
-//Genera una lista de lineas basandose en los datos recibidos de /listlineas
+<script type="text/javascript">
   window.addEventListener('DOMContentLoaded', (e) =>{
   fetch('http://localhost:3000/listLineas')
   .then(res => res.json())
@@ -84,34 +115,49 @@
           todos.forEach(todo =>{
            
     document.querySelector('#alltodos').innerHTML += `
-    <td>${num}</td>
-    <td>${todo.Nombre}</td>
-    <td>${todo.Categoria}</td>
-      <td>
-        <a href="modLineas.html?_id=${todo._id}"class="btn btn-primary">Modificar</a>
+    <tr>
+      <td class="text-center">${num}</td>
+      <td class="text-center">${todo.Nombre}</td>
+      <td class="text-center">${todo.Categoria}</td>
+      <td class="text-center">
+        <a href="modLineas.html?_id=${todo._id}"class="ui yellow icon button"><i class="edit outline icon"></i></a>
       </td>
-      
-      <td>
-        <form action="/eliminarLinea" method="post">
-        <input name="_id" value="${todo._id}" hidden>
-        <input type="submit" name="submit" class="btn btn-danger" value="Eliminar">
-        </form>
+      <td class="text-center">
+        <button type="button" class="ui red icon button" data-toggle="modal" data-target="#exampleModal${todo._id}"><i class="trash alternate outline icon"></i></button>
+        <div class="modal fade" id="exampleModal${todo._id}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+					<div class="modal-dialog" role="document">
+						<div class="modal-content">
+							<div class="modal-header text-left">
+								<h1 class="modal-title" id="exampleModalLabel">Eliminar Linea de Transporte</h1>
+								<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+								</button>
+							</div>
+							<div class="modal-body text-left">
+								¿Estás seguro que quieres eliminar <b>${todo.Nombre}</b>?<br><br>
+                <small>* Esta acción no se podrá revertir</small>
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="ui blue button" data-dismiss="modal" id="btnCancel">Cancelar</button>
+									<form action="/eliminarLinea" method="post">
+										<input name="_id" value="${todo._id}" hidden>
+										<button type="submit" class="ui red button" name="submit">Eliminar</button>
+									</form
+							</div>
+						</div>
+					</div>
+				</div>
       </td>
-       
-             
-
-   
-
-              `;
-              num++;
-          });
-      } else alert(data.response);
-      
+    </tr>
+    `;
+      num++;
+    });
+    } else alert(data.response);   
   })
-  .catch(err => console.error(err));
-});
-function goBack() {
-  window.history.back();
-}
+    .catch(err => console.error(err));
+  });
+  function goBack() {
+    window.history.back();
+  }
 
-    </script>
+</script>

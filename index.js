@@ -31,19 +31,19 @@ app.use(session({
 }));
 
 var auth = function(req, res, next) {
-    if (req.session && req.session.user === "kaypi_admin" && req.session.admin)
+    if (req.session && req.session.user == "kaypi_admin" && req.session.admin)
       return next();
     else
       return res.redirect('login.html');
   };
 
-  app.get('/login', function (req, res) {
-    if (!req.query.username || !req.query.password) {
+  app.post('/login', function (req, res) {
+    if (!req.body.username || !req.body.password) {
       res.send('login failed');    
-    } else if(req.query.username === "kaypi_admin" || req.query.password === "admin.Kaypi001") {
+    } else if(req.body.username === "kaypi_admin" || req.body.password === "admin.Kaypi001") {
       req.session.user = "kaypi_admin";
       req.session.admin = true;
-      res.redirect('opciones.html');
+      res.redirect('index.html');
     }
   });
 
