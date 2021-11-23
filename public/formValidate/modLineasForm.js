@@ -240,6 +240,8 @@ window.addEventListener('DOMContentLoaded', (e) =>{
 					var id= todoObj._id;
 					var nombre= todoObj.Nombre;
 					var categoria= todoObj.Categoria;
+					var calles = todoObj.Calles;
+					/*
 					var calles1= todoObj.Calles[0];
 					var calles2= todoObj.Calles[1];
 					var calles3= todoObj.Calles[2];
@@ -248,6 +250,7 @@ window.addEventListener('DOMContentLoaded', (e) =>{
 					var calles6= todoObj.Calles[5];
 					var calles7= todoObj.Calles[6];
 					var calles8= todoObj.Calles[7];
+					*/
 					var pasaje1= todoObj.Pasajes[0];
 					var pasaje2= todoObj.Pasajes[1];
 					var pasaje3= todoObj.Pasajes[2];
@@ -271,6 +274,7 @@ window.addEventListener('DOMContentLoaded', (e) =>{
 					document.getElementById('telefono1').value =telefono1;
 					document.getElementById('telefono2').value =telefono2;
 					document.getElementById('telefono3').value =telefono3;
+					/*
 					document.getElementById('calle1').value =calles1;
 					document.getElementById('calle2').value =calles2;
 					document.getElementById('calle3').value =calles3;
@@ -279,11 +283,41 @@ window.addEventListener('DOMContentLoaded', (e) =>{
 					document.getElementById('calle6').value =calles6;
 					document.getElementById('calle7').value =calles7;
 					document.getElementById('calle8').value =calles8;
+					*/
 					document.getElementById('horario').value =horarios;
 					var sentido1 =ruta1.Sentido;
 					var sentido2 =ruta2.Sentido;
 					document.getElementById('ida').value =sentido1;
 					document.getElementById('vuelta').value =sentido2;
+
+					for (let index = 0; index < 8; index++) {						
+						if(index > 3) {
+							if(calles[index] != null) {
+								document.querySelector('#cantidadCallesForm').innerHTML +=`
+									<div class="field">
+										<label>Calle ${index+1} (Opcional)</label>
+										<input value="${calles[index]}" type="text" name="calle" class="form-control" id="calle${index}" placeholder="Nombre de la calle (Opcional)">
+									</div>
+								`;
+							}
+							else {
+								document.querySelector('#cantidadCallesForm').innerHTML +=`
+									<div class="field">
+										<label>Calle ${index+1} (Opcional)</label>
+										<input type="text" name="calle" class="form-control" id="calle${index}" placeholder="Nombre de la calle (Opcional)">
+									</div>
+								`;
+							}
+						}
+						else {
+							document.querySelector('#cantidadCallesForm').innerHTML +=`
+							<div class="field">
+								<label>Calle ${index+1}</label>
+								<input value="${calles[index]}" type="text" name="calle" class="form-control" id="calle${index}" placeholder="Nombre de la calle">
+							</div>
+						`;
+						}
+					}
 
 
 					for (let index = 0; index < ruta1.Puntos.length; index++) {
