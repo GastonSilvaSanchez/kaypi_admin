@@ -20,7 +20,7 @@ $(function(){
               {
                 type   : 'regExp',
                 value  : '[a-z A-Z0-9]',
-                prompt : 'Por favor introduce el nombre de la Linea'
+                prompt : 'Por favor introduce el nombre'
               }
             ]
           },
@@ -39,7 +39,7 @@ $(function(){
               {
                 type   : 'regExp',
                 value  : '[a-z A-Z]',
-                prompt : 'Por favor introduce la zona de la Linea'
+                prompt : 'Por favor introduce la zona'
               }
             ]
           },
@@ -138,7 +138,7 @@ $(function(){
             rules: [
                 {
                     type   : 'integer',
-                    prompt : 'Por favor introduce el campo Teléfono 1'
+                    prompt : 'Por favor introduce el campo teléfono 1'
                 },
                 {
                     type   : 'regExp[[0-9]{8}]',
@@ -155,7 +155,7 @@ $(function(){
             rules: [
                 {
                     type   : 'integer',
-                    prompt : 'Por favor introduce el campo Teléfono 2'
+                    prompt : 'Por favor introduce el campo teléfono 2'
                 },
                 {
                     type   : 'regExp[[0-9]{8}]',
@@ -173,7 +173,7 @@ $(function(){
               {
                 type   : 'regExp',
                 value  : '[a-z A-Z]',
-                prompt : 'Por favor establezca el Sentido de la Ruta Ida'
+                prompt : 'Por favor establezca el sentido de la ruta de ida'
               }
             ]
           },
@@ -183,7 +183,7 @@ $(function(){
               {
                 type   : 'regExp',
                 value  : '[a-z A-Z]',
-                prompt : 'Por favor establezca el Sentido de la Ruta Vuelta'
+                prompt : 'Por favor establezca el sentido de la ruta de vuelta'
               }
             ]
           },
@@ -192,7 +192,7 @@ $(function(){
             rules: [
               {
                 type   : 'empty',
-                prompt : 'Por favor establezca la Ruta Ida en mapa'
+                prompt : 'Por favor establezca la ruta de ida en mapa'
               }
             ]
           },
@@ -201,7 +201,7 @@ $(function(){
             rules: [
               {
                 type   : 'empty',
-                prompt : 'Por favor establezca la Ruta Vuelta en mapa'
+                prompt : 'Por favor establezca la ruta de vuelta en mapa'
               }
             ]
           },
@@ -243,12 +243,12 @@ function initMap() {
 			<div class="row g-3 align-items-center collapse">
 				<div class="col-auto">
 					<div class="input-group mb-3">
-						<input type="text" name="lat1" class="form-control" id="lat1" value="${lat}"  required>
+						<input type="text" name="lat1" class="form-control" id="lat1" value="${lat}">
                     </div>
 				</div>
 				<div class="col-auto">
 					<div class="input-group mb-3">
-						<input type="text" name="lng1" class="form-control" id="lng1" value="${lng}"  required>
+						<input type="text" name="lng1" class="form-control" id="lng1" value="${lng}">
                     </div>
 				</div>		
 			</div>
@@ -265,12 +265,12 @@ function initMap() {
 			<div class="row g-3 align-items-center collapse">
 				<div class="col-auto">
 					<div class="input-group mb-3">
-						<input type="text" name="lat2" class="form-control" id="lat2" value="${lat}"  required>
+						<input type="text" name="lat2" class="form-control" id="lat2" value="${lat}">
                     </div>
 				</div>
 				<div class="col-auto">
 					<div class="input-group mb-3">
-						<input type="text" name="lng2" class="form-control" id="lng2" value="${lng}"  required>
+						<input type="text" name="lng2" class="form-control" id="lng2" value="${lng}">
                     </div>
 				</div>		
 			</div>
@@ -341,13 +341,13 @@ function removeMarkers1(){
 			<div class="col-auto">
 				<div class="input-group mb-3">
 					<span class="input-group-text">Latitud</span>
-					<input type="text" class="form-control" name="lat1" id="lat1" placeholder="Ingrese la latitud" aria-label="Latitud" aria-describedby="lat" required>
+					<input type="text" class="form-control" name="lat1" id="lat1" placeholder="Ingrese la latitud" aria-label="Latitud" aria-describedby="lat">
 				</div>		
 			</div>
 			<div class="col-auto">
 				<div class="input-group mb-3">
 				    <span class="input-group-text">Longitud</span>
-					<input type="text" class="form-control" id="lng1" name="lng1" placeholder="Ingrese la longitud" aria-label="Longitud" aria-describedby="lng" required>
+					<input type="text" class="form-control" id="lng1" name="lng1" placeholder="Ingrese la longitud" aria-label="Longitud" aria-describedby="lng">
 				</div>
 			</div>
 			<div class="col-auto">
@@ -374,13 +374,13 @@ function removeMarkers2(){
 			<div class="col-auto">
 				<div class="input-group mb-3">
 					<span class="input-group-text">Latitud</span>
-					<input type="text" class="form-control" name="lat2" id="lat2" placeholder="Ingrese la latitud" aria-label="Latitud" aria-describedby="lat" required>
+					<input type="text" class="form-control" name="lat2" id="lat2" placeholder="Ingrese la latitud" aria-label="Latitud" aria-describedby="lat">
 				</div>			
 			</div>
 			<div class="col-auto">
 				<div class="input-group mb-3">
 					<span class="input-group-text">Longitud</span>
-					<input type="text" class="form-control" id="lng2" name="lng2" placeholder="Ingrese la longitud" aria-label="Longitud" aria-describedby="lng" required>
+					<input type="text" class="form-control" id="lng2" name="lng2" placeholder="Ingrese la longitud" aria-label="Longitud" aria-describedby="lng">
 				</div>
 			</div>
 			<div class="col-auto">

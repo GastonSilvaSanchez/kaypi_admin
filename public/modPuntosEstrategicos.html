@@ -1,477 +1,222 @@
 <!DOCTYPE html>
 <html lang="es">
-    <head>
+<head>
 	<title>KAYPI-ADMIN</title>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-        <meta name="description" content="" />
-        <meta name="author" content="" />
-        <link href="//maxcdn.bootstrapcdn.com/bootstrap/5.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-		<link rel="stylesheet" href="css/tw.css" />
-		<script src="//maxcdn.bootstrapcdn.com/bootstrap/5.0.0/js/bootstrap.min.js"></script>
-		<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-        <!-- Core theme CSS (includes Bootstrap)-->
-        <link href="css/styles.css" rel="stylesheet" />
-		<link rel="preconnect" href="https://fonts.googleapis.com">
-		<link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
-		<link rel="preconnect" href="https://fonts.googleapis.com">
-		<link href="https://fonts.googleapis.com/css2?family=Montserrat&family=Yanone+Kaffeesatz&display=swap" rel="stylesheet">
-		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    </head>
-    <body id="page-top">
-	
-		<div class="container register-form">
-            <div class="row g-3">
-                <div class="note">
-                    <p>Modificar Puntos Estrategicos</p>
-                </div>
-				<div class="row g-3">
-					<div class="col-auto">
-						<button onclick="goBack()" class="btn btn-primary btn-lg">Atras</button>
-					</div>
-					<div class="col-auto">
-						<form action="/" method="get">
-							<input type="submit" name="submit" class="btn btn-primary btn-lg" value="Inicio">
-						  </form>
-					</div>
-                    <div class="col-auto">
-                      <form action="/logout" method="get">
-                        <input type="submit" name="submit" class="btn btn-danger btn-lg" value="Cerrar Sesion">
-                      </form>
-                    </div>
-					<div class="col-auto">
-						<form action="/listaPuntos" method="get">
-							<input type="submit" name="submit" class="btn btn-primary btn-lg" value="Ver Lista">
-						</form>
-					</div>
-					<h2>Agregue nuevos campos (opcional)</h2>
-					<div class="row g-3">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <link rel="shortcut icon" href="../img/logo-white-ico.png" type="image/x-icon">
+	<script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+	<link rel="stylesheet" type="text/css" href="../Semantic-UI-CSS/semantic.min.css">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+	<script src="../Semantic-UI-CSS/semantic.min.js"></script>
 
-						<label class="text-control" for="cantidadPuntos">Ingrese la cantidad de calles de referencia:</label>
-						<input type="number" class="form-control" name="cantidadCalles" id="cantidadCalles" min="1" max="20">
-						<div class="form-text">El numero debe ser como minimo 1.</div>
-						<br>
-						<label class="text-control" for="cantidadPuntos">Ingrese la cantidad de lineas:</label>
-						<input type="number" class="form-control" name="cantidadLineas" id="cantidadLineas" min="1" max="20">
-						<div class="form-text">El numero debe ser como minimo 1.</div>
-						<button onclick="GenerarLista()" id="btnLoadLines" class="btn btn-primary btn-lg">Cargar Campos</button>
-					</div>		
-                  
-				</div>	
-			<!-- Form-->
-			<div id="alltodos">
-				<h2>Llene el siguiente formulario</h2>	
-				<form action="/modificarPunto" method="post" class="form-content" id="formPrincipal" visibility="hidden">
-					<input name="_id" id="_id"  hidden>
-						<label class="text-control" for="nombre">Nombre de Locación:</label>
-						  <div class="form-group">
-							  <input type="text" name="nombre" class="form-control" id="nombre" placeholder="Ingrese el nombre"  required>
-							</div>
-							<br>
-						<label class="text-control" for="categoria">Categoria:</label>
-							<div class="form-group">
-							  <input type="text" name="categoria" list="cat" class="form-control" id="categoria" placeholder="Ingrese la categoria"  required>
-							  <datalist id="cat">
-								<option value="Centros Educativos">
-								<option value="Centros de Transporte">
-								<option value="Entidades Públicas">
-								<option value="Centros Turísticos">
-								<option value="Recreación y Cultura">
-								<option value="Centros de Atención en Salud">
-							  </datalist>
-							  </div>	
-							  <br>				
-							  <label class="text-control" name="calles">Calles:</label>
-							  <div id="cantidadCallesForm">
-								  
-							  </div>
-							  <br>
-						<label class="text-control" for="zona">Zona:</label>
-							<div class="form-group">
-							  <input type="text" name="zona" class="form-control" id="zona" placeholder="Ingrese la zona"  required>
-							</div>
-							<br>
-							<label class="text-control" class="text-control"">Lineas:</label>
-							<div id="cantidadLineasForm">
-								
-							</div>	
-							<br>							
-						<label class="text-control" for="lineas">Mapa:</label>
-						
-						<br>
-						<div id="googleMap" style="width:100%;height:400px;"></div>
-						<div class="form-text">Doble Click Para Agregar un marcador.</div>
-						<br>
-						<div class="row g-3">
-							<div class="col-4">
-								
-							</div>
-							<div class="col-4">
-								<input id="delete-markers" type="button" value="Eliminar marcador" class="btn btn-danger btn-sm" />
-							</div>
-							<div class="col-4"></div>
-						</div>
-						<br>
-						<div id="puntos"></div>
-						<br>
-						<label class="text-control" for="descripcion">Descripción:</label>
-							<div class="form-group">
-							<textarea name="descripcion" class="form-control" id="descripcion" placeholder="Ingrese la descripcion" required></textarea>
-							</div>			
-						<br />
-						<input class="btnSubmit" type="submit" value="Modificar">
-					</form>
+  	<link rel="preconnect" href="https://fonts.googleapis.com">
+  	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  	<link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@500&display=swap" rel="stylesheet">
+
+  	<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/fomantic-ui@2.8.7/dist/semantic.min.css">
+
+  	<link rel="stylesheet" type="text/css" href="../css/modPuntosEstrategicosStyle.css">
+</head>
+<body>
+	<header>
+		<nav class="navbar navbar-expand-lg">
+		  <div class="container-fluid">
+			 <a class="navbar-brand" href="#">
+			   <img src="../img/logo-white.png" alt="" width="50" height="52">
+			 </a>
+			 <a href="/logout">
+				<i class="big power off  icon"></i>
+			 </a>
+		   </div>
+		</nav>
+	</header>
+	<br>
+	<main>
+		<div class="container">
+			<div class="row">
+				<div class="col-md-6">
+				  <a href="/listaPuntos" id="back">
+					<i class="big arrow circle left icon"></i>
+				  </a>
+				  <a href="/" id="backHome">
+					<i class="big home icon"></i>
+				  </a>
+				</div>
 			</div>
-			
-        </div>		
-    </body>
-	
-	<script>
-	</script>
-</html>
-
-<script type="text/javascript">
-	//Obtiene datos de un metodo get
-	function getParameterByName(name) {
-		name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
-		var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
-		results = regex.exec(location.search);
-		return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
-	}
-	var _idVar = getParameterByName('_id');
-	var todoObj;
-	var cantCalles,cantLineas;
-	var calles;
-	var linea;
-    //Carga los datos de listPuntos con la diferencia que busca a una similitud de ids para cargar el punto que se requiere modiicar
-	window.addEventListener('DOMContentLoaded', (e) =>{
-	  fetch("http://localhost:3000/listPuntos")
-	  .then(res => res.json())
-	  .then(data =>{
-		  if(data.response === 'success'){
-			  const todos = data.data; 
-			  var num = 1;
-			  todos.forEach(todo =>{
-				if(todo._id==_idVar){
-					todoObj=todo;
-					var id= todoObj._id;
-					var nombre= todoObj.Nombre;
-					var categoria= todoObj.Categoria;
-					calles= todoObj.Calles;
-					var zona= todoObj.ZonasCBBA;
-					linea= todoObj.Lineas;
-					var lat= todoObj.Punto.lat;
-					var lng= todoObj.Punto.lng;
-					var descripcion= todoObj.Descripcion;
-					document.getElementById('_id').value =id;
-					//document.getElementById('_id1').value =id;
-					document.getElementById('nombre').value =nombre;
-					document.getElementById('categoria').value =categoria;
-					document.getElementById('zona').value =zona;
-					document.getElementById('latitud').value =lat;
-					document.getElementById('longitud').value =lng;
-					document.getElementById('descripcion').value =descripcion;
-					var lat = document.getElementById("latitud").value;
-	                var lng = document.getElementById("longitud").value;
-					addMarker({ lat: parseFloat(lat), lng: parseFloat(lng) }, map);
-                    cantCalles=calles.length;
-					cantLineas=linea.length;
-					document.getElementById('cantidadLineas').value =cantLineas;
-					document.getElementById('cantidadCalles').value =cantCalles;
-					for (let index = 0; index < cantCalles; index++) {
-						document.querySelector('#cantidadCallesForm').innerHTML +=`
-						<div class="row g-3 align-items-center">
-						 <div class="col-auto">
-							<div class="input-group mb-3">
-                                <span class="input-group-text" id="calle">Calle ${index+1}</span>
-								<input type="text" name="calle" class="form-control" id="calle" placeholder="Ingresar Calle Numero" value="${calles[index]}" required>
-                            </div>
-				
-						 </div>
-			            </div>
-						`;
-						
-					}
-
-
-					for (let index = 0; index < cantLineas; index++) {
-						document.querySelector('#cantidadLineasForm').innerHTML +=`
-						<div class="row g-3 align-items-center">
-						<div class="col-auto">
-							<div class="input-group mb-3">
-                                <span class="input-group-text">Linea</span>
-								<input type="text" name="lineas" class="form-control" id="lineas" placeholder="Ingresar Linea" value="${linea[index]}" required>
-                            </div>
-				
-						
-						`;
-						
-					}
-					
-					
-				}
-			  });
-		  } else alert(data.response);
-		  
-	  })
-	  .catch(err => console.error(err));
-	});
-
-
-	function GenerarLista() {
-		document.querySelector('#cantidadCallesForm').innerHTML =``;
-		document.querySelector('#cantidadLineasForm').innerHTML =``;
-		var btn = document.getElementById('btnLoadLines');
-		inputCalles = document.getElementById('cantidadCalles');
-        var cantidadCalles = document.getElementById('cantidadCalles').value;
-		inputLineas = document.getElementById('cantidadLineas');
-        var cantidadLineas = document.getElementById('cantidadLineas').value;
-		inputCalles.disabled=true;
-		inputLineas.disabled=true;
-		btn.disabled=true;
-		if(cantCalles < 1 || cantLineas < 1){
-			alert("El numero para la cantidad de las las calles y de las lineas debe ser mayor a 0");
-			inputCalles.disabled=false;
-			inputLineas.disabled=false;
-		    btn.disabled=false;
-		}
-		else{
-		    if(cantCalles<cantidadCalles){
-				for (let index = 0; index < cantCalles; index++) {
-						document.querySelector('#cantidadCallesForm').innerHTML +=`
-						<div class="row g-3 align-items-center">
-						 <div class="col-auto">
-							<div class="input-group mb-3">
-                                <span class="input-group-text" id="calle">Calle ${index+1}</span>
-								<input type="text" name="calles" class="form-control" id="calles" placeholder="Ingresar Calle Numero" value="${calles[index]}" required>
-                            </div>
-				
-						 </div>
-			            </div>
-						`;
-						
-					}
-			for (let index = cantCalles; index < cantidadCalles; index++) {
-			document.querySelector('#cantidadCallesForm').innerHTML += `
-			    <div class="row g-3 align-items-center">
-						<div class="col-auto">
-							<div class="input-group mb-3">
-                                <span class="input-group-text" >Calle ${index+1}</span>
-								<input type="text" name="calles" class="form-control" id="calles" placeholder="Ingresar Calle ${index}" required>
-                            </div>
-				
-						</div>
-			    </div>`;			
-			}
-		}
-			else{
-			for (let index = 0; index < cantidadCalles; index++) {
-			document.querySelector('#cantidadCallesForm').innerHTML += `
-			    <div class="row g-3 align-items-center">
-						<div class="col-auto">
-							<div class="input-group mb-3">
-                                <span class="input-group-text" >Calle ${index+1}</span>
-								<input type="text" name="calles" class="form-control" id="calles" placeholder="Ingresar Calle" value="${calles[index]}" required>
-                            </div>
-				
-						</div>
-			    </div>`;			
-			}
-			}
-			if(cantLineas<cantidadLineas){
-				for (let index = 0; index < cantLineas; index++) {
-						document.querySelector('#cantidadLineasForm').innerHTML +=`
-						<div class="row g-3 align-items-center">
-						<div class="col-auto">
-							<div class="input-group mb-3">
-                                <span class="input-group-text">Linea</span>
-								<input type="text" name="lineas" class="form-control" id="lineas" placeholder="Ingresar Linea" value="${linea[index]}" required>
-                            </div>
-				
-						
-						`;
-						
-					}
-				for (let index = cantLineas; index < cantidadLineas; index++) {
-			    document.querySelector('#cantidadLineasForm').innerHTML += `
-			    <div class="row g-3 align-items-center">
-						<div class="col-auto">
-							<div class="input-group mb-3">
-                                <span class="input-group-text">Linea</span>
-								<input type="text" name="lineas" class="form-control" id="lineas" placeholder="Ingresar Linea" required>
-                            </div>
-				
-						</div>
-			    </div>`;			
-		        }	
-				
-		    }
-			else{
-				for (let index = 0; index < cantidadLineas; index++) {
-			    document.querySelector('#cantidadLineasForm').innerHTML += `
-			    <div class="row g-3 align-items-center">
-						<div class="col-auto">
-							<div class="input-group mb-3">
-                                <span class="input-group-text">Linea</span>
-								<input type="text" name="lineas" class="form-control" id="lineas" placeholder="Ingresar Linea" value="${linea[index]}" required>
-                            </div>
-				
-						</div>
-			    </div>`;			
-		        }	
-			}
-		}		
- } 
-	//Ir una ventana atras del historial
-	function goBack() {
-      window.history.back();
-    }
-	var form = document.getElementById("formPrincipal");
-	//Cuando se de click al submit se presentara la siguiente operacion de validaciones para los campos text que requieran ser numericos
-    form.onsubmit = function() {
-	var z = document.getElementById("latitud").value;
-	var c = document.getElementById("longitud").value;
-		if(isNaN(Math.abs(z)))
-        {
-        alert("Por favor solo ingrese caracteres numericos en los campos de latitud");
-		return false;
-        }
-		if(isNaN(Math.abs(c)))
-        {
-        alert("Por favor solo ingrese caracteres numericos en los campos de longitud");
-		return false;
-        }
-	return true;
-    }
-	let map;
-    var count=0;
-	var markers=[];
-    function initMap() {
-		const cochabamba ={lat: -17.387783, lng: -66.155871}
-        map = new google.maps.Map(document.getElementById("googleMap"), {
-        center: cochabamba,
-		disableDoubleClickZoom: true,
-		streetViewControl: false,
-        zoom: 12,
-      });
-	 
-      google.maps.event.addListener(map, "dblclick", (event) => {
-		if (count<1) {
-			document.querySelector('#puntos').innerHTML = ``;
-			addMarker(event.latLng, map);
-			var myLatLng = event.latLng;
-			var lat = myLatLng.lat();
-            var lng = myLatLng.lng();
-			document.querySelector('#puntos').innerHTML += `
-			<div class="row g-3 align-items-center">
-						<div class="col-auto">
-							<div class="input-group mb-3">
-                                <span class="input-group-text">Latitud</span>
-								<input type="text" name="latitud" class="form-control" id="latitud" value="${lat}"  required>
-                            </div>
-						</div>
-						<div class="col-auto">
-							<div class="input-group mb-3">
-                                <span class="input-group-text">Longitud</span>
-								<input type="text" name="longitud" class="form-control" id="longitud" value="${lng}"  required>
-                            </div>
-						</div>		
-			</div>
-		`;			
-		}     
-      });
-    }
-	function addMarker(location, map) {
-       var marker = new google.maps.Marker({
-		   
-       position: location,
-       map: map
-       });
-	  
-       marker.addListener("dblclick", function() {
-       marker.setMap(null);
-	   removeMarker();
-
-       });
-	   
-       markers.push(marker);
-	   count++;
-    }
-
-    function setMapOnAll(map) {
-       for (var i = 0; i < markers.length; i++) {
-       markers[i].setMap(map);
-       }
-    }
-
-    function clearMarkers() {
-      setMapOnAll(null);
-      count--;
-    }
-
-    function showMarkers() {
-      setMapOnAll(map); 
-    }
-    function deleteMarkers() {
-      clearMarkers();
-      markers = [];
-    }
-	function removeMarker(){
-	document.querySelector('#puntos').innerHTML = ``;
-	if(count<=0){
-		count=0;
-	}
-	else{
-	  count--;
-	}
-	document.querySelector('#puntos').innerHTML += `
-	<div class="row g-3 align-items-center">
-						<div class="col-auto">
-							<div class="input-group mb-3">
-                                <span class="input-group-text">Latitud</span>
-								<input type="text" name="latitud" class="form-control" id="latitud"  required>
-                            </div>
-						</div>
-						<div class="col-auto">
-							<div class="input-group mb-3">
-                                <span class="input-group-text">Longitud</span>
-								<input type="text" name="longitud" class="form-control" id="longitud"  required>
-                            </div>
-						</div>		
-			</div>
-			<div class="form-text text-danger">Se requiere tener un punto marcado en el mapa</div>
 			<br>
-		`;
-    for(i=0; i<markers.length; i++){
-        markers[i].setMap(null);
-    }
-	markers = [];
-	
-	
-
-    }
-	function startCoordinates() {
-		document.querySelector('#puntos').innerHTML = `
-	    <div class="row g-3 align-items-center">
-						<div class="col-auto">
-							<div class="input-group mb-3">
-                                <span class="input-group-text">Latitud</span>
-								<input type="text" name="latitud" class="form-control" id="latitud"  required>
-                            </div>
+			<form action="/modificarPunto" method="post" id="formPrincipal" class="ui form">
+				<input name="_id" id="_id"  hidden>
+				<div class="row">
+					<div class="col-md-12">
+						<div class="card">
+							<h2>Características</h2>
+							<div class="field">
+								<label>Nombre</label>
+								<input type="text" name="nombre" id="nombre" placeholder="Nombre del Punto Estratégico">
+							</div>
+							<div class="field">
+								<label>Categoria</label>
+								<select class="ui dropdown" name="categoria" id="categoria">
+									<option value="">Categoria</option>
+									<option value="Centros Educativos">Centros Educativos</option>
+									<option value="Centros de Transporte">Centros de Transporte</option>
+									<option value="Entidades Públicas">Entidades Públicas</option>
+									<option value="Centros Turísticos">Centros Turísticos</option>
+									<option value="Recreación y Cultura">Recreación y Cultura</option>
+									<option value="Centros de Atención en Salud">Centros de Atención en Salud</option>
+									<option value="Centros de Abasto">Centros de Abasto</option>
+								</select>
+							</div>
+							<div class="field">
+								<label>Zona</label>
+								<input type="text" name="zona" id="zona" placeholder="Zona">
+							</div>
+							<div class="field">
+								<label>Descripción</label>
+								<textarea name="descripcion" id="descripcion"></textarea>
+							</div>
 						</div>
-						<div class="col-auto">
-							<div class="input-group mb-3">
-                                <span class="input-group-text">Longitud</span>
-								<input type="text" name="longitud" class="form-control" id="longitud"  required>
-                            </div>
-						</div>		
+						<div class="ui divider"></div>
+						<div class="card">
+							<h2>Calles de referencia</h2>
+							<div id="cantidadCallesForm"></div>
+							<!--
+							<div class="field">
+								<label>Calle 1</label>
+								<input type="text" name="calle" class="form-control" id="calle1" placeholder="Nombre de la calle">
+							</div>
+							<div class="field">
+								<label>Calle 2</label>
+								<input type="text" name="calle" class="form-control" id="calle2" placeholder="Nombre de la calle">
+							</div>
+							<div class="field">
+								<label>Calle 3</label>
+								<input type="text" name="calle" class="form-control" id="calle3" placeholder="Nombre de la calle">
+							</div>
+							-->
+						</div>
+						<div class="ui divider"></div>
+						<div class="card">
+							<h2>Lineas</h2>
+							<label>Introduzca las lineas que circulan por el punto estratégico</label>
+							<div id="cantidadLineasForm">
+							</div>
+							<!--
+							<div class="four fields">
+								<div class="field">
+								  <label></label>
+								  <input type="text" name="lineas" id="lineas1" placeholder="Nombre de la linea">
+								</div>
+								<div class="field">
+								  <label></label>
+								  <input type="text" name="lineas" id="lineas2" placeholder="Nombre de la linea">
+								</div>
+								<div class="field">
+								  <label></label>
+								  <input type="text" name="lineas" id="lineas3" placeholder="Nombre de la linea">
+								</div>
+								<div class="field">
+									<label></label>
+									<input type="text" name="lineas" id="lineas4" placeholder="Nombre de la linea">
+								</div>
+							</div>
+							<div class="four fields">
+								<div class="field">
+								  <label></label>
+								  <input type="text" name="lineas" id="lineas5" placeholder="Nombre de la linea">
+								</div>
+								<div class="field">
+								  <label></label>
+								  <input type="text" name="lineas" id="lineas6" placeholder="Nombre de la linea">
+								</div>
+								<div class="field">
+								  <label></label>
+								  <input type="text" name="lineas" id="lineas7" placeholder="Nombre de la linea">
+								</div>
+								<div class="field">
+									<label></label>
+									<input type="text" name="lineas" id="lineas8" placeholder="Nombre de la linea">
+								</div>
+							</div>
+							<div class="four fields">
+								<div class="field">
+								  <label></label>
+								  <input type="text" name="lineas" id="lineas9" placeholder="Nombre de la linea">
+								</div>
+								<div class="field">
+								  <label></label>
+								  <input type="text" name="lineas" id="lineas10" placeholder="Nombre de la linea">
+								</div>
+								<div class="field">
+									<label></label>
+									<input type="text" name="lineas" id="lineas11" placeholder="Nombre de la linea">
+								  </div>
+								  <div class="field">
+									<label></label>
+									<input type="text" name="lineas" id="lineas12" placeholder="Nombre de la linea">
+								</div>
+							</div>-->
+						</div>
+						<div class="ui divider"></div>
+						<div class="card">
+							<h2>Ubicación</h2>
+							<small>* Doble click para agregar un marcador.</small>
+							<div id="googleMap" style="width:100%;height:400px;"></div>
+							<br>
+							<input id="delete-markers" type="button" value="Eliminar marcador" class="ui red button" />
+							
+							<div class="field collapse">
+								<label>Calle 3</label>
+								<input type="text" name="latitud" class="form-control" id="latitud" >
+							</div>
+							<div class="field collapse">
+							  	<label>Calle 3</label>
+								<input type="text" name="longitud" class="form-control" id="longitud">
+							</div>
+						</div>
+					</div>
+				</div>
+				<input class="ui button btnSubmit" id="btnSubmit" type="submit" value="Modificar">
+				<br>
+				<div class="ui error message"></div>
+			</form>
+		</div>
+	</main>
+	<br>
+	<footer>
+		<div class="container">
+		<div class="row">
+			<div class="col-md-4 d-flex justify-content-center">
+				<a href="#">
+					<img src="../img/logo-white.png" alt="Logo Kaypi" height="100"> 
+				</a>
 			</div>
-			<br>`;
-	}
-    document.getElementById("delete-markers").addEventListener("click", removeMarker);
-	startCoordinates();
-	</script>
-	<script async
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBY0Y6-0YKuzrsaoPmY4SjJAx93J6yeJb8&callback=initMap">
+			<div class="col-md-4 d-flex justify-content-center">
+				<a href="#">
+					<img src="../img/firma-GAMC.png" alt="Gobierno Autónomo Municipal de Cochabamba" height="95" > 
+				</a>
+			</div>
+			<div class="col-md-4 d-flex justify-content-center">
+				<a href="#">
+					<img src="../img/logo-univalle.png" alt="Universidad del Valle" height="60" > 
+				</a>
+			</div>
+		</div>
+		<div class="row" id="copy">
+			<div class="col-md-12 copy" >
+				<b>&copy2021 Kaypi | Todos los derechos reservados</b>
+			</div>
+		</div>
+		</div>
+	</footer>				
+</body>
+</html>
+<script src="../formValidate/modPuntosEstrategicosForm.js"></script>
+<script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBY0Y6-0YKuzrsaoPmY4SjJAx93J6yeJb8&callback=initMap">
 </script>
 	 
