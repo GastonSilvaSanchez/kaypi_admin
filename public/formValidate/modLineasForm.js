@@ -287,10 +287,54 @@ window.addEventListener('DOMContentLoaded', (e) =>{
 
 
 					for (let index = 0; index < ruta1.Puntos.length; index++) {
-						   addMarker1( { lat: parseFloat(ruta1.Puntos[index].lat), lng: parseFloat(ruta1.Puntos[index].lng) }, map1);
+						   if(index==0){
+							var startMarker1 = new google.maps.Marker({
+								position:ruta1.Puntos[0], 
+								map:map1,
+								title: "Start",
+								icon: {
+									url: "http://maps.google.com/mapfiles/ms/icons/green-dot.png"
+								  } 
+							  });
+							  markers1.push(startMarker1);
+						   }else if(index==ruta1.Puntos.length-1){
+							var endMarker1 =  new google.maps.Marker({
+								position:ruta1.Puntos[ ruta1.Puntos.length - 1 ], 
+								map:map1,
+								title: "End",
+								icon: {
+									url: "http://maps.google.com/mapfiles/ms/icons/purple-dot.png"
+								  }
+							  });
+							  markers1.push(endMarker1);
+						   }else{
+							addMarker1( { lat: parseFloat(ruta1.Puntos[index].lat), lng: parseFloat(ruta1.Puntos[index].lng) }, map1);
+						   }
+						   
 					}
 					for (let index = 0; index < ruta2.Puntos.length; index++) {
-						addMarker2( { lat: parseFloat(ruta2.Puntos[index].lat), lng: parseFloat(ruta2.Puntos[index].lng) }, map2);
+						if(index==0){
+							var startMarker2 = new google.maps.Marker({
+								position:ruta2.Puntos[0], 
+								map:map2,
+								icon: {
+									url: "http://maps.google.com/mapfiles/ms/icons/green-dot.png"
+								  } 
+							  });
+							  markers2.push(startMarker2);
+						   }else if(index==ruta2.Puntos.length-1){
+							var endMarker2 =  new google.maps.Marker({
+								position:ruta2.Puntos[ ruta2.Puntos.length - 1 ], 
+								map:map2,
+								icon: {
+									url: "http://maps.google.com/mapfiles/ms/icons/purple-dot.png"
+								  }
+							  });
+							  markers2.push(endMarker2);
+						   }else{
+							addMarker2( { lat: parseFloat(ruta2.Puntos[index].lat), lng: parseFloat(ruta2.Puntos[index].lng) }, map2);
+						   }
+						
 					}
                    	const polylines1 = new google.maps.Polyline({
                      	path: ruta1.Puntos,
@@ -300,8 +344,12 @@ window.addEventListener('DOMContentLoaded', (e) =>{
                      	strokeWeight: 2,
 					 	clickable: false
                    	});
-                 
+					
+				    
                    	polylines1.setMap(map1);
+
+				
+					
 				   	const polylines2 = new google.maps.Polyline({
                      	path: ruta2.Puntos,
                      	geodesic: true,
@@ -310,7 +358,8 @@ window.addEventListener('DOMContentLoaded', (e) =>{
                      	strokeWeight: 2,
 					 	clickable: false
                    	});
-                 
+					 
+				   
                    	polylines2.setMap(map2);  
 
 					auxIda= todo.Rutas[0].Puntos.length;
@@ -455,7 +504,10 @@ function initMap() {
 function addMarker1(location, map) {
     var marker1 = new google.maps.Marker({
         position: location,
-        map: map
+        map: map,
+		icon: {
+			url: "http://maps.google.com/mapfiles/ms/icons/blue-dot.png"
+		  }
     });
 	marker1.addListener("dblclick", function() {
      	marker1.setMap(null);
@@ -465,7 +517,10 @@ function addMarker1(location, map) {
 function addMarker2(location, map) {
     var marker2 = new google.maps.Marker({
         position: location,
-        map: map
+        map: map,
+		icon: {
+			url: "http://maps.google.com/mapfiles/ms/icons/blue-dot.png"
+		  }
     });
 
     marker2.addListener("dblclick", function() {
@@ -579,7 +634,29 @@ function reloadMarkers1() {
 	document.querySelector('#cantPuntosIda1').innerHTML = ``;
 	document.querySelector('#cantPuntosIda2').innerHTML = ``;
 	for (let index = 0; index < ruta1.Puntos.length; index++) {
-		addMarker1( { lat: parseFloat(ruta1.Puntos[index].lat), lng: parseFloat(ruta1.Puntos[index].lng) }, map1);
+		if(index==0){
+			var startMarker1 = new google.maps.Marker({
+				position:ruta1.Puntos[0], 
+				map:map1,
+				title: "Start",
+				icon: {
+					url: "http://maps.google.com/mapfiles/ms/icons/green-dot.png"
+				  } 
+			  });
+			  markers1.push(startMarker1);
+		   }else if(index==ruta1.Puntos.length-1){
+			var endMarker1 =  new google.maps.Marker({
+				position:ruta1.Puntos[ ruta1.Puntos.length - 1 ], 
+				map:map1,
+				title: "End",
+				icon: {
+					url: "http://maps.google.com/mapfiles/ms/icons/purple-dot.png"
+				  }
+			  });
+			  markers1.push(endMarker1);
+		   }else{
+			addMarker1( { lat: parseFloat(ruta1.Puntos[index].lat), lng: parseFloat(ruta1.Puntos[index].lng) }, map1);
+		   }
 	}	
 	for (let index = 0; index < ruta1.Puntos.length; index++) {
 		document.querySelector('#cantPuntosIda1').innerHTML += `
@@ -605,7 +682,27 @@ function reloadMarkers2() {
 	document.querySelector('#cantPuntosVuelta1').innerHTML = ``;
 	document.querySelector('#cantPuntosVuelta2').innerHTML = ``;
 	for (let index = 0; index < ruta2.Puntos.length; index++) {
-		addMarker2( { lat: parseFloat(ruta2.Puntos[index].lat), lng: parseFloat(ruta2.Puntos[index].lng) }, map2);
+		if(index==0){
+			var startMarker2 = new google.maps.Marker({
+				position:ruta2.Puntos[0], 
+				map:map2,
+				icon: {
+					url: "http://maps.google.com/mapfiles/ms/icons/green-dot.png"
+				  } 
+			  });
+			  markers2.push(startMarker2);
+		   }else if(index==ruta2.Puntos.length-1){
+			var endMarker2 =  new google.maps.Marker({
+				position:ruta2.Puntos[ ruta2.Puntos.length - 1 ], 
+				map:map2,
+				icon: {
+					url: "http://maps.google.com/mapfiles/ms/icons/purple-dot.png"
+				  }
+			  });
+			  markers2.push(endMarker2);
+		   }else{
+			addMarker2( { lat: parseFloat(ruta2.Puntos[index].lat), lng: parseFloat(ruta2.Puntos[index].lng) }, map2);
+		   }
     }
 	for (let index = 0; index < ruta2.Puntos.length; index++) {
 		document.querySelector('#cantPuntosVuelta1').innerHTML += `
