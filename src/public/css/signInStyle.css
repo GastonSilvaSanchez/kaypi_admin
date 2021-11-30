@@ -1,0 +1,64 @@
+.form-container{
+    display: flex;
+    justify-content: center;
+}
+.image-container{
+    /*no se puede utizar codigo php en un archivo .css por eso esta linea se queda aqui*/
+    background: url('/img/imgBanner.jpg') center no-repeat;
+    min-height: 100vh;
+}
+
+.form-container
+{
+	display: flex;
+	justify-content: center;
+    font-family: 'Comfortaa', cursive;
+}
+#bodySignIn {
+    background-image: linear-gradient(120deg, #0044a5, #003d94,#3269b7, #4c7cc0,#3269b7,#1956ae, #1956ae );
+	animation-name: anim;
+	animation-duration: 15s;
+	animation-iteration-count: infinite;
+    background-size: 200%;
+}
+@keyframes anim {
+    0%{
+        background-position: 0% 50%; 
+    }
+    50%{
+        background-position: 100% 50% ;
+    }
+    100%{
+        background-position: 0% 50% ;
+    }  
+}
+.form-box
+{
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	min-height: 100vh;
+}
+#buttonLogin {
+	width: 100%;
+	background-color: #000d21;
+	color: #FFFFFF;
+	border-radius: 2px;
+    font-family: 'Comfortaa', cursive;
+    transition: 1s;
+}
+#buttonLogin:hover {
+	background-color: #002f73;
+	color: #FFFFFF;
+    transition: 1s;
+}
+#lblMessage {
+	color: #AE5755;
+}
+
+h2 { 
+    font-family: 'Comfortaa', cursive;
+}
+#divider {
+    background-color: #e85a55;
+}

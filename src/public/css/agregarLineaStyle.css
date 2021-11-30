@@ -1,0 +1,68 @@
+#spaceBackAdd {
+    margin-top: 80px;
+}
+#back {
+    color: #003d94;
+}
+#back:hover {
+    color: #000d21;
+    transition: 3s;
+}
+#backHome {
+    color: #003d94;
+    margin-left: 20px;
+}
+#backHome:hover {
+    color: #000d21;
+    transition: 3s;
+}
+.card {
+    padding: 20px;
+}
+.container {
+    font-family: 'Comfortaa', cursive;
+}
+#inputCantidad {
+    width: 300px;;
+}
+#btnLoadLines {
+    font-family: 'Comfortaa', cursive;
+    color: #ffffff;
+    width: 200px;
+    background-color: #003d94;
+}
+#btnLoadLines:hover {
+    background-color: #000d21;
+    font-family: 'Comfortaa', cursive;
+    transition: 1s;
+    color: #ffffff;
+}
+#googleMap1 {
+    border-radius: 12px;
+}
+#googleMap2 {
+    border-radius: 12px;
+}
+#delete-markers1 {
+    width: 400px;
+    font-family: 'Comfortaa', cursive;
+}
+#delete-markers2 {
+    width: 400px;
+    font-family: 'Comfortaa', cursive;
+}
+#btnSubmit {
+    width: 100%;
+    background-color: #003d94;
+    color: #ffffff;
+    font-family: 'Comfortaa', cursive;
+}
+#btnSubmit:hover {
+    background-color: #000d21;
+    transition: 1s;
+    color: #ffffff;
+}
+h2 {
+    font-family: 'Comfortaa', cursive;
+    color: #000d21;
+}

@@ -1,0 +1,28 @@
+#spaceBackAdd {
+    margin-top: 80px;
+}
+#back {
+    color: #003d94;
+}
+#back:hover {
+    color: #000d21;
+    transition: 3s;
+}
+#addPoint {
+    color: #003d94;
+}
+#addPoint label {
+    font-family: 'Comfortaa', cursive;
+}
+#addPoint:hover {
+    color: #000d21;
+    transition: 3s;
+}
+thead {
+    background-color: #000d21;
+    text-decoration: #ffffff;
+}
+#table {
+    margin-top: 25px;
+    font-family: 'Comfortaa', cursive;
+}

@@ -1,0 +1,40 @@
+{{> navegacion }}
+<main>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <a href="/inicio" id="back">
+                    <i class="big arrow circle left icon"></i>
+                </a>
+            </div>
+        </div>
+        <div class="row" id="spaceBackAdd">
+            <div class="col-md-12 text-end">
+                <a href="/listaLineas/agregarLinea" id="addLine">
+                    <i class="big plus circle icon"></i>
+                    <label>Añadir</label>
+                </a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+            <div class="table-responsive">
+                <table class="table" id="table">
+                    <thead>
+                        <tr>
+                            <th class="text-center text-white">Nro.</th>
+                            <th class="text-center text-white">Nombre</th>
+                            <th class="text-center text-white">Categoria</th>
+                            <th class="text-center text-white">Modificar</th>
+                            <th class="text-center text-white">Eliminar</th>
+                        </tr>
+                    </thead>
+                    <tbody id="listaLineasDatos"></tbody>              
+                </table>
+            </div>
+            </div>
+        </div>
+    </div>
+</main>
+<link rel="stylesheet" href="/css/listaLineasStyle.css">
+<script src="/js/listaLineas.js"></script>

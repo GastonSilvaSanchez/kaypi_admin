@@ -1,0 +1,213 @@
+{{> navegacion }}
+<main>
+		<div class="container">
+			<div class="row">
+				<div class="col-md-6">
+				  <a href="/listaLineas" id="back">
+					<i class="big arrow circle left icon"></i>
+				  </a>
+				  <a href="/inicio" id="backHome">
+					<i class="big home icon"></i>
+				  </a>
+				</div>
+			</div>
+			<br>
+			<form class="ui form" action="/listaLineas/agregarLinea/guardarLinea" method="post" id="formPrincipal">
+				<div class="row">
+					<div class="col-md-6">
+						<div class="card">
+							<h2>Características</h2>
+							<div class="field">
+								<label>Nombre</label>
+								<div class="form-group row">
+									<label for="nombre" class="col-md-3 col-form-label">Línea</label>
+									<div class="col-md-9">
+									<input type="text" id="nombre" name="nombre" placeholder="Nombre de Línea">
+									</div>
+								</div>
+							</div>
+							<div class="field">
+								<label>Categoria</label>
+								<select class="ui dropdown" name="categoria" id="categoria">
+									<option value="">Categoria</option>
+									<option value="Micro">Micro</option>
+									<option value="TaxiTrufi">TaxiTrufi</option>
+									<option value="Minibus">Minibus</option>
+								</select>
+							</div>
+							<div class="field">
+								<label>Zona</label>
+								<input type="text" name="zona" id="zona" placeholder="Zona">
+							</div>
+							<div class="field">
+								<label>Horario</label>
+								<div class="row">
+									<div class="col-md-5">
+										<input type="time" name="horarioInicio" id="horarioInicio" placeholder="Zona">
+									</div>
+									<div class="col-md-2 text-center" style="padding-top: 10px; padding-bottom: 5px;">
+										<label> - </label>
+									</div>
+									<div class="col-md-5">
+										<input type="time" name="horarioFin" id="horarioFin" placeholder="Zona">
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-6">
+						<div class="card">
+							<h2>Precio Pasajes</h2>
+							<div class="field">
+								<label>Mayores</label>
+								<div class="form-group row">
+									<label for="nombre" class="col-md-2 col-form-label">Bs. </label>
+									<div class="col-md-6">
+										<input type="number" step="0.10" name="pasaje1" id="pasaje1" placeholder="0.00">
+									</div>
+								</div>
+							</div>
+							<div class="field">
+								<label>Discapacitados</label>
+								<div class="form-group row">
+									<label for="nombre" class="col-md-2 col-form-label">Bs. </label>
+									<div class="col-md-6">
+										<input type="number" step="0.10" name="pasaje2" id="pasaje2" placeholder="0.00">
+									</div>
+								</div>
+							</div>
+							<div class="field">
+								<label>Universitarios</label>
+								<div class="form-group row">
+									<label for="nombre" class="col-md-2 col-form-label">Bs. </label>
+									<div class="col-md-6">
+										<input type="number" step="0.10" name="pasaje3" id="pasaje3" placeholder="0.00">
+									</div>
+								</div>
+							</div>
+							<div class="field">
+								<label>Estudiantes</label>
+								<div class="form-group row">
+									<label for="nombre" class="col-md-2 col-form-label">Bs. </label>
+									<div class="col-md-6">
+										<input type="number" step="0.10" name="pasaje4" id="pasaje4" placeholder="0.00">
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="ui divider"></div>
+				<div class="row">
+					<div class="col-md-6">
+						<div class="card">
+							<h2>Calles Principales</h2>
+							<div class="field">
+								<label>Calle 1</label>
+								<input type="text" name="calle" id="calle1" placeholder="Nombre de la calle">
+							</div>
+							<div class="field">
+								<label>Calle 2</label>
+								<input type="text" name="calle" id="calle2" placeholder="Nombre de la calle">
+							</div>
+							<div class="field">
+								<label>Calle 3</label>
+								<input type="text" name="calle" id="calle3" placeholder="Nombre de la calle">
+							</div>
+							<div class="field">
+								<label>Calle 4</label>
+								<input type="text" name="calle" id="calle4" placeholder="Nombre de la calle">
+							</div>
+							<div class="field">
+								<label>Calle 5 (Opcional)</label>
+								<input type="text" name="calle1" id="calle5" placeholder="Nombre de la calle (Opcional)">
+							</div>
+							<div class="field">
+								<label>Calle 6 (Opcional)</label>
+								<input type="text" name="calle1" id="calle6" placeholder="Nombre de la calle (Opcional)">
+							</div>
+							<div class="field">
+								<label>Calle 7 (Opcional)</label>
+								<input type="text" name="calle1" id="calle7" placeholder="Nombre de la calle (Opcional)">
+							</div>
+							<div class="field">
+								<label>Calle 8 (Opcional)</label>
+								<input type="text" name="calle1" id="calle8" placeholder="Nombre de la calle (Opcional)">
+							</div>
+						</div>
+					</div>
+					<div class="col-md-6">
+						<div class="card">
+							<h2>Contacto</h2>
+							<div class="field">
+								<label>Telefono 1</label>
+								<input type="text" name="telefono" id="telefono1" placeholder="Ingrese Telefono 1">
+							</div>
+							<div class="field">
+								<label>Telefono 2</label>
+								<input type="text" name="telefono" id="telefono2" placeholder="Ingrese Telefono 2">
+							</div>
+							<div class="field">
+								<label>Telefono 3 (Opcional)</label>
+								<input type="text" name="telefono" id="telefono3" placeholder="Ingrese Telefono 3 (Opcional)">
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="ui divider"></div>
+				<div class="row">
+					<div class="col-md-12">
+						<div class="card">
+							<h2>Ruta Ida</h2>
+							<div class="field">
+								<input type="hidden" name="color1" value="rojo">
+							</div>
+							<div class="field">
+								<label>Sentido de la Ruta</label>
+								<input name="ruta1" type="text" id="ruta1" placeholder="Sentido" >
+								<small>Ejemplo: NORTE-SUR</small>
+							</div>
+							<small>* Doble click para agregar un marcador.</small>
+							<div id="googleMap1" style="width:100%;height:700px;"></div>
+							<br>
+							<input type="button" class="ui red button" id="delete-markers1" value="Eliminar marcadores para nuevo trazado de ruta"></input>
+							<div id="cantIda" class="collapse"></div>
+							<div id="cantIda2" class="collapse"></div>
+						</div>
+					</div>
+				</div>
+				<div class="ui divider"></div>
+				<div class="row">
+					<div class="col-md-12">
+						<div class="card">
+							<h2>Ruta Vuelta</h2>
+							<div class="field">
+								<input type="hidden" name="color2" value="azul">
+							</div>
+							<div class="field">
+								<label>Sentido de la Ruta</label>
+								<input name="ruta2" type="text" id="ruta2" placeholder="Sentido" >
+								<small>Ejemplo: SUR-NORTE</small>
+							</div>
+							<small>* Doble click para agregar un marcador.</small>
+							<div id="googleMap2" style="width:100%;height:700px;"></div>
+							<br>
+							<input type="button" class="ui red button" id="delete-markers2" value="Eliminar marcadores para nuevo trazado de ruta"></input>
+							<div id="cantVuelta" class="collapse">				
+							</div>
+							<div id="cantVuelta2" class="collapse">	
+							</div>
+						</div>
+					</div>
+				</div>
+				<br>
+				<input class="ui button btnSubmit" id="btnSubmit" type="submit" value="Registrar" >
+				<br>
+				<div class="ui error message"></div>
+			</form>
+		</div>
+</main>
+<script src="/js/agregarLinea.js"></script>
+<link rel="stylesheet" href="/css/agregarLineaStyle.css">
+
+

@@ -1,0 +1,37 @@
+<body id="bodySignIn">
+    <div class="container-fluid">
+		<div class="row">
+			<div class="col-lg-6 col-md-6 d-none d-md-block image-container bg-white"></div>
+			<div class="col-lg-6 col-md-6 form-container">
+				<div class="col-lg-8 col-md-12 col-sm-9 col-xs-12 form-box text-center">
+					<div class="logo mb-3">
+						<img src="/img/logo-white.png" width="250px">
+					</div>
+                    <di class="ui divider" id="divider"></di>
+					<form class="ui form" method="POST" action="/signin" id="uiForm">
+                        <div class="field">
+                            <div class="ui left icon input">
+                                <input type="text" name="username" id="username" placeholder="Nombre de Usuario">
+                                <i class="user icon"></i>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <div class="ui left icon input">
+                                <input type="password" name="password" id="password" placeholder="Contraseña">
+                                <i class="key icon"></i>
+                            </div>
+                        </div>
+                        <br>
+                        <button class="ui orange button" type="submit" id="buttonLogin">Iniciar Sesión</button>
+                        <br>
+						<div class="ui error message"></div>
+                        <br>
+                        {{> errors }}
+                    </form>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+<link rel="stylesheet" href="/css/signInStyle.css">
+<script src="/js/signInValidations.js"></script>
