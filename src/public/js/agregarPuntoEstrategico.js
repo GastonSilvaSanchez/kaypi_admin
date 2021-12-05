@@ -61,7 +61,7 @@ $(function(){
               }
             ]
           },
-          lineas1: {
+          /*lineas1: {
             identifier: 'lineas1',
             rules: [
               {
@@ -70,7 +70,7 @@ $(function(){
                 prompt : 'Por favor introduce minímo una línea de transporte'
               }
             ]
-          }
+          }*/
         }
       })
     ;

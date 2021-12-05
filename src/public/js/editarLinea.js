@@ -300,11 +300,55 @@ window.addEventListener('DOMContentLoaded', (e) =>{
 
 
 					for (let index = 0; index < ruta1.Puntos.length; index++) {
-						   addMarker1( { lat: parseFloat(ruta1.Puntos[index].lat), lng: parseFloat(ruta1.Puntos[index].lng) }, map1);
-					}
-					for (let index = 0; index < ruta2.Puntos.length; index++) {
-						addMarker2( { lat: parseFloat(ruta2.Puntos[index].lat), lng: parseFloat(ruta2.Puntos[index].lng) }, map2);
-					}
+						if(index==0){
+						 var startMarker1 = new google.maps.Marker({
+							 position:ruta1.Puntos[0], 
+							 map:map1,
+							 title: "Start",
+							 icon: {
+								 url: "http://maps.google.com/mapfiles/ms/icons/green-dot.png"
+							   } 
+						   });
+						   markers1.push(startMarker1);
+						}else if(index==ruta1.Puntos.length-1){
+						 var endMarker1 =  new google.maps.Marker({
+							 position:ruta1.Puntos[ ruta1.Puntos.length - 1 ], 
+							 map:map1,
+							 title: "End",
+							 icon: {
+								 url: "http://maps.google.com/mapfiles/ms/icons/purple-dot.png"
+							   }
+						   });
+						   markers1.push(endMarker1);
+						}else{
+						 addMarker1( { lat: parseFloat(ruta1.Puntos[index].lat), lng: parseFloat(ruta1.Puntos[index].lng) }, map1);
+						}
+						
+				 }
+				 for (let index = 0; index < ruta2.Puntos.length; index++) {
+					 if(index==0){
+						 var startMarker2 = new google.maps.Marker({
+							 position:ruta2.Puntos[0], 
+							 map:map2,
+							 icon: {
+								 url: "http://maps.google.com/mapfiles/ms/icons/green-dot.png"
+							   } 
+						   });
+						   markers2.push(startMarker2);
+						}else if(index==ruta2.Puntos.length-1){
+						 var endMarker2 =  new google.maps.Marker({
+							 position:ruta2.Puntos[ ruta2.Puntos.length - 1 ], 
+							 map:map2,
+							 icon: {
+								 url: "http://maps.google.com/mapfiles/ms/icons/purple-dot.png"
+							   }
+						   });
+						   markers2.push(endMarker2);
+						}else{
+						 addMarker2( { lat: parseFloat(ruta2.Puntos[index].lat), lng: parseFloat(ruta2.Puntos[index].lng) }, map2);
+						}
+					 
+				 }
                    	const polylines1 = new google.maps.Polyline({
                      	path: ruta1.Puntos,
                      	geodesic: true,

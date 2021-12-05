@@ -58,7 +58,7 @@ $(function(){
               }
             ]
           },
-          lineas0: {
+          /*lineas0: {
             identifier: 'lineas0',
             rules: [
               {
@@ -67,7 +67,7 @@ $(function(){
                 prompt : 'Por favor introduce minímo una línea de transporte'
               }
             ]
-          },
+          },*/
           latitud: {
             identifier: 'latitud',
             rules: [
@@ -137,7 +137,7 @@ window.addEventListener('DOMContentLoaded', (e) =>{
         }
 
         var aux=0;
-        for (let index = 0; index < 3; index++) {
+        for (let index = 0; index < 6; index++) {
           document.querySelector('#cantidadLineasForm').innerHTML +=`
           <div class="four fields" id="cantInputs${index}">
           </div>
