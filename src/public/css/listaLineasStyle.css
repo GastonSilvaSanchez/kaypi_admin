@@ -1,0 +1,28 @@
+#table {
+    margin-top: 25px;
+    font-family: 'Comfortaa', cursive;
+}
+#spaceBackAdd {
+    margin-top: 80px;
+}
+#back {
+    color: #003d94;
+}
+#back:hover {
+    color: #000d21;
+    transition: 3s;
+}
+#addLine {
+    color: #003d94;
+}
+#addLine label {
+    font-family: 'Comfortaa', cursive;
+}
+#addLine:hover {
+    color: #000d21;
+    transition: 3s;
+}
+thead {
+    background-color: #000000;
+    text-decoration: #ffffff;
+}

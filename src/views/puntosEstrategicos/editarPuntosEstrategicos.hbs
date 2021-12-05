@@ -1,0 +1,85 @@
+{{> navegacion }}
+<main>
+		<div class="container">
+			<div class="row">
+				<div class="col-md-6">
+				  <a href="/listaPuntosEstrategicos" id="back">
+					<i class="big arrow circle left icon"></i>
+				  </a>
+				  <a href="/inicio" id="backHome">
+					<i class="big home icon"></i>
+				  </a>
+				</div>
+			</div>
+			<br>
+			<form action="/editarPuntoEstrategico" method="post" id="formPrincipal" class="ui form">
+				<input name="_id" id="_id" value="{{ puntoEstrategicoId._id }}" hidden>
+				<div class="row">
+					<div class="col-md-12">
+						<div class="card">
+							<h2>Características</h2>
+							<div class="field">
+								<label>Nombre</label>
+								<input type="text" name="nombre" id="nombre" placeholder="Nombre del Punto Estratégico">
+							</div>
+							<div class="field">
+								<label>Categoria</label>
+								<select class="ui dropdown" name="categoria" id="categoria">
+									<option value="">Categoria</option>
+									<option value="Centros Educativos">Centros Educativos</option>
+									<option value="Centros de Transporte">Centros de Transporte</option>
+									<option value="Entidades Públicas">Entidades Públicas</option>
+									<option value="Centros Turísticos">Centros Turísticos</option>
+									<option value="Recreación y Cultura">Recreación y Cultura</option>
+									<option value="Centros de Atención en Salud">Centros de Atención en Salud</option>
+									<option value="Centros de Abasto">Centros de Abasto</option>
+								</select>
+							</div>
+							<div class="field">
+								<label>Zona</label>
+								<input type="text" name="zona" id="zona" placeholder="Zona">
+							</div>
+							<div class="field">
+								<label>Descripción</label>
+								<textarea name="descripcion" id="descripcion"></textarea>
+							</div>
+						</div>
+						<div class="ui divider"></div>
+						<div class="card">
+							<h2>Calles de referencia</h2>
+							<div id="cantidadCallesForm"></div>
+						</div>
+						<div class="ui divider"></div>
+						<div class="card">
+							<h2>Lineas</h2>
+							<label>Introduzca las lineas que circulan por el punto estratégico</label>
+							<div id="cantidadLineasForm">
+							</div>
+						</div>
+						<div class="ui divider"></div>
+						<div class="card">
+							<h2>Ubicación</h2>
+							<small>* Doble click para agregar un marcador.</small>
+							<div id="googleMap" style="width:100%;height:400px;"></div>
+							<br>
+							<input id="delete-markers" type="button" value="Eliminar marcador" class="ui red button" />
+							
+							<div class="field collapse">
+								<label>Calle 3</label>
+								<input type="text" name="latitud" class="form-control" id="latitud" >
+							</div>
+							<div class="field collapse">
+							  	<label>Calle 3</label>
+								<input type="text" name="longitud" class="form-control" id="longitud">
+							</div>
+						</div>
+					</div>
+				</div>
+				<input class="ui button btnSubmit" id="btnSubmit" type="submit" value="Modificar">
+				<br>
+				<div class="ui error message"></div>
+			</form>
+		</div>
+</main>
+<script src="/js/editarPuntosEstrategicos.js"></script>
+<link rel="stylesheet" href="/css/editarPuntoEstrategico.css">

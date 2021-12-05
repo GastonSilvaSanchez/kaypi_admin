@@ -1,0 +1,19 @@
+#card {
+    width: 100%;
+    width: max-content;
+}
+.container {
+    font-family: 'Comfortaa', cursive;
+}
+h3 {
+    font-size: 32px;
+    padding-top: 25px;
+    padding-bottom: 25px;
+    font-family: 'Comfortaa', cursive;
+}
+#card-title {
+    font-family: 'Comfortaa', cursive;
+}
+main {
+    padding-bottom: 25px;
+}

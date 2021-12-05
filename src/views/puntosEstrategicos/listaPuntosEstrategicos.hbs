@@ -1,0 +1,41 @@
+{{> navegacion }}
+<main>
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12">
+					<a href="/inicio" id="back">
+						<i class="big arrow circle left icon"></i>
+					</a>
+				</div>
+			</div>
+			<div class="row" id="spaceBackAdd">
+				<div class="col-md-12 text-end">
+					<a href="/listaPuntosEstrategicos/agregarPuntoEstrategico" id="addPoint">
+						<i class="big plus circle icon"></i>
+            			<label>Añadir</label>
+					</a>
+				</div>
+			</div>
+			<div class="row"> 
+				<div class="col-md-12">
+					<div class="table-responsive">
+						<table class="table" id="table">
+							<thead>
+								<tr>
+									<th class="text-center text-white">No.</th>
+									<th class="text-center text-white">Nombre</th>
+									<th class="text-center text-white">Categoria</th>
+									<th class="text-center text-white">Zona</th>
+									<th class="text-center text-white">Modificar</th>
+									<th class="text-center text-white">Editar</th>
+								</tr>
+							</thead>
+							<tbody id="listaPuntosEstrategicosDatos"></tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+</main>
+<link rel="stylesheet" href="/css/listaPuntosEstrategicos.css">
+<script src="/js/listaPuntosEstrategicos.js"></script>

@@ -1,0 +1,21 @@
+footer {
+    background-color: #000d21;
+    text-decoration: #ffffff;
+    font-family: 'Comfortaa', cursive;
+    padding-bottom: 30px; 
+    padding-top: 30px;
+}
+#derechos {
+    margin-top: 20px;
+}
+#copy {
+    margin-top: 30px;;
+}
+.copy{
+    color: white;
+    text-align: center;
+   
+}
+.copy a p{
+    color: white;
+}

@@ -1,0 +1,193 @@
+{{> navegacion }}
+<main>
+			<div class="container">
+				<div class="row">
+					<div class="col-md-6">
+					  <a href="/listaPuntosEstrategicos" id="back">
+						<i class="big arrow circle left icon"></i>
+					  </a>
+					  <a href="/inicio" id="backHome">
+						<i class="big home icon"></i>
+					  </a>
+					</div>
+				</div>
+				<br>
+				<form action="/listaPuntosEstrategicos/agregarPuntoEstrategico/guardarPuntoEstrategico" method="post" id="formPrincipal" class="ui form">
+					<div class="row">
+						<div class="col-md-12">
+							<div class="card">
+								<h2>Características</h2>
+								<div class="field">
+									<label>Nombre</label>
+									<input type="text" name="nombre" id="nombre" placeholder="Nombre del Punto Estratégico">
+								</div>
+								<div class="field">
+									<label>Categoria</label>
+									<select class="ui dropdown" name="categoria" id="categoria">
+										<option value="">Categoria</option>
+										<option value="Centros Educativos">Centros Educativos</option>
+										<option value="Centros de Transporte">Centros de Transporte</option>
+										<option value="Entidades Públicas">Entidades Públicas</option>
+										<option value="Centros Turísticos">Centros Turísticos</option>
+										<option value="Recreación y Cultura">Recreación y Cultura</option>
+										<option value="Centros de Atención en Salud">Centros de Atención en Salud</option>
+										<option value="Centros de Abasto">Centros de Abasto</option>
+									</select>
+								</div>
+								<div class="field">
+									<label>Zona</label>
+									<input type="text" name="zona" id="zona" placeholder="Zona">
+								</div>
+								<div class="field">
+									<label>Descripción</label>
+									<textarea name="descripcion" id="validationTextarea"></textarea>
+								</div>
+							</div>
+							<div class="ui divider"></div>
+							<div class="card">
+								<h2>Calles de referencia</h2>
+								<div class="field">
+									<label>Calle 1</label>
+									<input type="text" name="calles" class="form-control" id="calles1" placeholder="Nombre de la calle">
+								</div>
+								<div class="field">
+									<label>Calle 2</label>
+									<input type="text" name="calles" class="form-control" id="calles2" placeholder="Nombre de la calle">
+								</div>
+								<div class="field">
+									<label>Calle 3</label>
+									<input type="text" name="calles" class="form-control" id="calles3" placeholder="Nombre de la calle">
+								</div>
+							</div>
+							<div class="ui divider"></div>
+							<div class="card">
+								<h2>Lineas</h2>
+								<label>Introduzca las lineas que circulan por el punto estratégico</label>
+								<div class="four fields">
+									<div class="field">
+									  <label></label>
+									  <input type="text" name="lineas" id="lineas1" placeholder="Nombre de la linea">
+									</div>
+									<div class="field">
+									  <label></label>
+									  <input type="text" name="lineas" id="lineas2" placeholder="Nombre de la linea">
+									</div>
+									<div class="field">
+									  <label></label>
+									  <input type="text" name="lineas" id="lineas3" placeholder="Nombre de la linea">
+									</div>
+									<div class="field">
+										<label></label>
+										<input type="text" name="lineas" id="lineas4" placeholder="Nombre de la linea">
+									</div>
+								</div>
+								<div class="four fields">
+									<div class="field">
+									  <label></label>
+									  <input type="text" name="lineas" id="lineas5" placeholder="Nombre de la linea">
+									</div>
+									<div class="field">
+									  <label></label>
+									  <input type="text" name="lineas" id="lineas6" placeholder="Nombre de la linea">
+									</div>
+									<div class="field">
+									  <label></label>
+									  <input type="text" name="lineas" id="lineas7" placeholder="Nombre de la linea">
+									</div>
+									<div class="field">
+										<label></label>
+										<input type="text" name="lineas" id="lineas8" placeholder="Nombre de la linea">
+									</div>
+								</div>
+								<div class="four fields">
+									<div class="field">
+									  <label></label>
+									  <input type="text" name="lineas" id="lineas9" placeholder="Nombre de la linea">
+									</div>
+									<div class="field">
+									  <label></label>
+									  <input type="text" name="lineas" id="lineas10" placeholder="Nombre de la linea">
+									</div>
+									<div class="field">
+										<label></label>
+										<input type="text" name="lineas" id="lineas11" placeholder="Nombre de la linea">
+									  </div>
+									  <div class="field">
+										<label></label>
+										<input type="text" name="lineas" id="lineas12" placeholder="Nombre de la linea">
+									</div>
+								</div>
+								<div class="four fields">
+									<div class="field">
+									  <label></label>
+									  <input type="text" name="lineas" id="lineas13" placeholder="Nombre de la linea">
+									</div>
+									<div class="field">
+									  <label></label>
+									  <input type="text" name="lineas" id="lineas14" placeholder="Nombre de la linea">
+									</div>
+									<div class="field">
+										<label></label>
+										<input type="text" name="lineas" id="lineas15" placeholder="Nombre de la linea">
+									  </div>
+									  <div class="field">
+										<label></label>
+										<input type="text" name="lineas" id="lineas16" placeholder="Nombre de la linea">
+									</div>
+								</div>
+								<div class="four fields">
+									<div class="field">
+									  <label></label>
+									  <input type="text" name="lineas" id="lineas17" placeholder="Nombre de la linea">
+									</div>
+									<div class="field">
+									  <label></label>
+									  <input type="text" name="lineas" id="lineas18" placeholder="Nombre de la linea">
+									</div>
+									<div class="field">
+										<label></label>
+										<input type="text" name="lineas" id="lineas19" placeholder="Nombre de la linea">
+									  </div>
+									  <div class="field">
+										<label></label>
+										<input type="text" name="lineas" id="lineas20" placeholder="Nombre de la linea">
+									</div>
+								</div>
+								<div class="four fields">
+									<div class="field">
+									  <label></label>
+									  <input type="text" name="lineas" id="lineas21" placeholder="Nombre de la linea">
+									</div>
+									<div class="field">
+									  <label></label>
+									  <input type="text" name="lineas" id="lineas22" placeholder="Nombre de la linea">
+									</div>
+									<div class="field">
+										<label></label>
+										<input type="text" name="lineas" id="lineas23" placeholder="Nombre de la linea">
+									  </div>
+									  <div class="field">
+										<label></label>
+										<input type="text" name="lineas" id="lineas24" placeholder="Nombre de la linea">
+									</div>
+								</div>
+							</div>
+							<div class="ui divider"></div>
+							<div class="card">
+								<h2>Ubicación</h2>
+								<small>* Doble click para agregar un marcador.</small>
+								<div id="googleMap" style="width:100%;height:400px;"></div>
+								<br>
+								<input id="delete-markers" type="button" value="Eliminar marcador" class="ui red button" />
+								<div id="puntos" class="collapse"></div>
+							</div>
+						</div>
+					</div>
+					<input class="ui button btnSubmit" id="btnSubmit" type="submit" value="Registrar">
+					<br>
+					<div class="ui error message"></div>
+				</form>
+			</div>
+</main>
+<script src="/js/agregarPuntoEstrategico.js"></script>
+<link rel="stylesheet" href="/css/agregarPuntoEstrategico.css">

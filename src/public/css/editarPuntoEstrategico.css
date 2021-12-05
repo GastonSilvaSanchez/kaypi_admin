@@ -1,0 +1,47 @@
+#spaceBackAdd {
+    margin-top: 80px;
+}
+#back {
+    color: #003d94;
+}
+#back:hover {
+    color: #000d21;
+    transition: 3s;
+}
+#backHome {
+    color: #003d94;
+    margin-left: 20px;
+}
+#backHome:hover {
+    color: #000d21;
+    transition: 3s;
+}
+.card {
+    padding: 20px;
+}
+.container {
+    font-family: 'Comfortaa', cursive;
+}
+#googleMap {
+    border-radius: 12px;
+}
+#delete-markers {
+    width: 200px;
+    font-family: 'Comfortaa', cursive;
+}
+#btnSubmit {
+    width: 100%;
+    background-color: #003d94;
+    color: #ffffff;
+    font-family: 'Comfortaa', cursive;
+    margin-top: 20px;
+}
+#btnSubmit:hover {
+    background-color: #000d21;
+    transition: 1s;
+    color: #ffffff;
+}
+h2 {
+    font-family: 'Comfortaa', cursive;
+    color: #000d21;
+}
