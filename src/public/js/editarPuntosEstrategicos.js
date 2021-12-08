@@ -137,7 +137,7 @@ window.addEventListener('DOMContentLoaded', (e) =>{
         }
 
         var aux=0;
-        for (let index = 0; index < 6; index++) {
+        for (let index = 0; index < 10; index++) {
           document.querySelector('#cantidadLineasForm').innerHTML +=`
           <div class="four fields" id="cantInputs${index}">
           </div>
